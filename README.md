@@ -1,10 +1,10 @@
-# Grimoire.VIP
+# [Grimoire.VIP](https://grimoire.vip)
 
 ![Grimoire](/public/logo512.png)
 
 ## 🔮 Modern Spellcasting Calculator for Mage: The Awakening
 
-Grimoire.VIP is an interactive web application for tabletop roleplayers of the Chronicles of Darkness game "Mage: The Awakening". This tool is intended to help players and Storytellers quickly customize and cast spells according to the game's magic system.
+Grimoire.VIP is an interactive web application for the Chronicles of Darkness game "Mage: The Awakening", 2nd Edition more specifically. This tool is intended to help players and Storytellers quickly customize and cast spells according to the game's magic system.
 
 ## ✨ Features
 
@@ -70,17 +70,11 @@ The build files will be available in the `build` directory, ready for deployment
 ## 🎮 Usage Guide
 
 ### Getting Started
-1. **Set Character Stats**: Begin by setting your character's Gnosis and allocating dots to your Arcana
+1. **Set Character Stats**: Begin by setting your character's Gnosis and allocating dots to your Arcana (plus to add, and click arcana dot to remove)
 2. **Build Your Spellbook**: Add spells to your personal spellbook by clicking "Add" and browsing the spell library
 3. **Select a Spell**: Choose a spell from your spellbook to prepare for casting
 4. **Customize Your Spell**: Add Reaches and Yantras to modify your spell as desired
 5. **Cast Your Spell**: Click "Cast Spell!" to roll your dice and see the results
-
-### Tips for Effective Use
-- **Focus on Relevant Arcana**: For new characters, focus on raising a few key Arcana rather than spreading dots evenly
-- **Watch for Overreach**: The application will warn you if you select more Reaches than your character can handle
-- **Leverage Yantras**: Don't forget to add Yantra bonuses when your character uses magical tools or symbols
-- **Note Mana Costs**: Keep track of your Mana expenditure, especially for improvised spells
 
 ## 🧙‍♂️ For Game Masters
 
@@ -127,7 +121,7 @@ The application uses TailwindCSS for styling. Custom styles can be added in the 
 
 ## 🤝 Contributing
 
-Contributions to Grimoire are welcome! Please follow these steps:
+Contributions to Grimoire.VIP are welcome! Please follow these steps:
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature-name`
