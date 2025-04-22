@@ -148,7 +148,7 @@ const SpellSelector = ({
                   ))}
                 </div>
               ) : (
-                <div className="text-slate-400 text-center p-6 bg-slate-800 rounded-lg animate-fadeIn">
+                <div className="text-slate-400 text-center p-4 bg-slate-800 rounded-lg animate-fadeIn">
                   <i className="fas fa-search-minus text-4xl mb-3 text-slate-500"></i>
                   <p>No matching spells found</p>
                 </div>
