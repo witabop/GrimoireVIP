@@ -73,28 +73,7 @@ const ReachSelector = ({
       
       {selectedSpell ? (
         <>
-          {/* Display Rote Skills Section */}
-          {selectedSpell.skills && selectedSpell.skills.length > 0 && (
-            <div className="mb-4 bg-indigo-900 bg-opacity-30 p-3 rounded-lg border border-indigo-800">
-              <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
-                <i className="fas fa-graduation-cap mr-2"></i> Rote Skills
-              </h4>
-              <div className="flex flex-wrap gap-2" style={{fontSize: 15, fontStyle: 'italic', color: '#cbd5e1'}}>
-                {selectedSpell.skills.map((skill, index) => (
-                  <span 
-                    key={index} 
-                    className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-800 text-indigo-200 text-xs font-medium"
-                  >
-                    <i className="fas fa-book-open mr-1"></i> <span style={{marginRight: 5}}>{skill}</span>
-                  </span>
-                ))}
-              </div>
-              <div className="text-xs text-indigo-200 mt-2" style={{fontSize: 12, fontStyle: 'italic', color: '#cbd5e1'}}>
-                <i className="fas fa-info-circle mr-1" ></i>
-                These skills can be added to the yantra bonus as Mudra when casting a Rote.
-              </div>
-            </div>
-          )}
+          
 
           <div className="flex justify-between items-center mb-3">
             <div className="font-medium flex items-center">
@@ -228,6 +207,28 @@ const ReachSelector = ({
                     Mana Cost: {manaCost}
                   </div>
                 )}
+              </div>
+            </div>
+          )}
+          {/* Display Rote Skills Section */}
+          {selectedSpell.skills && selectedSpell.skills.length > 0 && (
+            <div className="mb-4 bg-indigo-900 bg-opacity-30 p-3 rounded-lg border border-indigo-800">
+              <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
+                <i className="fas fa-graduation-cap mr-2"></i> Rote Skills
+              </h4>
+              <div className="flex flex-wrap gap-2" style={{fontSize: 15, fontStyle: 'italic', color: '#cbd5e1'}}>
+                {selectedSpell.skills.map((skill, index) => (
+                  <span 
+                    key={index} 
+                    className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-800 text-indigo-200 text-xs font-medium"
+                  >
+                    <i className="fas fa-book-open mr-1"></i> <span style={{marginRight: 5}}>{skill}</span>
+                  </span>
+                ))}
+              </div>
+              <div className="text-xs text-indigo-200 mt-2" style={{fontSize: 12, fontStyle: 'italic', color: '#cbd5e1'}}>
+                <i className="fas fa-info-circle mr-1" ></i>
+                These skills can be added to the yantra bonus as Mudra when casting a Rote.
               </div>
             </div>
           )}
