@@ -4,7 +4,7 @@
 
 ## 🔮 Modern Spellcasting Calculator for Mage: The Awakening
 
-Grimoire.VIP is an interactive web application for tabletop roleplayers of the Chronicles of Darkness game "Mage: The Awakening". This elegant, intuitive tool helps players and Storytellers quickly build, customize, and cast spells according to the game's complex magic system.
+Grimoire.VIP is an interactive web application for tabletop roleplayers of the Chronicles of Darkness game "Mage: The Awakening". This tool is intended to help players and Storytellers quickly customize and cast spells according to the game's magic system.
 
 ## ✨ Features
 
