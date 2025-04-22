@@ -345,7 +345,7 @@ function App() {
       
       {/* Footer */}
       <footer className="text-center mt-10 text-slate-400 text-sm pb-4">
-        <p>Grimoire.VIP ❤️</p>
+        <a href='https://github.com/witabop/GrimoireVIP' target='_blank'>Grimoire.VIP ❤️</a>
       </footer>
     </div>
   );
