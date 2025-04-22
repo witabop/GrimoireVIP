@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# Grimoire.VIP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Grimoire](/public/logo512.png)
 
-## Available Scripts
+## 🔮 Modern Spellcasting Calculator for Mage: The Awakening
 
-In the project directory, you can run:
+Grimoire.VIP is an interactive web application for tabletop roleplayers of the Chronicles of Darkness game "Mage: The Awakening". This elegant, intuitive tool helps players and Storytellers quickly build, customize, and cast spells according to the game's complex magic system.
 
-### `npm start`
+## ✨ Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Character Management
+- **Gnosis Tracking**: Set your character's Gnosis rating (1-10) to determine your base spellcasting ability
+- **Arcana Allocation**: Manage your character's proficiency in the ten Arcana (Death, Fate, Forces, Life, Matter, Mind, Prime, Spirit, Space, and Time)
+- **Persistent Character Data**: Your character data is automatically saved to local storage, ensuring you never lose your configurations
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Spellbook Management
+- **Spell Library**: Browse a comprehensive database of spells organized by Arcana
+- **Personalized Spellbook**: Create and maintain your character's unique collection of spells
+- **Casting Types**: Choose whether to cast spells as improvised, rote, or praxis
+- **Advanced Search**: Find spells by name, description, or other attributes
 
-### `npm test`
+### Spell Customization
+- **Reach Management**: Customize spells with various Reaches to alter their effects
+- **Cost Calculation**: Automatically calculate Mana costs and dice penalties from Reaches
+- **Yantra Integration**: Add bonuses from Yantras to improve your casting chances
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Spellcasting System
+- **Dynamic Dice Pool**: Calculate your total dice pool based on Arcana, Gnosis, casting type, and modifiers
+- **Real-time Results**: Roll your dice virtually and see your successes instantly
+- **Effects Summary**: View clear descriptions of your spell's results and effects
 
-### `npm run build`
+When you reload the application, this data is automatically loaded, allowing you to continue where you left off.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📋 Installation and Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
+- Node.js (v14.0.0 or higher)
+- npm (v6.0.0 or higher)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation Steps
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/grimoire.git
+   cd grimoire
+   ```
 
-### `npm run eject`
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Open your browser and navigate to:
+   ```
+   http://localhost:3000
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Building for Production
+To create an optimized production build:
+```bash
+npm run build
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The build files will be available in the `build` directory, ready for deployment to a static web server.
 
-## Learn More
+## 🎮 Usage Guide
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Getting Started
+1. **Set Character Stats**: Begin by setting your character's Gnosis and allocating dots to your Arcana
+2. **Build Your Spellbook**: Add spells to your personal spellbook by clicking "Add" and browsing the spell library
+3. **Select a Spell**: Choose a spell from your spellbook to prepare for casting
+4. **Customize Your Spell**: Add Reaches and Yantras to modify your spell as desired
+5. **Cast Your Spell**: Click "Cast Spell!" to roll your dice and see the results
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Tips for Effective Use
+- **Focus on Relevant Arcana**: For new characters, focus on raising a few key Arcana rather than spreading dots evenly
+- **Watch for Overreach**: The application will warn you if you select more Reaches than your character can handle
+- **Leverage Yantras**: Don't forget to add Yantra bonuses when your character uses magical tools or symbols
+- **Note Mana Costs**: Keep track of your Mana expenditure, especially for improvised spells
 
-### Code Splitting
+## 🧙‍♂️ For Game Masters
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Grimoire can significantly speed up play at your table by:
+- Eliminating the need to reference rulebooks for spell details
+- Providing instant dice pool calculations
+- Giving players a clear understanding of their magical capabilities
+- Reducing errors in complex spell modifications
 
-### Analyzing the Bundle Size
+Consider having players prepare their commonly used spells in advance of gameplay sessions for maximum efficiency.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🛠️ Customization
 
-### Making a Progressive Web App
+### Adding New Spells
+The spell database can be extended by adding new entries to the `spells.json` file:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```javascript
+{
+  "name": "Your New Spell",
+  "path": "Arcanum Name",
+  "tier": "Initiate",  // or Apprentice, Disciple, Adept, Master
+  "secondary": null,    // or "Arcanum •••" if requires a secondary Arcanum
+  "practice": "Compelling",
+  "primaryFactor": "Duration",
+  "withstand": null,
+  "skills": [
+    "Skill1",
+    "Skill2",
+    "Skill3"
+  ],
+  "description": "Description of your spell effect",
+  "reaches": [
+    {
+      "level": 1,
+      "effect": "Description of reach effect"
+    }
+  ],
+  "source": "Book Abbreviation p123"
+}
+```
 
-### Advanced Configuration
+### Styling
+The application uses TailwindCSS for styling. Custom styles can be added in the `index.css` file.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🤝 Contributing
 
-### Deployment
+Contributions to Grimoire are welcome! Please follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Open a Pull Request
 
-### `npm run build` fails to minify
+## 📜 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgements
+
+- Onyx Path Publishing for creating Mage: The Awakening
+- The Chronicles of Darkness community for their support and inspiration
+- All contributors who have invested their time and expertise in this project
+- Please note this is just a project and its pretty messy at that so don't expect much!
+
+---
+
+*Disclaimer: Grimoire is a fan-made tool and is not affiliated with or endorsed by Onyx Path Publishing or White Wolf Publishing. Mage: The Awakening and all related properties are trademarks of their respective owners.*

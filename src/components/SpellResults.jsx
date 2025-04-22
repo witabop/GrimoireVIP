@@ -1,0 +1,117 @@
+import React from 'react';
+
+const SpellResults = ({
+  selectedSpell,
+  dicePool,
+  rollResults,
+  spellPotency,
+  onCastSpell
+}) => {
+  // Calculate successes from roll results
+  const calculateSuccesses = () => {
+    return rollResults.filter(roll => roll >= 8).length;
+  };
+
+  // Convert numeric value to dot notation
+  const getDotNotation = (value) => {
+    return "•".repeat(value);
+  };
+
+  return (
+    <div className="card animate-slideInRight">
+      <h2 className="card-title">
+        <i className="fas fa-fire-alt mr-3 text-red-400"></i> Spell Results
+      </h2>
+
+      {console.log("Selected Spell:", selectedSpell)}
+
+      {selectedSpell ? (
+        <>
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <h3 className="font-bold mb-2 flex items-center text-yellow-300">
+                <i className="fas fa-dice mr-2"></i> Dice Pool
+              </h3>
+              <p className="text-3xl font-bold">
+                {dicePool}
+              </p>
+            </div>
+
+            <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <h3 className="font-bold mb-2 flex items-center text-purple-300">
+                <i className="fas fa-fist-raised mr-2"></i> Potency
+              </h3>
+              <p className="text-3xl font-bold flex items-center">
+                {spellPotency}
+                {spellPotency > 0 &&
+                  <span className="text-sm text-amber-400 ml-2 dot-notation" style={{ marginLeft: 5 }}>
+                    {getDotNotation(spellPotency)}
+                  </span>
+                }
+              </p>
+            </div>
+          </div>
+
+          <div className="mb-4">
+
+            {rollResults.length > 0 && (
+              <h3 className="font-bold mb-3 flex items-center text-green-300">
+                <i className="fas fa-dice-d20 mr-2"></i> Roll Results
+              </h3>
+            )}
+            {rollResults.length > 0 ? (
+              <div className="bg-slate-700 p-4 rounded-lg shadow-md" style={{marginBottom: 10}}>
+                <div className="flex flex-wrap gap-3 mb-4">
+                  {rollResults.map((result, index) => (
+                    <div
+                      key={index}
+                      className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg shadow-md transform transition-all duration-300 hover:scale-110 ${result >= 8
+                          ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 'bg-blue-600 text-white')
+                          : 'bg-slate-600 text-slate-300'
+                        }`}
+                        style={{marginRight: 5, padding: 5}}
+                    >
+                      {result}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-t border-slate-600 pt-4 mt-2 space-y-3 sm:space-y-0">
+                  <div className="flex items-center">
+                    <span className="text-slate-400 mr-2">Successes:</span>
+                    <span className="text-2xl font-bold text-green-400">{calculateSuccesses()}</span>
+                  </div>
+                </div>
+              </div>
+              
+            ) : null}
+            {rollResults.length > 0 && (
+              <h3 className="font-bold mb-3 flex items-center text-green-300 ">
+                <i class="fa-solid fa-feather-pointed mr-2"></i> Description
+              </h3>
+            )}
+            {rollResults.length > 0 ? (
+              <div className="bg-slate-700 p-4 rounded-lg shadow-md mt-4">
+                <div className="flex flex-wrap gap-3 mb-4">
+                  <p className="text-slate-400 text-lg font-bold">
+                    {selectedSpell.description}.
+                    </p>
+                </div>
+              </div>
+              
+            ) : null}
+          </div>
+        </>
+      ) : (
+        <div className="bg-slate-700 p-8 rounded-lg text-center shadow-md relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900 opacity-50"></div>
+          <i className="fas fa-book text-6xl mb-4 text-slate-500 relative"></i>
+          <p className="text-slate-300 text-lg relative">Select a spell to see results</p>
+          <div className="w-24 h-1 bg-slate-600 mx-auto mt-4 rounded-full relative"></div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default SpellResults;

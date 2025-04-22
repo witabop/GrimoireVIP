@@ -1,0 +1,7423 @@
+[
+  {
+      "name": "Ectoplasmic Shaping",
+      "path": "Death",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Larceny"
+      ],
+      "description": "Shape and mold ectoplasm, or create Open Condition on an object or location for a ghost to Manifest",
+      "reaches": [],
+      "source": "MtAw2 p128"
+  },
+  {
+      "name": "Deepen Shadows",
+      "path": "Death",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Intimidation",
+          "Expression"
+      ],
+      "description": "Apply Poor Light Tilt in area",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Apply Blinded Tilt in area"
+          }
+      ],
+      "source": "MtAw2 p128"
+  },
+  {
+      "name": "Forensic Gaze",
+      "path": "Death",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Medicine",
+          "Investigation",
+          "Expression"
+      ],
+      "description": "Learn how a subject died",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Witness final moments of a corpse's life"
+          }
+      ],
+      "source": "MtAw2 p128"
+  },
+  {
+      "name": "Shadow Sculpting",
+      "path": "Death",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Science",
+          "Expression"
+      ],
+      "description": "Shape shadows to your liking",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Both shape and animate shadows"
+          }
+      ],
+      "source": "MtAw2 p128"
+  },
+  {
+      "name": "Soul Marks",
+      "path": "Death",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Medicine",
+          "Occult",
+          "Empathy"
+      ],
+      "description": "Learn about a subject’s soul",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Can use spell on unattached souls"
+          }
+      ],
+      "source": "MtAw2 p128"
+  },
+  {
+      "name": "Speak with the Dead",
+      "path": "Death",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Socialize",
+          "Expression",
+          "Investigation"
+      ],
+      "description": "Sense and communicate with ghosts in Twilight. Sense anchors and determine a ghost’s rank",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "See if an anchor is temporary or permanent"
+          },
+          {
+              "level": 1,
+              "effect": "Can be understood by ghosts that don't share your language"
+          }
+      ],
+      "source": "MtAw2 p128"
+  },
+  {
+      "name": "Corpse Mask",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Subterfuge",
+          "Crafts",
+          "Medicine"
+      ],
+      "description": "Alter a corpse's apparent time and cause of death",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Can cast this spell on injured living subjects"
+          },
+          {
+              "level": 1,
+              "effect": "Change corpse appearance completely even age and sex"
+          }
+      ],
+      "source": "MtAw2 p129"
+  },
+  {
+      "name": "Decay",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Subterfuge",
+          "Science",
+          "Occult"
+      ],
+      "description": "Age an object, lowering durability",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Decrease structure instead"
+          }
+      ],
+      "source": "MtAw2 p129"
+  },
+  {
+      "name": "Ectoplasm",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Expression",
+          "Academics"
+      ],
+      "description": "Create ectoplasm from your own orifices or that of a corpse",
+      "reaches": [],
+      "source": "MtAw2 p129"
+  },
+  {
+      "name": "Ghost Shield",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Expression",
+          "Academics"
+      ],
+      "description": "Protects subject from ghostly Numina, Influences and Manifestations as well as Death-Based entities",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "protect from physical attacks of Ghosts"
+          }
+      ],
+      "source": "MtAw2 p129"
+  },
+  {
+      "name": "Sacrificial Relinquishment",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Intimidation",
+          "Medicine",
+          "Streetwise"
+      ],
+      "description": "Instead of spending a willpower dot to relinquish a spell you may instead make a blood sacrifice. This must be a sacrifice of Value…",
+      "reaches": [],
+      "source": "SoS 73"
+  },
+  {
+      "name": "Shape Ephemera",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Science"
+      ],
+      "description": "Shape ephemera into objects, weapons or armor.",
+      "reaches": [],
+      "source": "MtAw2 p129"
+  },
+  {
+      "name": "Soul Armor",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Occult",
+          "Survival"
+      ],
+      "description": "Protect soul against hostile spells",
+      "reaches": [],
+      "source": "MtAw2 p129"
+  },
+  {
+      "name": "Soul Jar",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Persuasion"
+      ],
+      "description": "Trap unattached soul into container",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Bind soul to person with the soulless condition"
+          },
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p129"
+  },
+  {
+      "name": "Suppress Aura",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Subterfuge",
+          "Intimidation",
+          "Medicine"
+      ],
+      "description": "Suppress Nimbus to appear as a sleeper",
+      "reaches": [],
+      "source": "MtAw2 p129"
+  },
+  {
+      "name": "Suppress Life",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Subterfuge",
+          "Medicine",
+          "Academics"
+      ],
+      "description": "Appear to be a corpse",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Reflexive"
+          }
+      ],
+      "source": "MtAw2 p130"
+  },
+  {
+      "name": "Touch of the Grave",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Survival",
+          "Crafts",
+          "Persuasion"
+      ],
+      "description": "Interact with ghosts and other things in Death-attuned Twilight",
+      "reaches": [],
+      "source": "MtAw2 p130"
+  },
+  {
+      "name": "Without a Trace",
+      "path": "Death",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Science",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Leave no forensic evidence like fingerprints",
+      "reaches": [],
+      "source": "MtAw2 p130"
+  },
+  {
+      "name": "Cold Snap",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Survival",
+          "Intimidation",
+          "Science"
+      ],
+      "description": "Apply Ice Tilt to area",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Also apply Extreme Cold Tilt"
+          }
+      ],
+      "source": "MtAw2 p130"
+  },
+  {
+      "name": "Damage Ghost",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Intimidation",
+          "Brawl"
+      ],
+      "description": "Deal bashing damage to ghost",
+      "reaches": [],
+      "source": "MtAw2 p130"
+  },
+  {
+      "name": "Death Touched Item",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Turns ordinary objects into one capable of affecting Death-attuned ephemera",
+      "reaches": [],
+      "source": "SoS 64"
+  },
+  {
+      "name": "Devouring the Slain",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Intimidation",
+          "Medicine",
+          "Persuasion"
+      ],
+      "description": "Can take Willpower or Scour the pattern of an injured person",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "May affect a healthy person"
+          },
+          {
+              "level": 1,
+              "effect": "Spell does not count toward limit of Scouring per day"
+          },
+          {
+              "level": 1,
+              "effect": "Use spell on ghosts"
+          }
+      ],
+      "source": "MtAw2 p130"
+  },
+  {
+      "name": "Ghost Gate",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Academics",
+          "Expression"
+      ],
+      "description": "Create a 2D gateway to Death-attuned Twilight",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Transform subject directly"
+          }
+      ],
+      "source": "MtAw2 p130"
+  },
+  {
+      "name": "Ghost Summons",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": "Rank",
+      "skills": [
+          "Persuasion",
+          "Socialize",
+          "Occult"
+      ],
+      "description": "Call a ghost",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "creates Open Condition"
+          },
+          {
+              "level": 1,
+              "effect": "one-word command"
+          },
+          {
+              "level": 1,
+              "effect": "from Underworld if near Iris"
+          },
+          {
+              "level": 2,
+              "effect": "complex command"
+          }
+      ],
+      "source": "MtAw2 p131"
+  },
+  {
+      "name": "Reaping Relinquishment",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Intimidation",
+          "Medicine",
+          "Occult"
+      ],
+      "description": "Destroy a soul to relinquish a spell safely instead of spending Willpower",
+      "reaches": [],
+      "source": "SoS 73"
+  },
+  {
+      "name": "Quicken Corpse",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Medicine",
+          "Crafts",
+          "Persuasion"
+      ],
+      "description": "Create a zombie",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "combat"
+          },
+          {
+              "level": 2,
+              "effect": "exceptional prowess"
+          }
+      ],
+      "source": "MtAw2 p131"
+  },
+  {
+      "name": "Quicken Ghost",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": "Cost: One Mana(Optional)",
+      "skills": [
+          "Persuasion",
+          "Socialize",
+          "Medicine"
+      ],
+      "description": "Boost or heal ghost",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "increase Rank"
+          }
+      ],
+      "source": "MtAw2 p131"
+  },
+  {
+      "name": "Rotting Flesh",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Empathy"
+      ],
+      "description": "Inflict bashing damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "penalty to Social rolls"
+          }
+      ],
+      "source": "MtAw2 p132"
+  },
+  {
+      "name": "Sever Soul",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Intimidation",
+          "Athletics",
+          "Expression"
+      ],
+      "description": "Take the soul from a Sleeper",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Enervated"
+          },
+          {
+              "level": 2,
+              "effect": "Thrall"
+          }
+      ],
+      "source": "MtAw2 p132"
+  },
+  {
+      "name": "Shadow Crafting",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Shape shadows into objects",
+      "reaches": [],
+      "source": "MtAw2 p132"
+  },
+  {
+      "name": "Unliving Vessel",
+      "path": "Death",
+      "tier": "Disciple",
+      "secondary": "Prime •••",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": "Resistance",
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Expression"
+      ],
+      "description": "Prepare a Subject for Imbue Item Attainment",
+      "reaches": [],
+      "source": "SoS 69"
+  },
+  {
+      "name": "Enervation",
+      "path": "Death",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": "Stamina",
+      "skills": [
+          "Occult",
+          "Intimidation",
+          "Subterfuge"
+      ],
+      "description": "Apply Leg or Arm Wrack Tilt",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Immobilized Tilt"
+          }
+      ],
+      "source": "MtAw2 p132"
+  },
+  {
+      "name": "Exorcism",
+      "path": "Death",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": "Rank",
+      "skills": [
+          "Brawl",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Destroy Manifestation Condition + Mind 2: works on Goetia",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "prevent recreation"
+          }
+      ],
+      "source": "MtAw2 p132"
+  },
+  {
+      "name": "Goetic Evocatuion (Death Substitute)",
+      "path": "Death",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Rank of Entity",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Persuasion"
+      ],
+      "description": "May convert psyche pieces into a Ghost",
+      "reaches": [],
+      "source": "SoS 90"
+  },
+  {
+      "name": "Haunted Grimoire",
+      "path": "Death",
+      "tier": "Adept",
+      "secondary": "Prime •",
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Total Arcanum dots + Rank",
+      "skills": [
+          "Crafts",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Bind a Ghost to a grimoire",
+      "reaches": [],
+      "source": "SoS 86"
+  },
+  {
+      "name": "Revenant",
+      "path": "Death",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Rank",
+      "skills": [
+          "Craft",
+          "Brawl",
+          "Intimidation"
+      ],
+      "description": "Grant a ghost a Manifestation Condition + Mind 4: works on Goetia",
+      "reaches": [],
+      "source": "MtAw2 p132"
+  },
+  {
+      "name": "Scribe Daimonomikon",
+      "path": "Death",
+      "tier": "Adept",
+      "secondary": "Prime •",
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Rank of Attainment + (10 - Caster's Gnosis)",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Scribe Legacy tome",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "SoS 87"
+  },
+  {
+      "name": "Shadow Flesh",
+      "path": "Death",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Occult",
+          "Medicine",
+          "Subterfuge"
+      ],
+      "description": "Transform subject into shadow",
+      "reaches": [],
+      "source": "MtAw2 p132"
+  },
+  {
+      "name": "Soul Grafting",
+      "path": "Death",
+      "tier": "Adept",
+      "secondary": "Prime ••••",
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Crafts",
+          "Empathy",
+          "Occult"
+      ],
+      "description": "Graft another Mage's soul stone",
+      "reaches": [],
+      "source": "SoS 90"
+  },
+  {
+      "name": "Withering",
+      "path": "Death",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Intimidation",
+          "Medicine",
+          "Science"
+      ],
+      "description": "Inflict lethal damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "aggravated damage"
+          }
+      ],
+      "source": "MtAw2 p133"
+  },
+  {
+      "name": "Create Anchor",
+      "path": "Death",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Persuasion"
+      ],
+      "description": "Apply the Anchor Condition",
+      "reaches": [],
+      "source": "MtAw2 p133"
+  },
+  {
+      "name": "Create Avernian Gate",
+      "path": "Death",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Crafts",
+          "Persuasion"
+      ],
+      "description": "Gateway to Underworld",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "anywhere"
+          }
+      ],
+      "source": "MtAw2 p133"
+  },
+  {
+      "name": "Create Ghost",
+      "path": "Death",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Expression",
+          "Academics"
+      ],
+      "description": "Create Rank 1 ghost",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Rank 2"
+          }
+      ],
+      "source": "MtAw2 p133"
+  },
+  {
+      "name": "Deny the Reaper",
+      "path": "Death",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Medicine",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Reverse decay and age",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "resurrect Soulless"
+          }
+      ],
+      "source": "MtAw2 p133"
+  },
+  {
+      "name": "Empty Presence",
+      "path": "Death",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Subterfuge",
+          "Persuasion",
+          "Stealth"
+      ],
+      "description": "Erase evidence of existence",
+      "reaches": [],
+      "source": "MtAw2 p133"
+  },
+  {
+      "name": "Sever the Awakened Soul",
+      "path": "Death",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Crafts",
+          "Intimidation",
+          "Medicine"
+      ],
+      "description": "Sever soul, inflict Soulless",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Enervated"
+          },
+          {
+              "level": 2,
+              "effect": "Thrall"
+          }
+      ],
+      "source": "MtAw2 p133"
+  },
+  {
+      "name": "Interconnections",
+      "path": "Fate",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Empathy",
+          "Investigation",
+          "Medicine"
+      ],
+      "description": "Reveal sympathetic connections",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "detect possession"
+          },
+          {
+              "level": 2,
+              "effect": "discern destiny"
+          }
+      ],
+      "source": "MtAw2 p134"
+  },
+  {
+      "name": "Oaths Fulfilled",
+      "path": "Fate",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Politics",
+          "Investigation"
+      ],
+      "description": "Know when the subject breaks or fulfills an oath",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "vision"
+          },
+          {
+              "level": 1,
+              "effect": "track"
+          },
+          {
+              "level": 1,
+              "effect": "mage sight trigger"
+          }
+      ],
+      "source": "MtAw2 p135"
+  },
+  {
+      "name": "Quantum Flux",
+      "path": "Fate",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Firearms",
+          "Occult"
+      ],
+      "description": "Negate penalties or delay for bonus",
+      "reaches": [],
+      "source": "MtAw2 p135"
+  },
+  {
+      "name": "Reading the Outmost Eddies",
+      "path": "Fate",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Computer",
+          "Persuasion",
+          "Subterfuge"
+      ],
+      "description": "Minor twist of fate in 24h",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "within an hour"
+          }
+      ],
+      "source": "MtAw2 p135"
+  },
+  {
+      "name": "Serendipity",
+      "path": "Fate",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Crafts",
+          "Survival"
+      ],
+      "description": "Reveal best course of action",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "skill swap"
+          },
+          {
+              "level": 2,
+              "effect": "any skill"
+          }
+      ],
+      "source": "MtAw2 p135"
+  },
+  {
+      "name": "Exceptional Luck",
+      "path": "Fate",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Socialize"
+      ],
+      "description": "Subject receives a boon or hex",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "affects spellcasting"
+          },
+          {
+              "level": 2,
+              "effect": "reflexive"
+          }
+      ],
+      "source": "MtAw2 p136"
+  },
+  {
+      "name": "Fabricate Fortune",
+      "path": "Fate",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Larceny",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Conceal and falsify fate",
+      "reaches": [],
+      "source": "MtAw2 p136"
+  },
+  {
+      "name": "Fools Rush In",
+      "path": "Fate",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Socialize",
+          "Streetwise"
+      ],
+      "description": "No untrained penalty",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "dice bonus"
+          },
+          {
+              "level": 3,
+              "effect": "spellcasting rolls"
+          }
+      ],
+      "source": "MtAw2 p136"
+  },
+  {
+      "name": "Lucky Number",
+      "path": "Fate",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Investigation",
+          "Larceny",
+          "Science"
+      ],
+      "description": "Guess codes on first try",
+      "reaches": [],
+      "source": "MtAw2 p136"
+  },
+  {
+      "name": "Malleable Thorns",
+      "path": "Fate",
+      "tier": "Apprentice",
+      "secondary": "Mind ••",
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Empathy",
+          "Survival"
+      ],
+      "description": "Hedge alters paradigm to fulfill goal",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "paradigm shift"
+          }
+      ],
+      "source": "DE2 p377"
+  },
+  {
+      "name": "Shifting the Odds",
+      "path": "Fate",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Investigation",
+          "Politics",
+          "Subterfuge"
+      ],
+      "description": "Find desired object within 24h",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "within an hour"
+          }
+      ],
+      "source": "MtAw2 p136"
+  },
+  {
+      "name": "Warding Gesture",
+      "path": "Fate",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Brawl",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Protect fate",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "exclusion"
+          },
+          {
+              "level": 2,
+              "effect": "area effects"
+          }
+      ],
+      "source": "MtAw2 p136"
+  },
+  {
+      "name": "Grave Misfortune",
+      "path": "Fate",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Weaponry"
+      ],
+      "description": "Next damage increased",
+      "reaches": [],
+      "source": "MtAw2 p137"
+  },
+  {
+      "name": "Monkey's Paw",
+      "path": "Fate",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Drive",
+          "Crafts",
+          "Science"
+      ],
+      "description": "Bless/curse an object",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "carrier boon/hex"
+          },
+          {
+              "level": 1,
+              "effect": "exceed dice"
+          }
+      ],
+      "source": "MtAw2 p137"
+  },
+  {
+      "name": "Shared Fate",
+      "path": "Fate",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Medicine",
+          "Persuasion",
+          "Politics"
+      ],
+      "description": "Link damage/tilts between subjects",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "one-way"
+          },
+          {
+              "level": 2,
+              "effect": "reflect damage"
+          }
+      ],
+      "source": "MtAw2 p137"
+  },
+  {
+      "name": "Superlative Luck",
+      "path": "Fate",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Crafts",
+          "Occult"
+      ],
+      "description": "Gain Rote quality",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "ritual boost"
+          }
+      ],
+      "source": "MtAw2 p137"
+  },
+  {
+      "name": "Sworn Oaths",
+      "path": "Fate",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Occult",
+          "Politics"
+      ],
+      "description": "Enforce vow",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "awareness"
+          }
+      ],
+      "source": "MtAw2 p137"
+  },
+  {
+      "name": "The Right Tool",
+      "path": "Fate",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Stealth",
+          "Expression"
+      ],
+      "description": "Enhance object as needed tool",
+      "reaches": [],
+      "source": "SoS 64"
+  },
+  {
+      "name": "Wyrdbound Oaths",
+      "path": "Fate",
+      "tier": "Disciple",
+      "secondary": "Mind ••",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Politics",
+          "Socialize"
+      ],
+      "description": "Fae-backed oaths",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "lasting"
+          }
+      ],
+      "source": "DE2 p379"
+  },
+  {
+      "name": "Atonement",
+      "path": "Fate",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": "Countered effect's Potency",
+      "skills": [
+          "Academics",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "If a subject is cursed, grant them a quest that, if fulfilled, will lift the curse. Stronger curses require greater quests",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Quest can be undertaken by another on the subject's behalf"
+          }
+      ],
+      "source": "MtAw2 p137"
+  },
+  {
+      "name": "Chaos Mastery",
+      "path": "Fate",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Occult",
+          "Science"
+      ],
+      "description": "Manipulate complex probabilities within subject or area, dictating physically possible outcomes, no matter how unlikely",
+      "reaches": [],
+      "source": "MtAw2 p138"
+  },
+  {
+      "name": "Divine Intervention",
+      "path": "Fate",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Replace one of the subject's Aspirations with a stated goal. Subject suffers ill luck when not pursuing this goal; can be reversed for bad luck only when pursuing the goal",
+      "reaches": [],
+      "source": "MtAw2 p138"
+  },
+  {
+      "name": "Masking the False Fae",
+      "path": "Fate",
+      "tier": "Adept",
+      "secondary": "Mind •",
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Empathy",
+          "Larceny",
+          "Socialize"
+      ],
+      "description": "Allow Changelings to make Goblin Contracts with supernal entities. Releasing Paradox or on a critical failure, the contract is made with an abyssal being",
+      "reaches": [],
+      "source": "DE2 p376"
+  },
+  {
+      "name": "Scribe Daimonomikon",
+      "path": "Fate",
+      "tier": "Adept",
+      "secondary": "Prime •",
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Rank of Attainment + (10 - Caster's Gnosis)",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Scribe a Daimonomikon for the Mage's Legacy. A Mage must be Gnosis 2+; initiations via this require 1 Arcane Experience",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "For 1 Mana, Duration is Lasting"
+          }
+      ],
+      "source": "SoS 87"
+  },
+  {
+      "name": "Strings of Fate",
+      "path": "Fate",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Academics",
+          "Persuasion",
+          "Stealth"
+      ],
+      "description": "Encourage a specific event to befall the subject. Opportunities appear once a week",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Opportunities appear once a day"
+          }
+      ],
+      "source": "MtAw2 p138"
+  },
+  {
+      "name": "Sever Oaths",
+      "path": "Fate",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Occult",
+          "Subterfuge",
+          "Weaponry"
+      ],
+      "description": "Free bound ephemeral entities or dispel conditional triggers",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Effects are Lasting"
+          }
+      ],
+      "source": "MtAw2 p138"
+  },
+  {
+      "name": "Forge Destiny",
+      "path": "Fate",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Persuasion"
+      ],
+      "description": "Grant the subject a supernatural merit or modify existing ones. Mage can impose Aspirations, Obsessions, or a Doom on the subject",
+      "reaches": [],
+      "source": "MtAw2 p139"
+  },
+  {
+      "name": "Miracle",
+      "path": "Fate",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Persuasion",
+          "Subterfuge"
+      ],
+      "description": "Gain Intercessions to reflexively boost dice or make likely events happen",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Spend an Intercession & Willpower for a low-probability event"
+          },
+          {
+              "level": 2,
+              "effect": "Spend Intercession, Willpower & Mana for the incredible"
+          }
+      ],
+      "source": "MtAw2 p140"
+  },
+  {
+      "name": "Pariah",
+      "path": "Fate",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Investigation",
+          "Medicine",
+          "Politics"
+      ],
+      "description": "Turn the whole world against the subject",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Adjust curse sensitivity"
+          }
+      ],
+      "source": "MtAw2 p139"
+  },
+  {
+      "name": "Swarm of Locusts",
+      "path": "Fate",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Science"
+      ],
+      "description": "Create chaotic Environmental Tilts on the area. This is a breaking point for most Sleepers",
+      "reaches": [],
+      "source": "MtAw2 p140"
+  },
+  {
+      "name": "Influence Electricity",
+      "path": "Forces",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Computers",
+          "Crafts",
+          "Science"
+      ],
+      "description": "Operate or shut down electrical devices",
+      "reaches": [],
+      "source": "MtAw2 p140"
+  },
+  {
+      "name": "Influence Fire",
+      "path": "Forces",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Science",
+          "Survival"
+      ],
+      "description": "Guide flames along a particular path",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Increase or decrease the size of a flame"
+          }
+      ],
+      "source": "MtAw2 p140"
+  },
+  {
+      "name": "Kinetic Efficiency",
+      "path": "Forces",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Science",
+          "Survival"
+      ],
+      "description": "Run faster, jump further or lift more",
+      "reaches": [],
+      "source": "MtAw2 p141"
+  },
+  {
+      "name": "Influence Heat",
+      "path": "Forces",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Science",
+          "Survival"
+      ],
+      "description": "Control the flow of heat in an area. Can protect against heat- or cold-related Environments up to level 2",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Protect against Environments up to level 3"
+          },
+          {
+              "level": 2,
+              "effect": "Protect against Environments up to level 4"
+          }
+      ],
+      "source": "MtAw2 p141"
+  },
+  {
+      "name": "Nightvision",
+      "path": "Forces",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Investigation",
+          "Science",
+          "Stealth"
+      ],
+      "description": "Suffer no penalty from dim to no light. Bright lights can inflict the Blind Condition",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "No longer risk the Blind Condition from sudden bright lights"
+          }
+      ],
+      "source": "MtAw2 p141"
+  },
+  {
+      "name": "Receiver",
+      "path": "Forces",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Investigation",
+          "Science"
+      ],
+      "description": "Hear sounds outside normal human frequency",
+      "reaches": [],
+      "source": "MtAw2 p141"
+  },
+  {
+      "name": "Tune In",
+      "path": "Forces",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Computers",
+          "Empathy",
+          "Science"
+      ],
+      "description": "Become able to see and listen to data transmission",
+      "reaches": [],
+      "source": "MtAw2 p141"
+  },
+  {
+      "name": "Control Electricity",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Computers",
+          "Science"
+      ],
+      "description": "Alter the flow of a current or decrease it, but you cannot increase it. Direct a building's electricity to one outlet, or divide the power from one outlet to many other sources",
+      "reaches": [],
+      "source": "MtAw2 p142"
+  },
+  {
+      "name": "Control Fire",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Science",
+          "Survival"
+      ],
+      "description": "Increase or decrease the heat or size of a fire",
+      "reaches": [],
+      "source": "MtAw2 p142"
+  },
+  {
+      "name": "Control Gravity",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Occult",
+          "Science"
+      ],
+      "description": "Cause gravity to pull upwards or horizontally",
+      "reaches": [],
+      "source": "MtAw2 p142"
+  },
+  {
+      "name": "Control Heat",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Science",
+          "Survival"
+      ],
+      "description": "Increase or decrease the temperature of an area this may cause an Extreme Environment",
+      "reaches": [],
+      "source": "MtAw2 p142"
+  },
+  {
+      "name": "Control Light",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Investigation",
+          "Science"
+      ],
+      "description": "Can focus or disperse light, and alter its wavelength",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "create mirroring or blackout"
+          }
+      ],
+      "source": "MtAw2 p142"
+  },
+  {
+      "name": "Control Sound",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Stealth",
+          "Science"
+      ],
+      "description": "Amplify or dampen sound, influence direction",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "echo penalty"
+          },
+          {
+              "level": 1,
+              "effect": "hearing bonus"
+          }
+      ],
+      "source": "MtAw2 p142"
+  },
+  {
+      "name": "Control Weather",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Science",
+          "Survival"
+      ],
+      "description": "Make changes to the weather may create an Extreme Environment up to level 4",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "gradual"
+          },
+          {
+              "level": 2,
+              "effect": "drastic"
+          }
+      ],
+      "source": "MtAw2 p143"
+  },
+  {
+      "name": "Environmental Shield",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Science",
+          "Survival"
+      ],
+      "description": "Resistance to Conditions and Tilts caused by the environment",
+      "reaches": [],
+      "source": "MtAw2 p143"
+  },
+  {
+      "name": "Invisibility",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Larceny",
+          "Science",
+          "Stealth"
+      ],
+      "description": "Make subject invisible",
+      "reaches": [],
+      "source": "MtAw2 p143"
+  },
+  {
+      "name": "Kinetic Blow",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Brawl",
+          "Science"
+      ],
+      "description": "Unarmed attacks gain a bonus",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Knocked Down"
+          },
+          {
+              "level": 1,
+              "effect": "Stunned"
+          },
+          {
+              "level": 1,
+              "effect": "held weapons"
+          },
+          {
+              "level": 2,
+              "effect": "thrown weapons/AP"
+          }
+      ],
+      "source": "MtAw2 p143"
+  },
+  {
+      "name": "Transmission",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Science"
+      ],
+      "description": "Hijack existing signals",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "encrypted"
+          }
+      ],
+      "source": "MtAw2 p144"
+  },
+  {
+      "name": "Zoom In",
+      "path": "Forces",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Investigation",
+          "Science",
+          "Survival"
+      ],
+      "description": "See distant or small objects",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "miles"
+          },
+          {
+              "level": 1,
+              "effect": "particles"
+          },
+          {
+              "level": 1,
+              "effect": "no atmospheric penalty"
+          },
+          {
+              "level": 2,
+              "effect": "molecular bonds"
+          }
+      ],
+      "source": "MtAw2 p144"
+  },
+  {
+      "name": "Call Lightning",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Firearms",
+          "Science"
+      ],
+      "description": "Call lightning from an existing storm",
+      "reaches": [],
+      "source": "MtAw2 p144"
+  },
+  {
+      "name": "Data Hog",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Computer",
+          "Larceny",
+          "Persuasion"
+      ],
+      "description": "Increase or decrease a computer device's capability",
+      "reaches": [],
+      "source": "SoS 65"
+  },
+  {
+      "name": "Energize Object",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": "Prime ••",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Larceny",
+          "Science"
+      ],
+      "description": "Prime object to hold activation spell",
+      "reaches": [],
+      "source": "SoS 69"
+  },
+  {
+      "name": "Gravitic Supremacy",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying/Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Science",
+          "Survival"
+      ],
+      "description": "Increase or decrease gravity",
+      "reaches": [],
+      "source": "MtAw2 p144"
+  },
+  {
+      "name": "Perpetual Motion",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Science",
+          "Survival"
+      ],
+      "description": "Subject no longer requires energy input",
+      "reaches": [],
+      "source": "SoS 65"
+  },
+  {
+      "name": "Rapid Access Memory",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": "Prime •••",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Larceny",
+          "Science"
+      ],
+      "description": "Imbue software storage activation",
+      "reaches": [],
+      "source": "SoS 69"
+  },
+  {
+      "name": "Telekinesis",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Brawl",
+          "Science"
+      ],
+      "description": "Lift/manipulate remotely",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "divide attributes"
+          },
+          {
+              "level": 2,
+              "effect": "any attributes"
+          }
+      ],
+      "source": "MtAw2 p144"
+  },
+  {
+      "name": "Telekinetic Strike",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Firearms",
+          "Science"
+      ],
+      "description": "Deal bashing",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Knocked Down/Stunned"
+          }
+      ],
+      "source": "MtAw2 p145"
+  },
+  {
+      "name": "Turn Momentum",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Firearms",
+          "Science"
+      ],
+      "description": "Deflect objects",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "reflexive"
+          },
+          {
+              "level": 1,
+              "effect": "control direction"
+          },
+          {
+              "level": 2,
+              "effect": "reverse"
+          }
+      ],
+      "source": "MtAw2 p145"
+  },
+  {
+      "name": "Velocity Control",
+      "path": "Forces",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying/Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Firearms",
+          "Science"
+      ],
+      "description": "Increase or decrease speed",
+      "reaches": [],
+      "source": "MtAw2 p145"
+  },
+  {
+      "name": "Electromagnetic Pulse",
+      "path": "Forces",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Computers",
+          "Science"
+      ],
+      "description": "EMP to snuff powered devices",
+      "reaches": [],
+      "source": "MtAw2 p145"
+  },
+  {
+      "name": "Levitation",
+      "path": "Forces",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Athletics",
+          "Science",
+          "Survival"
+      ],
+      "description": "Levitate subject",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "momentum"
+          },
+          {
+              "level": 1,
+              "effect": "fly"
+          }
+      ],
+      "source": "MtAw2 p145"
+  },
+  {
+      "name": "Rend Friction",
+      "path": "Forces",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Drive",
+          "Science"
+      ],
+      "description": "Increase or decrease friction",
+      "reaches": [],
+      "source": "MtAw2 p145"
+  },
+  {
+      "name": "Thunderbolt",
+      "path": "Forces",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Firearms",
+          "Science"
+      ],
+      "description": "Deal lethal damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "aggravated"
+          }
+      ],
+      "source": "MtAw2 p146"
+  },
+  {
+      "name": "Transform Energy",
+      "path": "Forces",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Science"
+      ],
+      "description": "Transform energy types",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "decrease level"
+          },
+          {
+              "level": 1,
+              "effect": "split"
+          },
+          {
+              "level": 1,
+              "effect": "increase level"
+          }
+      ],
+      "source": "MtAw2 p146"
+  },
+  {
+      "name": "Adverse Weather",
+      "path": "Forces",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Science"
+      ],
+      "description": "Create Extreme Environments up to level 4",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "drastically different"
+          }
+      ],
+      "source": "MtAw2 p146"
+  },
+  {
+      "name": "Create Energy",
+      "path": "Forces",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Science"
+      ],
+      "description": "Create energy from nothing",
+      "reaches": [],
+      "source": "MtAw2 p146"
+  },
+  {
+      "name": "Eradicate Energy",
+      "path": "Forces",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Intimidation",
+          "Science",
+          "Survival"
+      ],
+      "description": "Destroy energy, fatal/spells",
+      "reaches": [],
+      "source": "MtAw2 p146"
+  },
+  {
+      "name": "Earthquake",
+      "path": "Forces",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Science",
+          "Survival"
+      ],
+      "description": "Damage structures/area",
+      "reaches": [],
+      "source": "MtAw2 p147"
+  },
+  {
+      "name": "Analyze Life",
+      "path": "Life",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Animal Ken",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Observe a creature and learn information like species, age, sex and overall health.",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "May learn a specific Physical Attribute level, rather than just the total number of dots"
+          }
+      ],
+      "source": "MtAw2 p148"
+  },
+  {
+      "name": "Cleanse the Body",
+      "path": "Life",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Help subject resist any toxins in her system",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "The subject may make a resistance roll immediately, in addition to the normal ones from regular intervals"
+          }
+      ],
+      "source": "MtAw2 p148"
+  },
+  {
+      "name": "Heightened Senses",
+      "path": "Life",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Investigation",
+          "Survival"
+      ],
+      "description": "Heighten desired senses. Grants bonus to perception roles",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "You can track by scent"
+          }
+      ],
+      "source": "MtAw2 p149"
+  },
+  {
+      "name": "Speak With Beasts",
+      "path": "Life",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Animal Ken",
+          "Empathy",
+          "Survival"
+      ],
+      "description": "Magically speak with a specific species of animal. Animals have limited ability to understand things around them",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "May communicate with all animals rather than only a single species"
+          }
+      ],
+      "source": "MtAw2 p148"
+  },
+  {
+      "name": "Web of Life",
+      "path": "Life",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Investigation",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Detect all forms of specified life in the spells area of effect",
+      "reaches": [],
+      "source": "MtAw2 p148"
+  },
+  {
+      "name": "Body Control",
+      "path": "Life",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Slow Breathing, Heartbeat and/or Metabolism. Up your Initiative, eliminate or increase body odors and halve healing time for bashing damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Gain 1/0 armor"
+          },
+          {
+              "level": 2,
+              "effect": "Half healing time for lethal damage"
+          }
+      ],
+      "source": "MtAw2 p148"
+  },
+  {
+      "name": "Control Instincts",
+      "path": "Life",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Animal Ken",
+          "Intimidation",
+          "Persuasion"
+      ],
+      "description": "Trigger a specific instinctual response in animals (includes humans). Subject suffers a Condition related to the desired instinct",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Control instincts of living supernatural creatures"
+          }
+      ],
+      "source": "MtAw2 p149"
+  },
+  {
+      "name": "Lure and Repel",
+      "path": "Life",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Animal Ken",
+          "Persuasion",
+          "Survival"
+      ],
+      "description": "Create a lure or repellent that works on a specific organism. Plant and bacteria have 0 resolve for this spell",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Lured creatures may offer food or small favors appropriate for the animal"
+          },
+          {
+              "level": 1,
+              "effect": "Lured creatures treat the subject well or poorly based on lure/repellent"
+          }
+      ],
+      "source": "MtAw2 p149"
+  },
+  {
+      "name": "Mutable Mask",
+      "path": "Life",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Medicine",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Change a subject's appearance, apparent sex, voice, smell, etc.",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Can duplicate the appearance of a specific person, including fingerprints"
+          }
+      ],
+      "source": "MtAw2 p149"
+  },
+  {
+      "name": "Purge Illness",
+      "path": "Life",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Cure an illness. Compare Potency to the illness rating; reduce or eliminate accordingly",
+      "reaches": [],
+      "source": "MtAw2 p149"
+  },
+  {
+      "name": "Bruise Flesh",
+      "path": "Life",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Brawl",
+          "Intimidation",
+          "Medicine"
+      ],
+      "description": "Deal bashing damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Inflict an additional −1 penalty to wound penalties"
+          }
+      ],
+      "source": "MtAw2 p150"
+  },
+  {
+      "name": "Contact High",
+      "path": "Life",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Medicine",
+          "Occult",
+          "Science"
+      ],
+      "description": "Creates a drug that targets the nervous system. Affected for one scene",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Living subjects are immune but still spread the drug"
+          }
+      ],
+      "source": "SoS p65"
+  },
+  {
+      "name": "Degrading the Form",
+      "path": "Life",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Brawl",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Reduce one Physical Attribute",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "May affect two different Physical Attributes"
+          }
+      ],
+      "source": "MtAw2 p150"
+  },
+  {
+      "name": "Honing the Form",
+      "path": "Life",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Raise Strength, Dexterity, or Stamina",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "May affect two Attributes"
+          },
+          {
+              "level": 1,
+              "effect": "Spend Mana to exceed maximum"
+          }
+      ],
+      "source": "MtAw2 p150"
+  },
+  {
+      "name": "Knit",
+      "path": "Life",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Heal 2 bashing damage per Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Can heal Personal Tilts"
+          },
+          {
+              "level": 1,
+              "effect": "Can heal deprivation damage"
+          },
+          {
+              "level": 1,
+              "effect": "Reproduce night's rest"
+          },
+          {
+              "level": 1,
+              "effect": "Heal one lethal per Potency instead of 2 bashing"
+          }
+      ],
+      "source": "MtAw2 p150"
+  },
+  {
+      "name": "Living Vessel",
+      "path": "Life",
+      "tier": "Disciple",
+      "secondary": "Prime •••",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Academics",
+          "Medicine",
+          "Persuasion"
+      ],
+      "description": "Prepare a living subject for Imbue Item attainment",
+      "reaches": [],
+      "source": "SoS p69"
+  },
+  {
+      "name": "Many Faces",
+      "path": "Life",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Medicine",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Like Mutable Mask but changes are real. Add Time 3: Can change physical age",
+      "reaches": [],
+      "source": "MtAw2 p150"
+  },
+  {
+      "name": "Steal Life Force",
+      "path": "Life",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Crafts",
+          "Medicine",
+          "Persuasion"
+      ],
+      "description": "Enchant item to drain Life Force instead of Mana",
+      "reaches": [],
+      "source": "SoS p72"
+  },
+  {
+      "name": "Transform Life",
+      "path": "Life",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": "Stamina",
+      "skills": [
+          "Animal Ken",
+          "Science",
+          "Survival"
+      ],
+      "description": "Give biological features of other organisms",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Feature can be inherited"
+          }
+      ],
+      "source": "MtAw2 p150"
+  },
+  {
+      "name": "Accelerate Growth",
+      "path": "Life",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Animal Ken",
+          "Medicine",
+          "Science"
+      ],
+      "description": "Cause rapid growth; aging reverses after Duration",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Rapid de-aging effect"
+          }
+      ],
+      "source": "MtAw2 p151"
+  },
+  {
+      "name": "Animal Minion",
+      "path": "Life",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Animal Ken",
+          "Science",
+          "Survival"
+      ],
+      "description": "Control a creature's body; mage's body inert",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Minion behaves more normally"
+          }
+      ],
+      "source": "MtAw2 p151"
+  },
+  {
+      "name": "Life-Force Assault",
+      "path": "Life",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Brawl",
+          "Intimidation",
+          "Medicine"
+      ],
+      "description": "Deal lethal damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Additional −2 penalty to wound penalties"
+          },
+          {
+              "level": 1,
+              "effect": "Spend Mana to deal aggravated damage"
+          }
+      ],
+      "source": "MtAw2 p152"
+  },
+  {
+      "name": "Living Grimoire",
+      "path": "Life",
+      "tier": "Adept",
+      "secondary": "Prime ••••",
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Total Arcanum dots + Stamina",
+      "skills": [
+          "Crafts",
+          "Medicine",
+          "Occult"
+      ],
+      "description": "Scribe a living being as a Grimoire",
+      "reaches": [],
+      "source": "SoS p85"
+  },
+  {
+      "name": "Mend",
+      "path": "Life",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Heal 2 lethal wounds per Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Erase scars"
+          },
+          {
+              "level": 1,
+              "effect": "Heal deprivation damage"
+          },
+          {
+              "level": 1,
+              "effect": "Reproduce night's rest"
+          },
+          {
+              "level": 1,
+              "effect": "Spend Mana to heal aggravated damage"
+          }
+      ],
+      "source": "MtAw2 p152"
+  },
+  {
+      "name": "Regeneration",
+      "path": "Life",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Medicine",
+          "Survival"
+      ],
+      "description": "Cost: 1 Mana; restore organs or limbs",
+      "reaches": [],
+      "source": "MtAw2 p152"
+  },
+  {
+      "name": "Shapechanging",
+      "path": "Life",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Stamina",
+      "skills": [
+          "Animal Ken",
+          "Science",
+          "Survival"
+      ],
+      "description": "Transform into another creature +Add Matter 4; +1 Reach; +1 Reach",
+      "reaches": [],
+      "source": "MtAw2 p152"
+  },
+  {
+      "name": "Create Life",
+      "path": "Life",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Medicine",
+          "Science",
+          "Survival"
+      ],
+      "description": "Design and create life +Add Mind 5: Grant true mind",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Additional features"
+          }
+      ],
+      "source": "MtAw2 p153"
+  },
+  {
+      "name": "Contagion",
+      "path": "Life",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Medicine",
+          "Occult",
+          "Science"
+      ],
+      "description": "Create diseases",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Never-before-seen disease"
+          }
+      ],
+      "source": "MtAw2 p153"
+  },
+  {
+      "name": "Salt the Earth",
+      "path": "Life",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Medicine",
+          "Science",
+          "Survival"
+      ],
+      "description": "Destroy life-force; create Extreme Environment",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Survivors suffer −1 wound penalty"
+          }
+      ],
+      "source": "MtAw2 p153"
+  },
+  {
+      "name": "Craftsmen's Eye",
+      "path": "Matter",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Investigation",
+          "Science"
+      ],
+      "description": "Study an object for one turn to learn its intended function +Add Fate 1: Name a task to reveal all objects that could help",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Grants 8‑Again on using it"
+          },
+          {
+              "level": 2,
+              "effect": "Learn all possible uses"
+          }
+      ],
+      "source": "MtAw2 p154"
+  },
+  {
+      "name": "Detect Substance",
+      "path": "Matter",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Investigation",
+          "Science"
+      ],
+      "description": "Become aware of a chosen type of substance in the area +Add Time 1: Determine if object has been here +Add Forces 1: Search for electronic info",
+      "reaches": [],
+      "source": "MtAw2 p154"
+  },
+  {
+      "name": "Discern Composition",
+      "path": "Matter",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Investigation",
+          "Science"
+      ],
+      "description": "Learn an object’s precise makeup +Add Space 2: Trace material’s source",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Reveal hidden items"
+          },
+          {
+              "level": 1,
+              "effect": "Know weak points"
+          }
+      ],
+      "source": "MtAw2 p154"
+  },
+  {
+      "name": "Lodestone",
+      "path": "Matter",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Larceny",
+          "Science"
+      ],
+      "description": "Draw or repel chosen objects/substances",
+      "reaches": [],
+      "source": "MtAw2 p154"
+  },
+  {
+      "name": "Remote Control",
+      "path": "Matter",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Drive",
+          "Intimidation"
+      ],
+      "description": "Control a mechanical object",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Perform complex tasks"
+          }
+      ],
+      "source": "MtAw2 p155"
+  },
+  {
+      "name": "Alchemist's Touch",
+      "path": "Matter",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Survival",
+          "Persuasion"
+      ],
+      "description": "Become immune to a material’s deleterious effects +Add Forces 2: Protect against extreme temperature",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Add another material"
+          },
+          {
+              "level": 2,
+              "effect": "Immunity to all damage"
+          }
+      ],
+      "source": "MtAw2 p155"
+  },
+  {
+      "name": "Find the Balance",
+      "path": "Matter",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Persuasion",
+          "Science"
+      ],
+      "description": "Improve an item’s balance, granting 9‑Again",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Grant 8‑Again instead"
+          }
+      ],
+      "source": "MtAw2 p155"
+  },
+  {
+      "name": "Hidden Hoard",
+      "path": "Matter",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Larceny",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Hide matter; mundane searches fail, supernatural Clashes",
+      "reaches": [],
+      "source": "MtAw2 p156"
+  },
+  {
+      "name": "Machine Invisibility",
+      "path": "Matter",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Larceny",
+          "Science",
+          "Stealth"
+      ],
+      "description": "Invisible to mechanical sensors",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Also hides magical constructs"
+          }
+      ],
+      "source": "MtAw2 p156"
+  },
+  {
+      "name": "Shaping",
+      "path": "Matter",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Persuasion"
+      ],
+      "description": "Shape liquids & gases",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Affect solids"
+          },
+          {
+              "level": 1,
+              "effect": "Reduce extended-action successes"
+          },
+          {
+              "level": 2,
+              "effect": "Create Environmental Tilt"
+          }
+      ],
+      "source": "MtAw2 p156"
+  },
+  {
+      "name": "Aegis",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Crafts",
+          "Science"
+      ],
+      "description": "For each level of Potency grant one armor/defense mod",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Armor immune to AP"
+          }
+      ],
+      "source": "MtAw2 p156"
+  },
+  {
+      "name": "Alter Conductivity",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Computer",
+          "Science",
+          "Subterfuge"
+      ],
+      "description": "Make objects more/less conductive",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Other energy types per extra Reach"
+          }
+      ],
+      "source": "MtAw2 p156"
+  },
+  {
+      "name": "Alter Integrity",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying/Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": "Durability",
+      "skills": [
+          "Crafts",
+          "Medicine",
+          "Subterfuge"
+      ],
+      "description": "Increase or decrease an object’s Durability +1 Reach: +2 structure",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p156"
+  },
+  {
+      "name": "Crucible",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Science"
+      ],
+      "description": "Grant a tool 8‑Again; boost Availability",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Spend Mana for Rote quality"
+          },
+          {
+              "level": 1,
+              "effect": "Triple Availability"
+          }
+      ],
+      "source": "MtAw2 p157"
+  },
+  {
+      "name": "Hone the Perfected Form",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Persuasion",
+          "Science"
+      ],
+      "description": "Transmute common metal into perfected metal +Forces ●●●: Perfect fire",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Other substances"
+          }
+      ],
+      "source": "SoS 61"
+  },
+  {
+      "name": "Nigredo and Albedo",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying/Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Brawl",
+          "Medicine"
+      ],
+      "description": "Repair or damage Structure",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Ignore Durability"
+          }
+      ],
+      "source": "MtAw2 p157"
+  },
+  {
+      "name": "Shrink and Grow",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": "Durability",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Science"
+      ],
+      "description": "Resize objects +Add Life 3: Affect living subjects",
+      "reaches": [],
+      "source": "MtAw2 p157"
+  },
+  {
+      "name": "Spell Potion",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": "Prime ••",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Medicine",
+          "Subterfuge"
+      ],
+      "description": "Prime ingestible to store spells",
+      "reaches": [],
+      "source": "SoS 70"
+  },
+  {
+      "name": "State Change",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": "Durability",
+      "skills": [
+          "Crafts",
+          "Persuasion",
+          "Science"
+      ],
+      "description": "Shift material along solid–liquid–gas path +Forces 3: Transmute to plasma",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Direct solid↔gas"
+          }
+      ],
+      "source": "MtAw2 p157"
+  },
+  {
+      "name": "Windstrike",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Brawl",
+          "Crafts"
+      ],
+      "description": "Deal bashing damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Environmental Tilt"
+          }
+      ],
+      "source": "MtAw2 p157"
+  },
+  {
+      "name": "Wonderful Machine",
+      "path": "Matter",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Politics",
+          "Science"
+      ],
+      "description": "Integrate multiple machines",
+      "reaches": [],
+      "source": "MtAw2 p157"
+  },
+  {
+      "name": "Endless Bounty",
+      "path": "Matter",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Science",
+          "Streetwise"
+      ],
+      "description": "Never run out of small expendables",
+      "reaches": [],
+      "source": "SoS 66"
+  },
+  {
+      "name": "Forge Dumanium",
+      "path": "Matter",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Persuasion"
+      ],
+      "description": "Combine perfected metals into Dumanium",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "SoS 62"
+  },
+  {
+      "name": "Forge Sophis",
+      "path": "Matter",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Science"
+      ],
+      "description": "Combine metals to make Sophis",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "SoS 62"
+  },
+  {
+      "name": "Forge Thaumium",
+      "path": "Matter",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Survival"
+      ],
+      "description": "Combine metals to create Thaumium +Other Arcanum ●●: Protect against that Arcanum",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "SoS 62"
+  },
+  {
+      "name": "Ghostwall",
+      "path": "Matter",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Occult",
+          "Stealth"
+      ],
+      "description": "Turn objects intangible +Add Death/Mind/Spirit 3: Shift into Twilight",
+      "reaches": [],
+      "source": "MtAw2 p158"
+  },
+  {
+      "name": "Golem",
+      "path": "Matter",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Animate statue +Add Death/Spirit 4 or Mind 5: Intelligence",
+      "reaches": [],
+      "source": "MtAw2 p158"
+  },
+  {
+      "name": "Piercing Earth",
+      "path": "Matter",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Brawl",
+          "Crafts"
+      ],
+      "description": "Deal lethal damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Tilt"
+          },
+          {
+              "level": 1,
+              "effect": "Aggravated"
+          }
+      ],
+      "source": "MtAw2 p158"
+  },
+  {
+      "name": "Transubstantiation",
+      "path": "Matter",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Empathy",
+          "Science"
+      ],
+      "description": "Transform any matter type +Add Life 4: Living↔matter",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Multi‑substance"
+          }
+      ],
+      "source": "MtAw2 p158"
+  },
+  {
+      "name": "Annihilate Matter",
+      "path": "Matter",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": "Durability",
+      "skills": [
+          "Athletics",
+          "Intimidation",
+          "Science"
+      ],
+      "description": "Destroy matter completely",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Destroy magical objects"
+          }
+      ],
+      "source": "MtAw2 p158"
+  },
+  {
+      "name": "Ex Nihilo",
+      "path": "Matter",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Science"
+      ],
+      "description": "Create an object or tool ex nihilo",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Complex devices"
+          }
+      ],
+      "source": "MtAw2 p158"
+  },
+  {
+      "name": "Self-Repairing Machine",
+      "path": "Matter",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Medicine",
+          "Occult"
+      ],
+      "description": "Machine heals Structure per day",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "hourly"
+          },
+          {
+              "level": 2,
+              "effect": "every 15 min"
+          }
+      ],
+      "source": "MtAw2 p159"
+  },
+  {
+      "name": "Know Nature",
+      "path": "Mind",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Science",
+          "Subterfuge"
+      ],
+      "description": "Determine a subject's Virtue, Vice, and Mental/Social Attribute levels",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Also determine Aspirations and Obsessions"
+          }
+      ],
+      "source": "MtAw2 p159"
+  },
+  {
+      "name": "Mental Scan",
+      "path": "Mind",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Empathy",
+          "Investigation",
+          "Occult"
+      ],
+      "description": "Ask questions about a subject's mental or emotional state",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Read surface thoughts for snippets"
+          }
+      ],
+      "source": "MtAw2 p159"
+  },
+  {
+      "name": "One Mind, Two Thoughts",
+      "path": "Mind",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Expression",
+          "Science"
+      ],
+      "description": "Perform two Mental or Social extended tasks simultaneously",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Two Mental instant tasks"
+          },
+          {
+              "level": 2,
+              "effect": "One Physical in Astral"
+          }
+      ],
+      "source": "MtAw2 p159"
+  },
+  {
+      "name": "Perfect Recall",
+      "path": "Mind",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Expression",
+          "Investigation"
+      ],
+      "description": "Recall old memories with perfect accuracy",
+      "reaches": [],
+      "source": "MtAw2 p160"
+  },
+  {
+      "name": "Alter Mental Pattern",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Science",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Add to Subterfuge; surface-thought/emotion reads provoke Clash",
+      "reaches": [],
+      "source": "MtAw2 p160"
+  },
+  {
+      "name": "Dream Reaching",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Empathy",
+          "Medicine",
+          "Persuasion"
+      ],
+      "description": "Enter a subject's dream",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Become an active participant (lucid)"
+          }
+      ],
+      "source": "MtAw2 p160"
+  },
+  {
+      "name": "Emotional Urging",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Empathy",
+          "Intimidation",
+          "Subterfuge"
+      ],
+      "description": "Trigger a specific instinctual response",
+      "reaches": [],
+      "source": "MtAw2 p160"
+  },
+  {
+      "name": "First Impressions",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Crafts",
+          "Socialize",
+          "Subterfuge"
+      ],
+      "description": "Raise or lower the first impression",
+      "reaches": [],
+      "source": "MtAw2 p160"
+  },
+  {
+      "name": "Incognito Presence",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Hide a subject's Psychic Presence; supernatural perception provokes Clash",
+      "reaches": [],
+      "source": "MtAw2 p160"
+  },
+  {
+      "name": "Memory Hole",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Medicine",
+          "Subterfuge"
+      ],
+      "description": "Hide or erase specific memories (one per Potency)",
+      "reaches": [],
+      "source": "MtAw2 p160"
+  },
+  {
+      "name": "Mental Shield",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Intimidation",
+          "Survival"
+      ],
+      "description": "Protect from Mental Attacks;",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Protect from physical Goetia attacks"
+          }
+      ],
+      "source": "MtAw2 p160"
+  },
+  {
+      "name": "Narcissus' Mirror",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Reflect Nimbus tilts back with a Clash; modifiers via Life/Prime add multiple tilt types",
+      "reaches": [],
+      "source": "SoS p94"
+  },
+  {
+      "name": "Physic Domination",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Expression",
+          "Intimidation",
+          "Subterfuge"
+      ],
+      "description": "Send one-word commands",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Take control"
+          },
+          {
+              "level": 1,
+              "effect": "Additional task"
+          }
+      ],
+      "source": "MtAw2 p161"
+  },
+  {
+      "name": "Ritual Focus",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Empathy",
+          "Leadership",
+          "Persuasion"
+      ],
+      "description": "Link mage and subjects in ritual; Secondary actors add Potency to ritual pool",
+      "reaches": [],
+      "source": "SoS p55"
+  },
+  {
+      "name": "Soul Windows",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Investigation",
+          "Stealth"
+      ],
+      "description": "Project senses through Soul Stone; +Reaches for voice/hologram projections",
+      "reaches": [],
+      "source": "SoS p90"
+  },
+  {
+      "name": "Telepathy",
+      "path": "Mind",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Crafts",
+          "Empathy",
+          "Socialize"
+      ],
+      "description": "Share surface thoughts",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Only willing thoughts"
+          },
+          {
+              "level": 1,
+              "effect": "Two-way sharing"
+          }
+      ],
+      "source": "MtAw2 p161"
+  },
+  {
+      "name": "Astral Grimoire",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": "Prime •",
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": "Total Arcanum dots in rote",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Scribe a Rote in an Astral Grimoire",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Temenos access"
+          },
+          {
+              "level": 1,
+              "effect": "Lasting"
+          },
+          {
+              "level": 2,
+              "effect": "Anima Mundi access"
+          }
+      ],
+      "source": "SoS p85"
+  },
+  {
+      "name": "Augment Mind",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Expression",
+          "Survival"
+      ],
+      "description": "Increase a Mental/Social Attribute by Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Split between Attributes"
+          },
+          {
+              "level": 2,
+              "effect": "Exceed normal limits for 1 Mana"
+          }
+      ],
+      "source": "MtAw2 p161"
+  },
+  {
+      "name": "Befuddle",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": "Composure|Resolve",
+      "skills": [
+          "Intimidation",
+          "Persuasion",
+          "Science"
+      ],
+      "description": "Lower Mental/Social Attributes by Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Affect additional Attributes"
+          }
+      ],
+      "source": "MtAw2 p163"
+  },
+  {
+      "name": "Broken Relinquishment",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Create a breaking point to relinquish spells without WP",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Immediate breaking point"
+          }
+      ],
+      "source": "SoS p73"
+  },
+  {
+      "name": "Clear Thoughts",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Intimidation",
+          "Persuasion"
+      ],
+      "description": "Suppress one Mental Condition or Tilt per Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Subject gains 1 WP"
+          },
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p161"
+  },
+  {
+      "name": "Enhance Skill",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Expression",
+          "Survival"
+      ],
+      "description": "Increase a Skill by Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Split between Skills"
+          },
+          {
+              "level": 2,
+              "effect": "Exceed normal limits for 1 Mana"
+          }
+      ],
+      "source": "MtAw2 p161"
+  },
+  {
+      "name": "Give Me That",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Crafts",
+          "Empathy",
+          "Persuasion"
+      ],
+      "description": "Evoke Obsession Condition via item. +Space ●●●: Strong sympathetic link.",
+      "reaches": [],
+      "source": "SoS p66"
+  },
+  {
+      "name": "Goetic Summons",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": "Rank",
+      "skills": [
+          "Persuasion",
+          "Socialize",
+          "Occult"
+      ],
+      "description": "Call nearest Goetia +multi-Reaches for Open, commands, summon from Oneiros/Temenos/Anima Mundi",
+      "reaches": [],
+      "source": "MtAw2 p162"
+  },
+  {
+      "name": "Imposter",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Persuasion",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Cause subjects to believe the caster is someone else",
+      "reaches": [],
+      "source": "MtAw2 p162"
+  },
+  {
+      "name": "Psychic Assault",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Intimidation",
+          "Medicine"
+      ],
+      "description": "Deal Bashing damage equal to Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "−1 to Mental rolls"
+          }
+      ],
+      "source": "MtAw2 p162"
+  },
+  {
+      "name": "Sleep of the Just",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Academics",
+          "Athletics",
+          "Occult"
+      ],
+      "description": "Control sleep cycle and dreams",
+      "reaches": [],
+      "source": "MtAw2 p162"
+  },
+  {
+      "name": "Supernal Translation",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": "Prime ●●●",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Translate High Speech in real time",
+      "reaches": [],
+      "source": "SoS p28"
+  },
+  {
+      "name": "Read the Depths",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Empathy",
+          "Investigation",
+          "Medicine"
+      ],
+      "description": "Read subconscious memories",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Modify one memory"
+          }
+      ],
+      "source": "MtAw2 p162"
+  },
+  {
+      "name": "Universal Language",
+      "path": "Mind",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Investigation",
+          "Persuasion"
+      ],
+      "description": "Understand any language (spoken, written, body, thoughts)",
+      "reaches": [],
+      "source": "MtAw2 p162"
+  },
+  {
+      "name": "Haunted Grimoire",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": "Prime •",
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Total Arcanum dots + Rank",
+      "skills": [
+          "Crafts",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Bind a Goetia to a Grimoire",
+      "reaches": [],
+      "source": "SoS p86"
+  },
+  {
+      "name": "Possession",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Medicine",
+          "Persuasion",
+          "Subterfuge"
+      ],
+      "description": "Possess a subject (+Possessed Condition)",
+      "reaches": [],
+      "source": "MtAw2 p165"
+  },
+  {
+      "name": "Gain Skill",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Science"
+      ],
+      "description": "Increase a Skill by Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Split between Skills"
+          },
+          {
+              "level": 1,
+              "effect": "Exceed max for 1 Mana"
+          }
+      ],
+      "source": "MtAw2 p163"
+  },
+  {
+      "name": "Goetic Evocatuion",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Rank of Entity",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Persuasion"
+      ],
+      "description": "Convert psyche pieces to a Goetia",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Extract into Oneiros"
+          }
+      ],
+      "source": "SoS p90"
+  },
+  {
+      "name": "Hallucination",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Academics",
+          "Persuasion",
+          "Subterfuge"
+      ],
+      "description": "Create a multi-sensory illusion",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Touchable illusion"
+          }
+      ],
+      "source": "MtAw2 p163"
+  },
+  {
+      "name": "Mind Flay",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Intimidation",
+          "Science"
+      ],
+      "description": "Deal Lethal damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Insane Tilt"
+          },
+          {
+              "level": 2,
+              "effect": "aggravated damage"
+          }
+      ],
+      "source": "MtAw2 p164"
+  },
+  {
+      "name": "Psychic Projection",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Academics",
+          "Occult",
+          "Socialize"
+      ],
+      "description": "Project into Twilight or dreams +Add Spirit 2: project into Shadow",
+      "reaches": [],
+      "source": "MtAw2 p164"
+  },
+  {
+      "name": "Psychic Reprogramming",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Intimidation",
+          "Medicine",
+          "Persuasion"
+      ],
+      "description": "Alter memories, virtues, aspirations",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Move Attributes"
+          }
+      ],
+      "source": "MtAw2 p164"
+  },
+  {
+      "name": "Scribe Daimonomikon",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": "Prime •",
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Rank+(10-Gnosis)",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Scribe Legacy tome",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "SoS p87"
+  },
+  {
+      "name": "Terrorize",
+      "path": "Mind",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Expression",
+          "Intimidation",
+          "Medicine"
+      ],
+      "description": "Inflict Insensate Tilt",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Broken Condition"
+          }
+      ],
+      "source": "MtAw2 p164"
+  },
+  {
+      "name": "Amorality",
+      "path": "Mind",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Crafts",
+          "Empathy",
+          "Expression"
+      ],
+      "description": "Remove Virtue or Vice; alters Willpower mechanics",
+      "reaches": [],
+      "source": "MtAw2 p164"
+  },
+  {
+      "name": "No Exit",
+      "path": "Mind",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Expression",
+          "Persuasion",
+          "Science"
+      ],
+      "description": "Subject enters catatonic state",
+      "reaches": [],
+      "source": "MtAw2 p164"
+  },
+  {
+      "name": "Mind Wipe",
+      "path": "Mind",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Academics",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Erase spans of memory",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Specify memories"
+          },
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p164"
+  },
+  {
+      "name": "Psychic Genesis",
+      "path": "Mind",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Expression",
+          "Science"
+      ],
+      "description": "Create a Rank1 Goetia in Twilight",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Sleepwalker"
+          },
+          {
+              "level": 1,
+              "effect": "Rank2 for 1 Mana"
+          }
+      ],
+      "source": "MtAw2 p165"
+  },
+  {
+      "name": "Social Networking",
+      "path": "Mind",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Persuasion",
+          "Politics",
+          "Socialize"
+      ],
+      "description": "Gain Allies/Contacts/Status dots per Potency",
+      "reaches": [],
+      "source": "MtAw2 p165"
+  },
+  {
+      "name": "Dispel Magic",
+      "path": "Prime",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": "Arcanum rating of the subject spell’s caster",
+      "skills": [
+          "Athletics",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Temporarily suppress or destroy an active spell +Add Fate 1: Selectively suppress spell",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p165"
+  },
+  {
+      "name": "Nimbus Tuning",
+      "path": "Prime",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Investigation",
+          "Occult"
+      ],
+      "description": "Tune more attentively to any Signature Nimbus; learn one detail per Potency",
+      "reaches": [],
+      "source": "SoS p94"
+  },
+  {
+      "name": "Pierce Deception",
+      "path": "Prime",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Investigation",
+          "Medicine",
+          "Occult"
+      ],
+      "description": "See through magical and mundane falsehoods",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Sense the actual truth"
+          }
+      ],
+      "source": "MtAw2 p165"
+  },
+  {
+      "name": "Sacred Geometry",
+      "path": "Prime",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Occult",
+          "Survival"
+      ],
+      "description": "Reveal ley lines and nodes +Add Death 1 or Spirit 1: See Gates/Loci",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Reveal Hallows"
+          }
+      ],
+      "source": "MtAw2 p166"
+  },
+  {
+      "name": "Scribe Grimoire",
+      "path": "Prime",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": "Total Arcanum dots used",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Create or transcribe a Grimoire of Rotes +Add Forces ●●: No equipment",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p166, SoS p83"
+  },
+  {
+      "name": "Shared Mage Sight",
+      "path": "Prime",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Expression",
+          "Investigation",
+          "Occult"
+      ],
+      "description": "Share your Mage sight with another Mage; costs 1+ Mana per Arcanum",
+      "reaches": [],
+      "source": "SoS p28"
+  },
+  {
+      "name": "Supernal Signature",
+      "path": "Prime",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Intimidation",
+          "Politics"
+      ],
+      "description": "Imprint your Supernal identity on a subject’s Nimbus; boosts social impression",
+      "reaches": [],
+      "source": "SoS p93"
+  },
+  {
+      "name": "Supernal Vision",
+      "path": "Prime",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Occult",
+          "Survival"
+      ],
+      "description": "Perceive Supernal properties",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Perceive non‑Supernal magical properties"
+          }
+      ],
+      "source": "MtAw2 p166"
+  },
+  {
+      "name": "Word of Command",
+      "path": "Prime",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Craft",
+          "Occult",
+          "Persuasion"
+      ],
+      "description": "Bypass triggers to activate magical effects +Add Any Other Arcanum 1: Activate multi‑Arcanum items",
+      "reaches": [],
+      "source": "MtAw2 p166"
+  },
+  {
+      "name": "As Above, So Below",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Occult",
+          "Politics"
+      ],
+      "description": "Empower Yantras with 9‑Again",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "8‑Again"
+          }
+      ],
+      "source": "MtAw2 p166"
+  },
+  {
+      "name": "Cloak Nimbus",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Politics",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Veil your Nimbus and emotional state; active attempts provoke a Clash",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Lower false Trait values"
+          }
+      ],
+      "source": "MtAw2 p167"
+  },
+  {
+      "name": "Fractured Grimoire",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Investigation",
+          "Occult"
+      ],
+      "description": "Split a Grimoire into meaningless pieces",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Any number of pieces"
+          }
+      ],
+      "source": "SoS p84"
+  },
+  {
+      "name": "Invisible Runes",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Intimidation",
+          "Persuasion"
+      ],
+      "description": "Leave High Speech messages only visible to Mage sight",
+      "reaches": [],
+      "source": "MtAw2 p167"
+  },
+  {
+      "name": "Light Under a Bushel",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Investigation",
+          "Subterfuge"
+      ],
+      "description": "Add Potency to the number of rolls before your Nimbus leaks",
+      "reaches": [],
+      "source": "SoS p28"
+  },
+  {
+      "name": "Nimbus Forgery",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Larceny",
+          "Subterfuge"
+      ],
+      "description": "Disguise your Nimbus as one you’ve studied",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Forge all three Nimbus types"
+          }
+      ],
+      "source": "SoS p94"
+  },
+  {
+      "name": "Path to Jerusalem",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Potency",
+      "withstand": "Opacity",
+      "skills": [
+          "Expression",
+          "Larceny",
+          "Subterfuge"
+      ],
+      "description": "Increase Mystery’s Opacity",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Plant false Surface/Deep information"
+          }
+      ],
+      "source": "SoS p28"
+  },
+  {
+      "name": "Supernal Veil",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Subterfuge",
+          "Survival"
+      ],
+      "description": "Veil supernatural phenomena from Peripheral Mage Sight",
+      "reaches": [],
+      "source": "MtAw2 p168"
+  },
+  {
+      "name": "Sustain Nimbus",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": "Time •",
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Investigation",
+          "Survival"
+      ],
+      "description": "Prevent a studied Nimbus from fading",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "SoS p93"
+  },
+  {
+      "name": "Wards and Signs",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Survival"
+      ],
+      "description": "Withstand Potency on any direct spell",
+      "reaches": [],
+      "source": ""
+  },
+  {
+      "name": "Words of Truth",
+      "path": "Prime",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Intimidation",
+          "Persuasion"
+      ],
+      "description": "All hear and believe your true statements; may remove Doors or improve Impressions",
+      "reaches": [],
+      "source": "MtAw2 p168"
+  },
+  {
+      "name": "Aetheric Winds",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Attack with shrieking aetheric wind",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Heavy Winds Tilt"
+          },
+          {
+              "level": 1,
+              "effect": "Destroy target’s Mana instead of damage"
+          }
+      ],
+      "source": "MtAw2 p168"
+  },
+  {
+      "name": "Camera Obscura",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Science"
+      ],
+      "description": "*Cost 1 Mana* Enchant a recording device to capture Supernal Energies",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting recordings"
+          }
+      ],
+      "source": "SoS p28"
+  },
+  {
+      "name": "Channel Mana",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Politics",
+          "Socialize"
+      ],
+      "description": "Move Mana equal to Potency between vessels",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Ignore per-turn limit"
+          }
+      ],
+      "source": "MtAw2 p168"
+  },
+  {
+      "name": "Cleanse Pattern",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Investigation",
+          "Occult",
+          "Stealth"
+      ],
+      "description": "Remove dramatic failure of a Mage Sight Revelation and a Signature Nimbus",
+      "reaches": [],
+      "source": "MtAw2 p168"
+  },
+  {
+      "name": "Display of Power",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Brawl",
+          "Occult",
+          "Socialize"
+      ],
+      "description": "Make Imagos visible to all Active Mage Sight +Add Fate •: Reveal fae clauses",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Rote quality on Counterspell"
+          }
+      ],
+      "source": "MtAw2 p168, DE2 p379"
+  },
+  {
+      "name": "Ephemeral Enchantment",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Weaponry"
+      ],
+      "description": "Subject becomes solid to Twilight entities",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Weapon inflicts aggravated damage"
+          }
+      ],
+      "source": "MtAw2 p169"
+  },
+  {
+      "name": "Geomancy",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Move ley lines and change Node Resonance",
+      "reaches": [],
+      "source": "MtAw2 p169"
+  },
+  {
+      "name": "Imbue Room",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": "Space ●●●",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Larceny",
+          "Occult",
+          "Science"
+      ],
+      "description": "Prepare a room for Imbue Item attainment",
+      "reaches": [],
+      "source": "SoS p69"
+  },
+  {
+      "name": "Mana Battery",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Prime an item to store Mana for Imbue Item",
+      "reaches": [],
+      "source": "SoS p70"
+  },
+  {
+      "name": "Platonic Form",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Crafts",
+          "Expression"
+      ],
+      "description": "Create a simple construct from Mana",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "8‑Again"
+          },
+          {
+              "level": 2,
+              "effect": "Complex device"
+          }
+      ],
+      "source": "MtAw2 p169"
+  },
+  {
+      "name": "Primary Subject",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Enchant an item to always target the user",
+      "reaches": [],
+      "source": "SoS p72"
+  },
+  {
+      "name": "Reveal Marks",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": "Time ●●",
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Investigation"
+      ],
+      "description": "Reveal all signature Nimbus associated with a subject",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Bonus dice to Clash"
+          }
+      ],
+      "source": "SoS p74"
+  },
+  {
+      "name": "Scribe Palimpsest",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": "Rotes Total Arcanum dots +1",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Recreate a single rote’s symbols in a blank Grimoire",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p84"
+  },
+  {
+      "name": "Spirit Vessel",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": "Spirit ●●●",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": "Resistance",
+      "skills": [
+          "Academics",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Prepare a Spirit for Imbue Item attainment",
+      "reaches": [],
+      "source": "SoS p69"
+  },
+  {
+      "name": "Steal Mana",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Duration",
+      "withstand": "Stamina",
+      "skills": [
+          "Expression",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Enchant item to siphon Mana from its user",
+      "reaches": [],
+      "source": "SoS p72"
+  },
+  {
+      "name": "Stealing Fire",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Expression",
+          "Larceny",
+          "Persuasion"
+      ],
+      "description": "Temporarily turn Sleeper into a Sleepwalker",
+      "reaches": [],
+      "source": "MtAw2 p168"
+  },
+  {
+      "name": "Stored Spell",
+      "path": "Prime",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Make an item capable of holding unactivated spells",
+      "reaches": [],
+      "source": "SoS p70"
+  },
+  {
+      "name": "Apocalypse",
+      "path": "Prime",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Occult",
+          "Persuasion",
+          "Socialize"
+      ],
+      "description": "Grant a Sleeper your Mage Sight +1 Reach & Add Any Other Arcanum 1: Add that Arcanum’s Sight",
+      "reaches": [],
+      "source": "MtAw2 p169"
+  },
+  {
+      "name": "Celestial Fire",
+      "path": "Prime",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Attack spell inflicts Lethal = Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Ignite flammables"
+          },
+          {
+              "level": 1,
+              "effect": "Aggravated for 1 Mana"
+          },
+          {
+              "level": 1,
+              "effect": "Destroy Mana instead"
+          }
+      ],
+      "source": "MtAw2 p170"
+  },
+  {
+      "name": "Destroy Tass",
+      "path": "Prime",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": "Durability",
+      "skills": [
+          "Brawl",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Destroy Tass; releases its Mana",
+      "reaches": [],
+      "source": "MtAw2 p170"
+  },
+  {
+      "name": "Hallow Dance",
+      "path": "Prime",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Hallow Rating",
+      "skills": [
+          "Expression",
+          "Occult",
+          "Survival"
+      ],
+      "description": "Suppress or awaken a Hallow",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting effect"
+          }
+      ],
+      "source": "MtAw2 p170"
+  },
+  {
+      "name": "Primal Transfer",
+      "path": "Prime",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Crafts",
+          "Empathy",
+          "Subterfuge"
+      ],
+      "description": "Transfer spell control of your spells",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Imbued into item"
+          }
+      ],
+      "source": "S"
+  },
+  {
+      "name": "Scribe Daimonomikon",
+      "path": "Prime",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Rank of Attainment + (10-Caster's Gnosis)",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Scribe a Daimonomikon",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "SoS p87"
+  },
+  {
+      "name": "Supernal Dispellation",
+      "path": "Prime",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": "Arcanum rating of spell’s caster",
+      "skills": [
+          "Athletics",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Suppress target spell +Add Fate 1: Selective",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p170"
+  },
+  {
+      "name": "Transfer Soul Stone",
+      "path": "Prime",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Persuasion"
+      ],
+      "description": "Transfer a Soul Stone between objects",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "SoS p91"
+  },
+  {
+      "name": "Blasphemy",
+      "path": "Prime",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": "Hallow Rating",
+      "skills": [
+          "Athletics",
+          "Occult",
+          "Survival"
+      ],
+      "description": "Sever connection to the Supernal in an area",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p170"
+  },
+  {
+      "name": "Create Truth",
+      "path": "Prime",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": "Hallow Rating",
+      "skills": [
+          "Expression",
+          "Occult",
+          "Persuasion"
+      ],
+      "description": "Create a Hallow",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Lasting"
+          }
+      ],
+      "source": "MtAw2 p170"
+  },
+  {
+      "name": "Eidolon",
+      "path": "Prime",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Crafts",
+          "Occult"
+      ],
+      "description": "Create an animate Tass +Add Forces ●●●: Not obviously magical +Add Mind ●●●●●: Give a mind",
+      "reaches": [],
+      "source": "MtAw2 p171"
+  },
+  {
+      "name": "Forge Purpose",
+      "path": "Prime",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Empathy",
+          "Expression",
+          "Medicine"
+      ],
+      "description": "Grant a subject one of your Obsessions",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Wholly new Obsession"
+          }
+      ],
+      "source": "MtAw2 p171"
+  },
+  {
+      "name": "Word of Unmaking",
+      "path": "Prime",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": "Merit rating or Durability",
+      "skills": [
+          "Intimidation",
+          "Occult",
+          "Weaponry"
+      ],
+      "description": "Destroy a magical item",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Violent explosion"
+          }
+      ],
+      "source": "MtAw2 p171"
+  },
+  {
+      "name": "Correspondence",
+      "path": "Space",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Empathy",
+          "Medicine"
+      ],
+      "description": "Learn one of a subject’s sympathetic links per Potency. Oldest/strongest first; if nearby, learn exact location",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Follow link to its other end"
+          },
+          {
+              "level": 1,
+              "effect": "Learn emotional aspect"
+          },
+          {
+              "level": 2,
+              "effect": "Specify which links"
+          },
+          {
+              "level": 2,
+              "effect": "Learn keyed spell/iris key"
+          }
+      ],
+      "source": "MtAw2 p172"
+  },
+  {
+      "name": "Ground Eater",
+      "path": "Space",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": "Stamina",
+      "skills": [
+          "Athletics",
+          "Science",
+          "Survival"
+      ],
+      "description": "Add or reduce Speed by Potency. Speed cannot go below 1",
+      "reaches": [],
+      "source": "MtAw2 p173"
+  },
+  {
+      "name": "Isolation",
+      "path": "Space",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": "Composure",
+      "skills": [
+          "Academics",
+          "Intimidation",
+          "Subterfuge"
+      ],
+      "description": "Any attempt to interact with others costs a Willpower point and penalizes dice by Potency. Prolonged exposure causes breaking points or Conditions like Shaken/Spooked",
+      "reaches": [],
+      "source": "MtAw2 p173"
+  },
+  {
+      "name": "Locate Object",
+      "path": "Space",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Occult",
+          "Science"
+      ],
+      "description": "Find subject in spell area",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Track subject if it leaves the area"
+          }
+      ],
+      "source": "MtAw2 p173"
+  },
+  {
+      "name": "The Outward and Inward Eye",
+      "path": "Space",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Firearms",
+          "Investigation",
+          "Occult"
+      ],
+      "description": "Gain 360° vision and hearing; negate ambush, reduce range/cover/concealment penalties by Potency",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "See through warps/shortcuts in Space"
+          }
+      ],
+      "source": "MtAw2 p174"
+  },
+  {
+      "name": "Borrow Threads",
+      "path": "Space",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": "Sympathy",
+      "skills": [
+          "Larceny",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Transfer a number of sympathetic connections equal to Potency; caster must know links",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Transfer between subjects"
+          },
+          {
+              "level": 1,
+              "effect": "Copy instead of transfer"
+          }
+      ],
+      "source": "MtAw2 p174"
+  },
+  {
+      "name": "Break Boundary",
+      "path": "Space",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Larceny",
+          "Persuasion"
+      ],
+      "description": "Allows subject to slip past obstacles",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Squeeze through narrow passages"
+          },
+          {
+              "level": 2,
+              "effect": "Pass through obstructions reflexively"
+          }
+      ],
+      "source": "MtAw2 p174"
+  },
+  {
+      "name": "Lying Maps",
+      "path": "Space",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": "Resolve",
+      "skills": [
+          "Academics",
+          "Politics",
+          "Survival"
+      ],
+      "description": "Make subject certain a chosen path leads to a destination",
+      "reaches": [],
+      "source": "MtAw2 p174"
+  },
+  {
+      "name": "Scrying",
+      "path": "Space",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Computers",
+          "Occult",
+          "Subterfuge"
+      ],
+      "description": "Remotely view a distant location; may cast spells through the scrying window +Add Fate 2: Restrict viewers",
+      "reaches": [],
+      "source": "MtAw2 p174"
+  },
+  {
+      "name": "Secret Door",
+      "path": "Space",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Hide a passageway from mundane perception",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Specify a key"
+          }
+      ],
+      "source": "MtAw2 p175"
+  },
+  {
+      "name": "Veil Sympathy",
+      "path": "Space",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": "Sympathy",
+      "skills": [
+          "Politics",
+          "Subterfuge",
+          "Survival"
+      ],
+      "description": "Conceal one of the subject’s sympathetic connections",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Fake nonexistent connection"
+          },
+          {
+              "level": 1,
+              "effect": "Prevent as a Yantra"
+          },
+          {
+              "level": 2,
+              "effect": "Suppress all connections"
+          }
+      ],
+      "source": "MtAw2 p175"
+  },
+  {
+      "name": "Ward",
+      "path": "Space",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Subterfuge",
+          "Weaponry"
+      ],
+      "description": "Prevent space manipulation in an area",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Specify a key"
+          },
+          {
+              "level": 2,
+              "effect": "Ward an Iris"
+          }
+      ],
+      "source": "MtAw2 p176"
+  },
+  {
+      "name": "Ban",
+      "path": "Space",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Intimidation",
+          "Science",
+          "Stealth"
+      ],
+      "description": "Seal off an area from outside phenomena +Add Any Arcanum 2: Exclude or limit that Arcanum’s effects",
+      "reaches": [],
+      "source": "MtAw2 p176"
+  },
+  {
+      "name": "Co-Location",
+      "path": "Space",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Firearms",
+          "Science"
+      ],
+      "description": "Overlap multiple locations; perceptive individuals can switch between them",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Make overlap visible"
+          },
+          {
+              "level": 1,
+              "effect": "Turn into 2D portal"
+          },
+          {
+              "level": 1,
+              "effect": "Specify key"
+          },
+          {
+              "level": 2,
+              "effect": "Switch twice per turn"
+          }
+      ],
+      "source": "MtAw2 p176"
+  },
+  {
+      "name": "Forced Sympathy",
+      "path": "Space",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Empathy",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Alter imbument so spells always target the closest Sympathy Yantra",
+      "reaches": [],
+      "source": "SoS p73"
+  },
+  {
+      "name": "Optimal Container",
+      "path": "Space",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Larceny",
+          "Science",
+          "Subterfuge"
+      ],
+      "description": "Expand a container’s capacity by Potency beyond its normal size",
+      "reaches": [],
+      "source": "SoS p66"
+  },
+  {
+      "name": "Perfect Sympathy",
+      "path": "Space",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Empathy",
+          "Larceny"
+      ],
+      "description": "Grant 8‑Again on actions involving Strong sympathies",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Redirect spells at Strong connections"
+          },
+          {
+              "level": 1,
+              "effect": "Gain rote actions"
+          },
+          {
+              "level": 1,
+              "effect": "Extend to Medium sympathies"
+          }
+      ],
+      "source": "MtAw2 p176"
+  },
+  {
+      "name": "Warp",
+      "path": "Space",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Brawl",
+          "Medicine"
+      ],
+      "description": "Deal bashing damage by twisting the target’s space",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Apply Arm Wrack or Leg Wrack Tilt"
+          }
+      ],
+      "source": "MtAw2 p177"
+  },
+  {
+      "name": "Web-Weaver",
+      "path": "Space",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Crafts",
+          "Empathy",
+          "Persuasion"
+      ],
+      "description": "Bolster a sympathetic connection +Add Time 2: Temporal sympathy to touched targets",
+      "reaches": [],
+      "source": "MtAw2 p177"
+  },
+  {
+      "name": "Alter Direction",
+      "path": "Space",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Firearms",
+          "Persuasion"
+      ],
+      "description": "Redefine absolute directions in an area",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Curved directions"
+          }
+      ],
+      "source": "MtAw2 p177"
+  },
+  {
+      "name": "Collapse",
+      "path": "Space",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Firearms",
+          "Intimidation"
+      ],
+      "description": "Force subject and object into same space, dealing lethal damage",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Aggravated"
+          },
+          {
+              "level": 1,
+              "effect": "Object remains inside"
+          }
+      ],
+      "source": "MtAw2 p177"
+  },
+  {
+      "name": "Cut Threads",
+      "path": "Space",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": "Sympathy (Connection)",
+      "skills": [
+          "Persuasion",
+          "Politics",
+          "Weaponry"
+      ],
+      "description": "Destroy a sympathetic connection lasting after spell",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Remove the sympathetic name until spell ends"
+          }
+      ],
+      "source": "MtAw2 p177"
+  },
+  {
+      "name": "Secret Room",
+      "path": "Space",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Science",
+          "Survival"
+      ],
+      "description": "Enlarge or shrink a space along the Area Scale Factor by Potency steps",
+      "reaches": [],
+      "source": "MtAw2 p178"
+  },
+  {
+      "name": "Teleportation",
+      "path": "Space",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Larceny",
+          "Persuasion",
+          "Science"
+      ],
+      "description": "Teleport subject via Sympathetic Range",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Swap two subjects"
+          },
+          {
+              "level": 2,
+              "effect": "Use two connections (Withstand = worse)"
+          }
+      ],
+      "source": "MtAw2 p178"
+  },
+  {
+      "name": "Create Sympathy",
+      "path": "Space",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Potency",
+      "withstand": "Desired Sympathy",
+      "skills": [
+          "Empathy",
+          "Persuasion",
+          "Politics"
+      ],
+      "description": "Create a new sympathetic connection",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Connection never fades"
+          },
+          {
+              "level": 2,
+              "effect": "Impart a new sympathetic name"
+          }
+      ],
+      "source": "MtAw2 p178"
+  },
+  {
+      "name": "Forge No Chains",
+      "path": "Space",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Subterfuge",
+          "Survival"
+      ],
+      "description": "Prevent creation of new sympathetic connections; sheds (blood, hair) do not link",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Specify key; adds Opacity"
+          }
+      ],
+      "source": "MtAw2 p178"
+  },
+  {
+      "name": "Pocket Dimension",
+      "path": "Space",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Survival"
+      ],
+      "description": "Create a self‑contained space with custom rules +Add Time 2: Normal time flow +Add Death/Mind/Spirit 2: Contains Twilight",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Iris"
+          }
+      ],
+      "source": "MtAw2 p178"
+  },
+  {
+      "name": "Quarantine",
+      "path": "Space",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Larceny",
+          "Socialize"
+      ],
+      "description": "Remove an area from space; neighbors adjust, trapped inside +Add Mind 4: No memory +Add Time 5: Retroactive erasure",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Key access"
+          }
+      ],
+      "source": "MtAw2 p179"
+  },
+  {
+      "name": "Unnaming",
+      "path": "Space",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Duration",
+      "withstand": "Composure",
+      "skills": [
+          "Empathy",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Erase a subject’s sympathetic name and connections +Add Prime •••••: Affect Shadow Name & Nimbus",
+      "reaches": [],
+      "source": "SoS p94"
+  },
+  {
+      "name": "Coaxing the Spirits",
+      "path": "Spirit",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": "Composure, Rank",
+      "skills": [
+          "Politics",
+          "Athletics",
+          "Expression"
+      ],
+      "description": "Compel a Spirit or its physical representation to take a single instant action in accordance with its nature.",
+      "reaches": [],
+      "source": "MtAw2 p180"
+  },
+  {
+      "name": "Exorcist's Eye",
+      "path": "Spirit",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Survival",
+          "Socialize"
+      ],
+      "description": "See and speak with any Spirit in Twilight, slumbering in objects, or possessing someone; see conduits via the Reaching Manifestation +1 Reach: See across the Gauntlet (Withstood by Gauntlet Strength) +Add Death 1 or Mind 1: Extend benefits to ghosts or Goetia.",
+      "reaches": [],
+      "source": "MtAw2 p180"
+  },
+  {
+      "name": "Gremlins",
+      "path": "Spirit",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Larceny",
+          "Politics",
+          "Subterfuge"
+      ],
+      "description": "Cause a Spirit of an object to hinder its user: each Potency causes one failure to become a dramatic failure +1 Reach: Choose which failures become dramatic.",
+      "reaches": [],
+      "source": "MtAw2 p180"
+  },
+  {
+      "name": "Invoke Bane",
+      "path": "Spirit",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": "Rank",
+      "skills": [
+          "Brawl",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Force a Spirit to avoid its Bane; it must spend a Willpower to enter the area and cannot touch the Bane. Spirits above Rank 5 are unaffected.",
+      "reaches": [],
+      "source": "MtAw2 p180"
+  },
+  {
+      "name": "Know Spirit",
+      "path": "Spirit",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Potency",
+      "withstand": "Rank",
+      "skills": [
+          "Academics",
+          "Brawl",
+          "Socialize"
+      ],
+      "description": "Learn facts equal to Potency: name, Rank, Manifestations, Numina, Influences (and strengths), Ban, and Bane.",
+      "reaches": [],
+      "source": "MtAw2 p180"
+  },
+  {
+      "name": "Cap the Well",
+      "path": "Spirit",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Politics",
+          "Survival",
+          "Persuasion"
+      ],
+      "description": "Any attempt to feed from a source of Essence affected by this spell provokes a Clash of Wills.",
+      "reaches": [],
+      "source": "MtAw2 p180"
+  },
+  {
+      "name": "Channel Essence",
+      "path": "Spirit",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Persuasion",
+          "Survival"
+      ],
+      "description": "Move Essence equal to Potency (up to Mana‑per‑turn limit); can store Essence in your Pattern. +Add Death 2 or Mind 2: Works on ghosts or Goetia. +1 Reach: Siphon Essence directly from a Spirit (Withstand = Spirit’s Rank).",
+      "reaches": [],
+      "source": "MtAw2 p180"
+  },
+  {
+      "name": "Command Spirit",
+      "path": "Spirit",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": "Rank",
+      "skills": [
+          "Medicine",
+          "Athletics",
+          "Persuasion"
+      ],
+      "description": "Force a Spirit to undertake up to Potency actions; may abandon incomplete tasks on spell’s end. No effect on Spirits above Rank 5.",
+      "reaches": [],
+      "source": "MtAw2 p181"
+  },
+  {
+      "name": "Ephemeral Shield",
+      "path": "Spirit",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Animal Ken",
+          "Medicine",
+          "Stealth"
+      ],
+      "description": "Spirit Numina, Influences, Manifestations, Spirit spells, and Gifts provoke a Clash of Wills. +1 Reach: Protects against physical attacks. +Add Death 2 or Mind 2: Extends to ghosts or Goetia.",
+      "reaches": [],
+      "source": "MtAw2 p181"
+  },
+  {
+      "name": "Gossamer Touch",
+      "path": "Spirit",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Brawl",
+          "Crafts",
+          "Intimidation"
+      ],
+      "description": "Interact physically with Spirits in Twilight. +Add Death 2 or Mind 2: Affects ghosts or Goetia. +1 Reach: Carried objects are physical. +1 Reach: Unarmed attacks deal Potency extra damage.",
+      "reaches": [],
+      "source": "MtAw2 p181"
+  },
+  {
+      "name": "Opener of the Way",
+      "path": "Spirit",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Computers",
+          "Socialize"
+      ],
+      "description": "Convert Resonant to Open Condition or vice versa.",
+      "reaches": [],
+      "source": "MtAw2 p181"
+  },
+  {
+      "name": "Shadow Walk",
+      "path": "Spirit",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Stealth",
+          "Streetwise"
+      ],
+      "description": "Shroud subject from spirits; supernatural detection provokes a Clash of Wills.",
+      "reaches": [],
+      "source": "MtAw2 p181"
+  },
+  {
+      "name": "Slumber",
+      "path": "Spirit",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": "Rank",
+      "skills": [
+          "Expression",
+          "Occult",
+          "Weaponry"
+      ],
+      "description": "Slow a hibernating Spirit’s Essence regain to one point per Potency days.",
+      "reaches": [],
+      "source": "MtAw2 p181"
+  },
+  {
+      "name": "Bolster Spirit",
+      "path": "Spirit",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Medicine",
+          "Occult",
+          "Expression"
+      ],
+      "description": "Heal a Spirit: two bashing per Potency. +1 Reach: Increase one Attribute by one. +2 Reach: Spend Mana to increase Rank by one.",
+      "reaches": [],
+      "source": "MtAw2 p181"
+  },
+  {
+      "name": "Erode Resonance",
+      "path": "Spirit",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Brawl",
+          "Intimidation"
+      ],
+      "description": "Remove a subject’s Open or Resonant Condition Lasting. +1 Reach: Future creation of Conditions suffers a penalty equal to Potency.",
+      "reaches": [],
+      "source": "MtAw2 p181"
+  },
+  {
+      "name": "Howl From Beyond",
+      "path": "Spirit",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Firearms",
+          "Medicine"
+      ],
+      "description": "Attack: bashing damage equal to Potency. +1 Reach: Open Condition. +1 Reach: Target across the Gauntlet (Withstand = Gauntlet Strength).",
+      "reaches": [],
+      "source": "MtAw2 p182"
+  },
+  {
+      "name": "Place of Power",
+      "path": "Spirit",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying/Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": "Gauntlet Strength",
+      "skills": [
+          "Academics",
+          "Expression",
+          "Survival"
+      ],
+      "description": "Raise or lower Gauntlet Strength by Potency. +1 Reach: Alter sides independently.",
+      "reaches": [],
+      "source": "MtAw2 p182"
+  },
+  {
+      "name": "Reaching",
+      "path": "Spirit",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": "Gauntlet Strength",
+      "skills": [
+          "Athletics",
+          "Medicine",
+          "Socialize"
+      ],
+      "description": "Interact physically/magically across the Gauntlet. +1 Reach: Create an Iris. +1 Reach: Specify key.",
+      "reaches": [],
+      "source": "MtAw2 p182"
+  },
+  {
+      "name": "Rouse Spirit",
+      "path": "Spirit",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": "Rank",
+      "skills": [
+          "Athletics",
+          "Expression",
+          "Investigation"
+      ],
+      "description": "Awaken a Spirit early (Potency equals Essence gap). +1 Reach: Additional Corpus boxes cleared.",
+      "reaches": [],
+      "source": "MtAw2 p182"
+  },
+  {
+      "name": "Spirit Summons",
+      "path": "Spirit",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": "Rank",
+      "skills": [
+          "Persuasion",
+          "Socialize",
+          "Occult"
+      ],
+      "description": "Call a Spirit +1 Reach: Creates Open Condition. +1 Reach: One-word command. +1 Reach: From Shadow (Withstand = max Rank/Gauntlet). +2 Reach: Complex command.",
+      "reaches": [],
+      "source": "MtAw2 p182"
+  },
+  {
+      "name": "Spiritual Tool",
+      "path": "Spirit",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Occult",
+          "Survival"
+      ],
+      "description": "Enhance item for interaction with spirits and Twilight ephemera.",
+      "reaches": [],
+      "source": "SoS p66"
+  },
+  {
+      "name": "Banishment",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": "Rank",
+      "skills": [
+          "Brawl",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Remove Manifestation Conditions equal to Potency Lasting. +Add Mind 4: Affect Goetia. +Add Death 4: Affect ghosts. +1 Reach: Conditions cannot be reestablished until end.",
+      "reaches": [],
+      "source": "MtAw2 p182"
+  },
+  {
+      "name": "Bind Spirit",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Rank",
+      "skills": [
+          "Crafts",
+          "Brawl",
+          "Intimidation"
+      ],
+      "description": "Grant Manifestation Conditions equal to Potency. +Add Mind 4/Death 4: Affect Goetia/ghosts.",
+      "reaches": [],
+      "source": "MtAw2 p183"
+  },
+  {
+      "name": "Craft Fetish",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": "Rank",
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Persuasion"
+      ],
+      "description": "Create a Fetish: item containing a Spirit with Numina/Influences equal to Potency; triggers Ban/Bane destroys it. Non-spirit Fetish holds 10+Potency Essence.",
+      "reaches": [],
+      "source": "MtAw2 p183"
+  },
+  {
+      "name": "Familiar",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Expression",
+          "Intimidation"
+      ],
+      "description": "Grant Familiar Merit for duration; both willing. Cannot affect Spirits > Rank 2. +Substitute Death 4 or Mind 4: Bind ghost/Goetia.",
+      "reaches": [],
+      "source": "MtAw2 p183"
+  },
+  {
+      "name": "Haunted Grimoire",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": "Prime •",
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Total Arcanum dots+Rank",
+      "skills": [
+          "Crafts",
+          "Intimidation",
+          "Occult"
+      ],
+      "description": "Bind a Spirit to a grimoire, adding Open and Resonant Conditions.",
+      "reaches": [],
+      "source": "SoS p86"
+  },
+  {
+      "name": "Scribe Daimonomikon",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": "Prime •",
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Rank+(10-Gnosis)",
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Scribe a Daimonomikon for your Legacy +1 Reach: Lasting.",
+      "reaches": [],
+      "source": "SoS p87"
+  },
+  {
+      "name": "Shadow Scream",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Firearms",
+          "Medicine"
+      ],
+      "description": "Attack: lethal damage equal to Potency +1 Reach: Aggravated +1 Reach: Essence damage +1 Reach: Open Condition +1 Reach: Across Gauntlet.",
+      "reaches": [],
+      "source": "MtAw2 p183"
+  },
+  {
+      "name": "Shape Spirit",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Rank",
+      "skills": [
+          "Crafts",
+          "Medicine",
+          "Persuasion"
+      ],
+      "description": "Alter a Spirit by Potency effects: Attributes, Corpus, Manifestations, Numina, Ban/Bane, appearance; revert on end +1 Reach: Heal aggravated damage.",
+      "reaches": [],
+      "source": "MtAw2 p184"
+  },
+  {
+      "name": "Twilit Body",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Subterfuge",
+          "Survival"
+      ],
+      "description": "Turn yourself into Spirit‑attuned ephemera; +1 Reach: Immaterial even outside Twilight.",
+      "reaches": [],
+      "source": "MtAw2 p184"
+  },
+  {
+      "name": "World Walker",
+      "path": "Spirit",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Gauntlet Strength",
+      "skills": [
+          "Athletics",
+          "Persuasion",
+          "Survival"
+      ],
+      "description": "Transport subject across the Gauntlet without a portal. +1 Reach: Conjured Spirit gains Materialized Condition.",
+      "reaches": [],
+      "source": "MtAw2 p184"
+  },
+  {
+      "name": "Annihilate Spirit",
+      "path": "Spirit",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": "Rank",
+      "skills": [
+          "Intimidation",
+          "Science",
+          "Weaponry"
+      ],
+      "description": "Destroy a Spirit; it may resist with Essence+Clash. Cannot affect Spirits > Rank 5.",
+      "reaches": [],
+      "source": "MtAw2 p184"
+  },
+  {
+      "name": "Birth Spirit",
+      "path": "Spirit",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Medicine",
+          "Expression"
+      ],
+      "description": "Create a Rank 1 Spirit +1 Reach: Rank 2.",
+      "reaches": [],
+      "source": "MtAw2 p184"
+  },
+  {
+      "name": "Create Locus",
+      "path": "Spirit",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": "Gauntlet Strength",
+      "skills": [
+          "Crafts",
+          "Empathy",
+          "Survival"
+      ],
+      "description": "Create a Locus at a Resonant site +1 Reach: Generates Essence per day.",
+      "reaches": [],
+      "source": "MtAw2 p184"
+  },
+  {
+      "name": "Essence Fountain",
+      "path": "Spirit",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Expression",
+          "Occult"
+      ],
+      "description": "Create Essence equal to Potency with chosen Resonance +1 Reach: Multiple Resonances.",
+      "reaches": [],
+      "source": "MtAw2 p185"
+  },
+  {
+      "name": "Spirit Manse",
+      "path": "Spirit",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Expression",
+          "Survival"
+      ],
+      "description": "Create a Shadow Manse granting Safe Place Merit = Potency +1 Reach: Iris with key (Withstand by Gauntlet).",
+      "reaches": [],
+      "source": "MtAw2 p185"
+  },
+  {
+      "name": "Divination",
+      "path": "Time",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Empathy",
+          "Investigation"
+      ],
+      "description": "Ask a general question regarding the future with an answer of \"Yes\", \"No\" or \"Irrelevant\"",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "More specific questions yield more detailed answers"
+          }
+      ],
+      "source": "MtAw2ed p186"
+  },
+  {
+      "name": "Green Light/Red Light",
+      "path": "Time",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Compelling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Computer",
+          "Larceny",
+          "Subterfuge"
+      ],
+      "description": "Positively: Helpful events occur exactly when needed. Negatively: Delays occur exactly when harmful.",
+      "reaches": [],
+      "source": "MtAw2ed p187"
+  },
+  {
+      "name": "Momentary Flux",
+      "path": "Time",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Knowing",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Investigation",
+          "Streetwise",
+          "Survival"
+      ],
+      "description": "Determine if the subject will prove beneficial or baneful in the future. Acting on info adds Potency to Initiative",
+      "reaches": [],
+      "source": "MtAw2ed p187"
+  },
+  {
+      "name": "Perfect Timing",
+      "path": "Time",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Socialize",
+          "Streetwise"
+      ],
+      "description": "Subject can spend a turn planning, adding Potency to their next instant action",
+      "reaches": [],
+      "source": "MtAw2ed p187"
+  },
+  {
+      "name": "Postcognition",
+      "path": "Time",
+      "tier": "Initiate",
+      "secondary": null,
+      "practice": "Unveiling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Empathy",
+          "Investigation"
+      ],
+      "description": "View a subject’s past from any moment in real time",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Rewind, pause, speed control without losing Defense"
+          }
+      ],
+      "source": "MtAw2ed p187"
+  },
+  {
+      "name": "Choose the Thread",
+      "path": "Time",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Occult",
+          "Science",
+          "Subterfuge"
+      ],
+      "description": "Roll twice on your next mundane roll; choose which result applies",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Also affects spellcasting and supernatural rolls"
+          }
+      ],
+      "source": "MtAw2ed p187"
+  },
+  {
+      "name": "Constant Presence",
+      "path": "Time",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Persuasion",
+          "Survival"
+      ],
+      "description": "Alterations to the timeline that would change you provoke a Clash; if you win, you remain unchanged",
+      "reaches": [],
+      "source": "MtAw2ed p187"
+  },
+  {
+      "name": "Hung Spell",
+      "path": "Time",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Occult",
+          "Expression"
+      ],
+      "description": "Hold up to Potency spells in stasis; they do not expire until Hung Spell ends",
+      "reaches": [],
+      "source": "MtAw2ed p188"
+  },
+  {
+      "name": "Shield of Chronos",
+      "path": "Time",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Veiling",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Stealth",
+          "Subterfuge"
+      ],
+      "description": "Block time‑based scrying;",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Show a false sequence of events instead (Clash to pierce)"
+          }
+      ],
+      "source": "MtAw2ed p188"
+  },
+  {
+      "name": "Tipping the Hourglass",
+      "path": "Time",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Ruling",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Athletics",
+          "Crafts",
+          "Investigation"
+      ],
+      "description": "Add or subtract Potency from a subject’s Initiative on their next action",
+      "reaches": [],
+      "source": "MtAw2ed p188"
+  },
+  {
+      "name": "Veil of Moments",
+      "path": "Time",
+      "tier": "Apprentice",
+      "secondary": null,
+      "practice": "Shielding",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Medicine",
+          "Investigation",
+          "Subterfuge"
+      ],
+      "description": "Protect a subject from aging, toxins, conditions; +Reaches restore healing, Willpower, Mana, negate Persistent Conditions",
+      "reaches": [],
+      "source": "MtAw2ed p188"
+  },
+  {
+      "name": "Acceleration",
+      "path": "Time",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Drive",
+          "Stealth"
+      ],
+      "description": "Multiply the subject’s speed by Potency; gain first turn action and dodge defense bonus",
+      "reaches": [],
+      "source": "MtAw2ed p189"
+  },
+  {
+      "name": "Chronos' Curse",
+      "path": "Time",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": "Stamina",
+      "skills": [
+          "Academics",
+          "Occult",
+          "Intimidation"
+      ],
+      "description": "Divide the subject’s speed by Potency and reduce Defense by Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Strip all Defense"
+          },
+          {
+              "level": 1,
+              "effect": "Multiply extended action time"
+          }
+      ],
+      "source": "MtAw2ed p190"
+  },
+  {
+      "name": "Shifting Sands",
+      "path": "Time",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Fraying",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Occult",
+          "Survival"
+      ],
+      "description": "Rewind a subject by Potency turns; injuries and resources do not revert",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Travel back a full scene"
+          }
+      ],
+      "source": "MtAw2ed p190"
+  },
+  {
+      "name": "Temporal Summoning",
+      "path": "Time",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Weaving",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Investigation",
+          "Persuasion"
+      ],
+      "description": "Restore subject to a younger version; changes revert on end; injuries persist",
+      "reaches": [],
+      "source": "MtAw2ed p190"
+  },
+  {
+      "name": "Time Limit",
+      "path": "Time",
+      "tier": "Disciple",
+      "secondary": "Prime ••",
+      "practice": "Weaving",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Expression",
+          "Science",
+          "Survival"
+      ],
+      "description": "Set a time limit on an imbued spell equal to one week per Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Increase to one month per Potency"
+          }
+      ],
+      "source": "SoS p71"
+  },
+  {
+      "name": "Weight of Years",
+      "path": "Time",
+      "tier": "Disciple",
+      "secondary": null,
+      "practice": "Perfecting",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Crafts",
+          "Intimidation",
+          "Medicine"
+      ],
+      "description": "Deal bashing equal to Potency; structural damage on objects",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Also reduce Athletics"
+          }
+      ],
+      "source": "MtAw2ed p191"
+  },
+  {
+      "name": "Present as Past",
+      "path": "Time",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Empathy",
+          "Investigation",
+          "Streetwise"
+      ],
+      "description": "Subject can act anywhere in the Initiative order; social Doors removed equal to Potency",
+      "reaches": [],
+      "source": "MtAw2ed p191"
+  },
+  {
+      "name": "Prophecy",
+      "path": "Time",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Expression",
+          "Investigation"
+      ],
+      "description": "Ask a series of “what if?” questions equal to Potency",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Remove social Doors"
+          }
+      ],
+      "source": "MtAw2ed p191"
+  },
+  {
+      "name": "Rend Lifespan",
+      "path": "Time",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Unraveling",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Athletics",
+          "Medicine",
+          "Intimidation"
+      ],
+      "description": "Inflict lethal damage equal to Potency",
+      "reaches": [],
+      "source": "MtAw2ed p191"
+  },
+  {
+      "name": "Rewrite History",
+      "path": "Time",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Resolve",
+      "skills": [
+          "Expression",
+          "Investigation",
+          "Persuasion"
+      ],
+      "description": "Rewrite recent decisions; reverts on end",
+      "reaches": [
+          {
+              "level": 1,
+              "effect": "Reassign Skills/Merits"
+          },
+          {
+              "level": 1,
+              "effect": "Reassign Attributes"
+          },
+          {
+              "level": 2,
+              "effect": "Affect supernatural templates"
+          }
+      ],
+      "source": "MtAw2ed p191"
+  },
+  {
+      "name": "Temporal Stutter",
+      "path": "Time",
+      "tier": "Adept",
+      "secondary": null,
+      "practice": "Patterning",
+      "primaryFactor": "Potency",
+      "withstand": "Stamina",
+      "skills": [
+          "Intimidation",
+          "Science",
+          "Survival"
+      ],
+      "description": "Project subject forward in time; reappear causing Knocked Down if clash for space",
+      "reaches": [],
+      "source": "MtAw2ed p192"
+  },
+  {
+      "name": "Blink of an Eye",
+      "path": "Time",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Crafts",
+          "Occult"
+      ],
+      "description": "Turn the next extended action into an instant with Potency rolls in a single turn",
+      "reaches": [
+          {
+              "level": 2,
+              "effect": "Affect ritual spell casting times"
+          }
+      ],
+      "source": "MtAw2ed p192"
+  },
+  {
+      "name": "Corridors of Time",
+      "path": "Time",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Unmaking",
+      "primaryFactor": "Potency",
+      "withstand": null,
+      "skills": [
+          "Academics",
+          "Investigation",
+          "Persuasion"
+      ],
+      "description": "Embed the caster in their past self to change history; changes become Lasting on catch-up",
+      "reaches": [],
+      "source": "MtAw2ed p192"
+  },
+  {
+      "name": "Temporal Pocket",
+      "path": "Time",
+      "tier": "Master",
+      "secondary": null,
+      "practice": "Making",
+      "primaryFactor": "Duration",
+      "withstand": null,
+      "skills": [
+          "Occult",
+          "Science",
+          "Stealth"
+      ],
+      "description": "Freeze the world around the subject; they can move freely until interaction ends the spell",
+      "reaches": [],
+      "source": "MtAw2ed p192"
+  }
+]
