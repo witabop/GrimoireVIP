@@ -5,8 +5,9 @@ export const calculateDicePool = (gnosis, arcanaValue, castingType, yantras, rea
     // Calculate base dice based on casting type chosen by user
     if (castingType === 'rote') {
       // For rotes, we'd typically use Attribute + Skill + Arcanum
-      // We're using a simplified version here with 3 + Arcanum
-      dicePool = 3 + arcanaValue;
+      // We're using a simplified version here with 3 + Arcanum. User will add in Mudra in yantra modifier section
+      // maybe eventually make it dynamically say Mudra/Yantra idk
+      dicePool = gnosis + arcanaValue;
     } else {
       // For improvised spells and praxis
       dicePool = gnosis + arcanaValue;
