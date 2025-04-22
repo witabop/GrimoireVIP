@@ -73,6 +73,29 @@ const ReachSelector = ({
       
       {selectedSpell ? (
         <>
+          {/* Display Rote Skills Section */}
+          {selectedSpell.skills && selectedSpell.skills.length > 0 && (
+            <div className="mb-4 bg-indigo-900 bg-opacity-30 p-3 rounded-lg border border-indigo-800">
+              <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
+                <i className="fas fa-graduation-cap mr-2"></i> Rote Skills
+              </h4>
+              <div className="flex flex-wrap gap-2" style={{fontSize: 15, fontStyle: 'italic', color: '#cbd5e1'}}>
+                {selectedSpell.skills.map((skill, index) => (
+                  <span 
+                    key={index} 
+                    className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-800 text-indigo-200 text-xs font-medium"
+                  >
+                    <i className="fas fa-book-open mr-1"></i> <span style={{marginRight: 5}}>{skill}</span>
+                  </span>
+                ))}
+              </div>
+              <div className="text-xs text-indigo-200 mt-2" style={{fontSize: 12, fontStyle: 'italic', color: '#cbd5e1'}}>
+                <i className="fas fa-info-circle mr-1" ></i>
+                These skills can be added to the yantra bonus as Mudra when casting a Rote.
+              </div>
+            </div>
+          )}
+
           <div className="flex justify-between items-center mb-3">
             <div className="font-medium flex items-center">
               <i className="fas fa-list-alt mr-2 text-green-400"></i>
@@ -215,8 +238,6 @@ const ReachSelector = ({
               Yantra Modifier:
             </label>
             <div className="flex items-center space-x-3">
-
-              
               <input 
                 type="number" 
                 min="0" 
@@ -225,13 +246,17 @@ const ReachSelector = ({
                 onChange={(e) => setYantras(parseInt(e.target.value))} 
                 className="w-16 bg-slate-700 text-white border border-slate-600 rounded-md p-2 text-center focus-ring mr-2"
               />
-          
-              
               <div className="dot-notation flex-grow">{"+".repeat(yantras)}</div>
             </div>
-            <div className="mt-3 text-sm text-slate-400 bg-slate-700 p-2 rounded-md">
-              <i className="fas fa-info-circle mr-1"></i>
-              Yantras add bonus dice to your spell casting
+            <div className="mt-4 text-sm text-slate-400 bg-slate-800 p-3 rounded-md" style={{ fontStyle: 'italic'}}>
+              <i className="fas fa-info-circle mr-1" ></i>
+              <span className="font-medium">Yantras</span> add bonus dice to your spell casting. Common yantras include:
+              <ul className="list-disc ml-6 mt-1 space-y-3" style={{marginLeft: 20}}> 
+                <li>- Tools & symbols (+1 to +2)</li>
+                <li>- Runes & inscriptions (+2)</li>
+                <li>- Casting time (+1 to +3)</li>
+                <li>- Descriptive casting (+1 to +2)</li>
+              </ul>
             </div>
           </div>
         </>
