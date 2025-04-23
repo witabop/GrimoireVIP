@@ -313,7 +313,7 @@ const ReachSelector = ({
             </h4>
             <div className="space-y-4">
               <p className="text-sm text-slate-300 mb-2">Select a potency boost level:</p>
-              <div className="flex items-center justify-between space-x-3">
+              <div className="flex items-center justify-between space-x-3" style={{flexFlow: 'wrap'}}>
                 {[1, 2, 3, 4, 5].map((level) => (
                   <div key={level} className="flex flex-col items-center">
                     <label className={`p-4 w-12 h-12 rounded-lg flex items-center justify-center cursor-pointer ${
@@ -361,7 +361,7 @@ const ReachSelector = ({
                           {reach.name} 
                         </span>
                         {reach.cost > 1 && 
-                          <span className="badge badge-purple ml-2">
+                          <span className="badge badge-purple ml-2" style={{textWrap: 'nowrap'}}>
                             {reach.cost} Reaches
                           </span>
                         }
@@ -425,7 +425,7 @@ const ReachSelector = ({
                               ) : null}
                               
                               {reach.manaCost && (
-                                <span className="badge badge-blue">
+                                <span className="badge badge-blue" style={{textWrap: 'nowrap'}}>
                                   {reach.manaCost} Mana
                                 </span>
                               )}
