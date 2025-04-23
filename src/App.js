@@ -3,9 +3,14 @@ import CharacterStats from './components/CharacterStats';
 import SpellBook from './components/SpellBook';
 import ReachSelector from './components/ReachSelector';
 import SpellResults from './components/SpellResults';
-import SpellSelector from './components/SpellSelector'; 
+import SpellSelector from './components/SpellSelector';
 import { processSpellData } from './data/dataLoader';
-import { calculateDicePool, calculateAvailableReaches, rollDice, calculateReachEffects } from './utils/spellCalculations';
+import {
+  calculateDicePool,
+  calculateAvailableReaches,
+  rollDice,
+  calculateReachEffects
+} from './utils/spellCalculations';
 import { DEFAULT_REACHES } from './data/reachesData';
 import { saveCharacterData, loadCharacterData, getDefaultCharacterData } from './utils/localStorage';
 
@@ -36,64 +41,76 @@ function App() {
   const [selectedReaches, setSelectedReaches] = useState([]);
   const [yantras, setYantras] = useState(0);
   const [availableReaches, setAvailableReaches] = useState(0);
+  const [potencyBoost, setPotencyBoost] = useState(0);
+  const [potencyBoostLevel, setPotencyBoostLevel] = useState(0);
 
   // Results state
   const [dicePool, setDicePool] = useState(0);
   const [rollResults, setRollResults] = useState([]);
-  
+
   // Animation state
   const [appReady, setAppReady] = useState(false);
-  
+
   const setGnosisAndSave = (newGnosis) => {
     setGnosis(newGnosis);
   };
-  
+
   const setArcanaValuesAndSave = (newArcanaValues) => {
     setArcanaValues(newArcanaValues);
   };
-  
+
   const setYantrasAndSave = (newYantras) => {
     setYantras(newYantras);
   };
+
+  // Additional modifiers
+  const [dicePoolModifier, setDicePoolModifier] = useState(0);
+  const [manaModifier, setManaModifier] = useState(0);
+
+  // Reset potency boost when spell changes
+  useEffect(() => {
+    setPotencyBoost(0);
+    setPotencyBoostLevel(0);
+  }, [selectedSpell]);
 
   // Load data from local storage on component mount
   useEffect(() => {
     // Process spell data first
     const processedSpells = processSpellData(spellsJson);
     setSpells(processedSpells);
-    
+
     // Load character data from local storage
     const savedData = loadCharacterData();
     if (savedData) {
       console.log('Loading saved character data');
-      
+
       // Check that data has expected structure before setting state
       if (typeof savedData.gnosis === 'number') {
         setGnosis(savedData.gnosis);
       }
-      
+
       if (savedData.arcanaValues && typeof savedData.arcanaValues === 'object') {
         setArcanaValues(savedData.arcanaValues);
       }
-      
+
       if (Array.isArray(savedData.userSpells)) {
         setUserSpells(savedData.userSpells);
       }
-      
+
       if (typeof savedData.yantras === 'number') {
         setYantras(savedData.yantras);
       }
     } else {
       console.log('No saved data found, using defaults');
     }
-    
+
     setTimeout(() => setAppReady(true), 100);
   }, []);
 
   // Save character data whenever relevant state changes
   useEffect(() => {
     if (!appReady) return;
-    
+
     console.log('Saving character data to local storage');
     const characterData = {
       gnosis,
@@ -101,7 +118,7 @@ function App() {
       userSpells,
       yantras
     };
-    
+
     saveCharacterData(characterData);
   }, [gnosis, arcanaValues, userSpells, yantras, appReady]);
 
@@ -135,6 +152,17 @@ function App() {
     setRollResults([]);
   }, [selectedSpell]);
 
+  // Get current primary factor based on reaches
+  const getCurrentPrimaryFactor = () => {
+    if (selectedReaches.includes("Change Primary Factor: Duration")) {
+      return "Duration";
+    }
+    if (selectedReaches.includes("Change Primary Factor: Potency")) {
+      return "Potency";
+    }
+    return selectedSpell?.primaryFactor || "";
+  };
+
   // Add spell to user's spellbook
   const addUserSpell = (spell) => {
     // Check if this spell is already in the spellbook with the same casting type
@@ -151,7 +179,7 @@ function App() {
 
   // Remove spell from user's spellbook
   const removeUserSpell = (spellToRemove) => {
-    setUserSpells(prevSpells => 
+    setUserSpells(prevSpells =>
       prevSpells.filter(spell =>
         !(spell.name === spellToRemove.name && spell.castingType === spellToRemove.castingType)
       )
@@ -164,9 +192,138 @@ function App() {
     }
   };
 
-
   const selectSpell = (spell) => {
     setSelectedSpell(spell);
+  };
+
+  // Calculate if a duration option should be free based on primary factor
+  const isDurationFree = (durationOption) => {
+    if (!selectedSpell) return false;
+
+    const currentPrimaryFactor = getCurrentPrimaryFactor();
+    if (currentPrimaryFactor !== 'Duration') return false;
+
+    const arcanumValue = arcanaValues[selectedSpell.arcanum.toLowerCase()];
+
+    // Check if this is an advanced scale option
+    const isAdvanced = durationOption.startsWith("Duration: One") || durationOption === "Duration: Indefinite";
+
+    // Get level based on duration option
+    let level;
+
+    if (!isAdvanced) {
+      // Standard durations
+      if (durationOption === 'Duration: 2 turns') level = 1;
+      else if (durationOption === 'Duration: 3 turns') level = 2;
+      else if (durationOption === 'Duration: 5 turns') level = 3;
+      else if (durationOption === 'Duration: 10 turns') level = 4;
+      else level = 0;
+    } else {
+      // Advanced durations
+      if (durationOption === 'Duration: One scene/hour') level = 1;
+      else if (durationOption === 'Duration: One day') level = 2;
+      else if (durationOption === 'Duration: One week') level = 3;
+      else if (durationOption === 'Duration: One month') level = 4;
+      else if (durationOption === 'Duration: One year') level = 5;
+      else if (durationOption === 'Duration: Indefinite') level = 6;
+      else level = 0;
+    }
+
+    // Free if level <= arcanum value
+    return level <= arcanumValue;
+  };
+
+  // Calculate effective dice pool penalty
+  const calculateEffectivePenalty = () => {
+    if (!selectedSpell) return 0;
+
+    let totalPenalty = 0;
+
+    // Add penalties from all non-duration reaches
+    selectedReaches.forEach(reachName => {
+      // Skip primary factor changes as these don't have penalties
+      if (reachName === "Change Primary Factor: Duration" || reachName === "Change Primary Factor: Potency") {
+        return;
+      }
+
+      // Special reaches
+      if (selectedSpell.specialReaches && selectedSpell.specialReaches.some(r => r.name === reachName)) {
+        // Special reaches generally don't have dice penalties
+        return;
+      }
+
+      // Check if it's a duration reach
+      if (reachName.startsWith("Duration:")) {
+        // If Duration is primary factor, check if it's free
+        if (isDurationFree(reachName)) {
+          // Free, no penalty
+          return;
+        }
+
+        // If it's not free but Duration is primary, calculate reduced penalty
+        if (getCurrentPrimaryFactor() === 'Duration') {
+          const arcanumValue = arcanaValues[selectedSpell.arcanum.toLowerCase()];
+
+          // Get standard penalties
+          let standardPenalties = {
+            'Duration: 2 turns': 2,
+            'Duration: 3 turns': 4,
+            'Duration: 5 turns': 6,
+            'Duration: 10 turns': 8,
+            'Duration: One day': 2,
+            'Duration: One week': 4,
+            'Duration: One month': 6,
+            'Duration: One year': 8,
+            'Duration: Indefinite': 10
+          };
+
+          // Calculate penalty based on how much it exceeds free level
+          const isAdvanced = reachName.startsWith("Duration: One") || reachName === "Duration: Indefinite";
+          let freeLevel = Math.min(arcanumValue, 5); // Cap at 5
+
+          // Get level of this duration
+          let level;
+          if (!isAdvanced) {
+            if (reachName === 'Duration: 2 turns') level = 1;
+            else if (reachName === 'Duration: 3 turns') level = 2;
+            else if (reachName === 'Duration: 5 turns') level = 3;
+            else if (reachName === 'Duration: 10 turns') level = 4;
+          } else {
+            if (reachName === 'Duration: One scene/hour') level = 1;
+            else if (reachName === 'Duration: One day') level = 2;
+            else if (reachName === 'Duration: One week') level = 3;
+            else if (reachName === 'Duration: One month') level = 4;
+            else if (reachName === 'Duration: One year') level = 5;
+            else if (reachName === 'Duration: Indefinite') level = 6;
+          }
+
+          // If level > free level, calculate penalty difference
+          if (level > freeLevel) {
+            if (!isAdvanced) {
+              // Standard durations penalties: 0, 2, 4, 6, 8
+              const penalties = [0, 2, 4, 6, 8];
+              totalPenalty += penalties[level] - penalties[freeLevel];
+            } else {
+              // Advanced durations penalties: 0, 0, 2, 4, 6, 8, 10
+              const advPenalties = [0, 0, 2, 4, 6, 8, 10];
+              totalPenalty += advPenalties[level] - advPenalties[Math.min(freeLevel, advPenalties.length - 1)];
+            }
+          }
+          return;
+        }
+      }
+
+      // Regular reach with dice penalty
+      const reach = DEFAULT_REACHES.find(r => r.name === reachName);
+      if (reach && reach.dicePenalty) {
+        totalPenalty += reach.dicePenalty;
+      }
+    });
+
+    // Add potency boost penalty
+    const potencyPenalty = potencyBoost * 2;
+
+    return totalPenalty + potencyPenalty;
   };
 
   const castSpell = () => {
@@ -174,21 +331,17 @@ function App() {
 
     const arcanumValue = arcanaValues[selectedSpell.arcanum.toLowerCase()];
 
-    // Calculate reach penalties
-    const { totalPenalty } = calculateReachEffects(
-      selectedReaches,
-      selectedSpell,
-      DEFAULT_REACHES
-    );
+    // Calculate final dice penalty
+    const finalPenalty = calculateEffectivePenalty();
 
-    const finalDicePool = calculateDicePool(
+    let finalDicePool = calculateDicePool(
       gnosis,
       arcanumValue,
       selectedSpell.castingType,
       yantras,
-      totalPenalty
+      finalPenalty
     );
-
+    finalDicePool += dicePoolModifier;
     setDicePool(finalDicePool);
 
     const results = rollDice(finalDicePool);
@@ -205,15 +358,29 @@ function App() {
       manaCost += 1;
     }
 
-    const { manaCost: reachManaCost } = calculateReachEffects(
-      selectedReaches,
-      selectedSpell,
-      DEFAULT_REACHES
-    );
+    // Add Mana costs from reaches
+    selectedReaches.forEach(reachName => {
+      const reach = DEFAULT_REACHES.find(r => r.name === reachName);
+      if (reach && reach.manaCost) {
+        manaCost += reach.manaCost;
+      }
+    });
 
-    manaCost += reachManaCost;
+    return manaCost + manaModifier;
+  };
 
-    return manaCost;
+  // Get the effective potency including boosts and primary factor
+  const getEffectivePotency = () => {
+    if (!selectedSpell) return 0;
+
+    const arcanumValue = arcanaValues[selectedSpell.arcanum.toLowerCase()];
+    const currentPrimaryFactor = getCurrentPrimaryFactor();
+
+    // Base potency is Arcana value if Potency is primary factor, else 1
+    const basePotency = currentPrimaryFactor === 'Potency' ? arcanumValue : 1;
+
+    // Add potency boost
+    return basePotency + potencyBoost;
   };
 
   return (
@@ -245,7 +412,7 @@ function App() {
         {/* Spell Selector Column only visible when showSpellSelector is true */}
         {showSpellSelector && (
           <div className="space-y-6 lg:h-full">
-            <SpellSelector 
+            <SpellSelector
               spells={spells}
               arcanaValues={arcanaValues}
               addUserSpell={addUserSpell}
@@ -273,12 +440,8 @@ function App() {
                         arcanaValues[selectedSpell.arcanum.toLowerCase()],
                         selectedSpell.castingType,
                         yantras,
-                        calculateReachEffects(
-                          selectedReaches,
-                          selectedSpell,
-                          DEFAULT_REACHES
-                        ).totalPenalty
-                      )
+                        calculateEffectivePenalty()
+                      ) + dicePoolModifier
                     }</div>
                   </div>
 
@@ -312,6 +475,17 @@ function App() {
                 availableReaches={availableReaches}
                 yantras={yantras}
                 setYantras={setYantrasAndSave}
+                setPotencyBoost={setPotencyBoost}
+                potencyBoostLevel={potencyBoostLevel}
+                setPotencyBoostLevel={setPotencyBoostLevel}
+                arcanaValue={arcanaValues[selectedSpell.arcanum.toLowerCase()]}
+                getCurrentPrimaryFactor={getCurrentPrimaryFactor}
+                isDurationFree={isDurationFree}
+                calculateEffectivePenalty={calculateEffectivePenalty}
+                setDicePoolModifier={setDicePoolModifier}
+                dicePoolModifier={dicePoolModifier}
+                setManaModifier={setManaModifier}
+                manaModifier={manaModifier}
               />
             </>
           ) : (
@@ -337,15 +511,19 @@ function App() {
             selectedSpell={selectedSpell}
             dicePool={dicePool}
             rollResults={rollResults}
-            spellPotency={selectedSpell ? arcanaValues[selectedSpell.arcanum.toLowerCase()] : 0}
+            spellPotency={getEffectivePotency()}
+            potencyBoost={potencyBoost}
+            selectedReaches={selectedReaches}
+            primaryFactor={getCurrentPrimaryFactor()}
             onCastSpell={castSpell}
+            effectivePenalty={calculateEffectivePenalty()}
           />
         </div>
       </div>
-      
+
       {/* Footer */}
       <footer className="text-center mt-10 text-slate-400 text-sm pb-4">
-        <a href='https://github.com/witabop/GrimoireVIP' target='_blank'>Grimoire.VIP ❤️</a>
+        <a href='https://github.com/witabop/GrimoireVIP' target='_blank' rel="noreferrer">Grimoire.VIP ❤️</a>
       </footer>
     </div>
   );
