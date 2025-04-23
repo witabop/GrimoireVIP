@@ -130,7 +130,7 @@ const CharacterStats = ({ gnosis, setGnosis, arcanaValues, setArcanaValues, majo
                 </div>
                 {arcanum.name}
                 {isMajor && (
-                  <span className="text-indigo-400 ml-2 text-xs font-bold">Major</span>
+                  <span className="text-indigo-400 font-bold" style={{marginLeft: 5, fontSize: 13}}>Major</span>
                 )}
               </label>
               <div className="flex items-center space-x-3">
