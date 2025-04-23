@@ -15,9 +15,22 @@ const SpellResults = ({
   nineAgain,
   setNineAgain
 }) => {
+  // Check if we're using a chance die (pool ≤ 1)
+  const isChanceDie = dicePool <= 1;
+
   // Calculate successes from roll results
   const calculateSuccesses = () => {
+    if (isChanceDie) {
+      // For chance die, only a 10 is a success
+      return rollResults.filter(roll => roll === 10).length;
+    }
+    // Normal success counting (8+)
     return rollResults.filter(roll => roll >= 8).length;
+  };
+
+  // Check if there's a dramatic failure (chance die rolled 1)
+  const isDramaticFailure = () => {
+    return isChanceDie && rollResults.some(roll => roll === 1);
   };
 
   // Convert numeric value to dot notation
@@ -87,6 +100,7 @@ const SpellResults = ({
               <p className="text-3xl font-bold">
                 {dicePool}
               </p>
+              
             </div>
 
             <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -120,10 +134,14 @@ const SpellResults = ({
                   {rollResults.map((result, index) => (
                     <div
                       key={index}
-                      className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg shadow-md transform transition-all duration-300 hover:scale-110 ${result >= 8
-                        ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 'bg-blue-600 text-white')
-                        : 'bg-slate-600 text-slate-300'
-                        }`}
+                      className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg shadow-md transform transition-all duration-300 hover:scale-110 ${
+                        isChanceDie
+                          ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 
+                             result === 1 ? 'bg-red-600 text-white' : 'bg-slate-600 text-slate-300')
+                          : (result >= 8
+                             ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 'bg-blue-600 text-white')
+                             : 'bg-slate-600 text-slate-300')
+                      }`}
                       style={{ marginRight: 5, padding: 5 }}
                     >
                       {result}
@@ -137,11 +155,24 @@ const SpellResults = ({
                     <span className="text-2xl font-bold text-green-400">{calculateSuccesses()}</span>
                   </div>
                   <div className="text-sm text-slate-300">
-                    {eightAgain && !nineAgain && <span className="badge badge-indigo">8-Again Active</span>}
-                    {nineAgain && !eightAgain && <span className="badge badge-indigo">9-Again Active</span>}
-                    {eightAgain && nineAgain && <span className="badge badge-indigo">8 & 9-Again Active</span>}
+                    {isChanceDie ? (
+                      <span className="badge badge-yellow">Chance Die</span>
+                    ) : (
+                      <>
+                        {eightAgain && !nineAgain && <span className="badge badge-indigo">8-Again Active</span>}
+                        {nineAgain && !eightAgain && <span className="badge badge-indigo">9-Again Active</span>}
+                        {eightAgain && nineAgain && <span className="badge badge-indigo">8 & 9-Again Active</span>}
+                      </>
+                    )}
                   </div>
                 </div>
+                
+                {isDramaticFailure() && (
+                  <div className="mt-4 text-red-400 text-sm bg-red-900 bg-opacity-30 p-3 rounded-lg border border-red-900 animate-pulse-subtle">
+                    <i className="fas fa-exclamation-circle mr-2"></i>
+                    <strong>Dramatic Failure!</strong> Rolling a 1 on a chance die results in a dramatic failure.
+                  </div>
+                )}
               </div>
             ) : null}
 

@@ -9,7 +9,8 @@ import {
   calculateDicePool,
   calculateAvailableReaches,
   rollDice,
-  calculateReachEffects
+  calculateReachEffects,
+  countSuccesses
 } from './utils/spellCalculations';
 import { DEFAULT_REACHES } from './data/reachesData';
 import { saveCharacterData, loadCharacterData, getDefaultCharacterData } from './utils/localStorage';
@@ -35,7 +36,7 @@ function App() {
     space: 0,
     time: 0
   });
-  
+
   // Major Arcana state - new addition
   const [majorArcana, setMajorArcana] = useState([]);
 
@@ -50,7 +51,7 @@ function App() {
   // Results state
   const [dicePool, setDicePool] = useState(0);
   const [rollResults, setRollResults] = useState([]);
-  
+
   // Roll options state
   const [eightAgain, setEightAgain] = useState(false);
   const [nineAgain, setNineAgain] = useState(false);
@@ -69,7 +70,7 @@ function App() {
   const setYantrasAndSave = (newYantras) => {
     setYantras(newYantras);
   };
-  
+
   // New method for setting Major Arcana
   const setMajorArcanaAndSave = (newMajorArcana) => {
     setMajorArcana(newMajorArcana);
@@ -112,7 +113,7 @@ function App() {
       if (typeof savedData.yantras === 'number') {
         setYantras(savedData.yantras);
       }
-      
+
       // Load major Arcana
       if (Array.isArray(savedData.majorArcana)) {
         setMajorArcana(savedData.majorArcana);
@@ -362,8 +363,12 @@ function App() {
     finalDicePool += dicePoolModifier;
     setDicePool(finalDicePool);
 
+    // Check if we're using a chance die
+    const isChanceDie = finalDicePool <= 1;
+
     // Pass the roll options to the rollDice function
-    const results = rollDice(finalDicePool, { eightAgain, nineAgain });
+    // For chance die, we ignore the 8-again/9-again options
+    const results = rollDice(finalDicePool, isChanceDie ? {} : { eightAgain, nineAgain });
     setRollResults(results);
   };
 
@@ -470,6 +475,18 @@ function App() {
                         calculateEffectivePenalty()
                       ) + dicePoolModifier
                     }</div>
+                    {(calculateDicePool(
+                      gnosis,
+                      arcanaValues[selectedSpell.arcanum.toLowerCase()],
+                      selectedSpell.castingType,
+                      yantras,
+                      calculateEffectivePenalty()
+                    ) + dicePoolModifier) <= 1 && (
+                        <div className="flex items-center mt-2 badge badge-yellow">
+                          <i className="fas fa-exclamation-triangle mr-2"></i>
+                          Chance Die!
+                        </div>
+                      )}
                   </div>
 
                   <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -482,7 +499,7 @@ function App() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Roll Options */}
                 <div className="mb-4 bg-slate-800 p-3 rounded-lg">
                   <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
@@ -490,18 +507,18 @@ function App() {
                   </h4>
                   <div className="flex space-x-4">
                     <label className="flex items-center space-x-2 cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        checked={eightAgain} 
+                      <input
+                        type="checkbox"
+                        checked={eightAgain}
                         onChange={() => setEightAgain(!eightAgain)}
                         className="form-checkbox h-4 w-4 text-indigo-500 rounded focus:ring-indigo-400 cursor-pointer"
                       />
                       <span className="text-sm text-slate-300">8-Again</span>
                     </label>
                     <label className="flex items-center space-x-2 cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        checked={nineAgain} 
+                      <input
+                        type="checkbox"
+                        checked={nineAgain}
                         onChange={() => setNineAgain(!nineAgain)}
                         className="form-checkbox h-4 w-4 text-indigo-500 rounded focus:ring-indigo-400 cursor-pointer"
                       />

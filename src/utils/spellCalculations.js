@@ -18,8 +18,8 @@ export const calculateDicePool = (gnosis, arcanaValue, castingType, yantras, rea
   // Apply penalties from reaches
   dicePool -= reachPenalties;
   
-  // Ensure dice pool is at least 1
-  return Math.max(1, dicePool);
+  // Return actual dice pool (can be less than 1 for UI indication, but handled as chance die when rolling)
+  return dicePool;
 };
 
 // Calculate how many reaches a mage can use for a spell
@@ -30,9 +30,20 @@ export const calculateAvailableReaches = (arcanaValue, spellLevel, castingType) 
 };
 
 // Roll dice with 10-again rule and optional 8-again or 9-again
+// Now handles chance die (dice pool of 0 or 1)
 export const rollDice = (dicePool, options = {}) => {
   const { eightAgain = false, nineAgain = false } = options;
   let results = [];
+  
+  // Handle chance die (pool of 0 or 1)
+  if (dicePool <= 1) {
+    // For chance die, we still roll one die, but success only on 10
+    const roll = Math.floor(Math.random() * 10) + 1;
+    results.push(roll);
+    return results;
+  }
+  
+  // Normal dice pool handling
   let remainingDice = dicePool;
   
   // Set the threshold for rolling again based on options
@@ -54,7 +65,13 @@ export const rollDice = (dicePool, options = {}) => {
 };
 
 // Count successes (8+) in roll results
-export const countSuccesses = (rollResults) => {
+// Updated to handle chance die where only 10 is a success
+export const countSuccesses = (rollResults, isChanceDie = false) => {
+  if (isChanceDie) {
+    // For chance die, only a 10 is a success
+    return rollResults.filter(roll => roll === 10).length;
+  }
+  // Normal success counting
   return rollResults.filter(roll => roll >= 8).length;
 };
 
