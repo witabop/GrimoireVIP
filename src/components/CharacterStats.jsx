@@ -1,7 +1,7 @@
 import React from 'react';
 import { ARCANA } from '../data/arcanaData';
 
-const CharacterStats = ({ gnosis, setGnosis, arcanaValues, setArcanaValues }) => {
+const CharacterStats = ({ gnosis, setGnosis, arcanaValues, setArcanaValues, majorArcana, setMajorArcana }) => {
   const handleArcanumIncrease = (arcanum) => {
     const currentValue = arcanaValues[arcanum.toLowerCase()];
     if (currentValue < 5) {
@@ -28,6 +28,20 @@ const CharacterStats = ({ gnosis, setGnosis, arcanaValues, setArcanaValues }) =>
     }
   };
 
+  // Toggle major Arcana status
+  const toggleMajorArcana = (arcanum) => {
+    const arcanumLower = arcanum.toLowerCase();
+    if (majorArcana.includes(arcanumLower)) {
+      // Remove from major Arcana
+      setMajorArcana(majorArcana.filter(a => a !== arcanumLower));
+    } else {
+      // Add to major Arcana if we have less than 3
+      if (majorArcana.length < 3) {
+        setMajorArcana([...majorArcana, arcanumLower]);
+      }
+    }
+  };
+
   // Get color class for arcanum
   const getArcanumColor = (arcanumName) => {
     const arcanum = ARCANA.find(a => a.name.toLowerCase() === arcanumName.toLowerCase());
@@ -39,6 +53,11 @@ const CharacterStats = ({ gnosis, setGnosis, arcanaValues, setArcanaValues }) =>
     const arcanum = ARCANA.find(a => a.name.toLowerCase() === arcanumName.toLowerCase());
     const icon = arcanum?.faIcon || 'magic';
     return <i className={`fas fa-${icon}`}></i>;
+  };
+
+  // Check if arcanum is one of the major Arcana
+  const isMajorArcana = (arcanumName) => {
+    return majorArcana.includes(arcanumName.toLowerCase());
   };
 
   return (
@@ -89,19 +108,30 @@ const CharacterStats = ({ gnosis, setGnosis, arcanaValues, setArcanaValues }) =>
         <i className="fas fa-magic mr-2 text-purple-400"></i>
         Arcana
       </h3>
+      <div className="text-sm text-slate-400 mb-3">
+        Click an Arcana icon to mark it as a major Arcanum (max 3). <span className="text-amber-300">Major Arcana don't require Mana for improvised spells.</span>
+      </div>
       <div className="grid grid-cols-2 gap-4">
         {ARCANA.map((arcanum) => {
           const value = arcanaValues[arcanum.name.toLowerCase()];
           const arcanumColor = getArcanumColor(arcanum.name);
           const textColor = arcanumColor.includes('text-white') ? '#ffffff' : '#000000';
+          const isMajor = isMajorArcana(arcanum.name);
           
           return (
             <div key={arcanum.name.toLowerCase()} className="mb-4 transition-all duration-300">
               <label className="flex items-center mb-2 font-medium">
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center mr-2 ${arcanumColor} shadow-md`}>
+                <div 
+                  className={`w-7 h-7 rounded-full flex items-center justify-center mr-2 ${arcanumColor} shadow-md cursor-pointer transition-all duration-300 ${isMajor ? 'ring-2 ring-yellow-400 ring-offset-2 ring-offset-slate-800 scale-110' : 'hover:scale-105'}`}
+                  onClick={() => toggleMajorArcana(arcanum.name)}
+                  title={isMajor ? "Major Arcanum (click to remove)" : "Click to set as Major Arcanum"}
+                >
                   {getArcanumIcon(arcanum.name)}
                 </div>
                 {arcanum.name}
+                {isMajor && (
+                  <span className="text-indigo-400 ml-2 text-xs font-bold">Major</span>
+                )}
               </label>
               <div className="flex items-center space-x-3">
                 <button 
@@ -114,7 +144,7 @@ const CharacterStats = ({ gnosis, setGnosis, arcanaValues, setArcanaValues }) =>
                 
                 <div 
                   onClick={() => handleArcanumDecrease(arcanum.name)}
-                  className={`${arcanumColor} rounded-full cursor-pointer shadow-md`}
+                  className={`${arcanumColor} rounded-full cursor-pointer shadow-md ${isMajor ? 'border-2 border-yellow-400' : ''}`}
                   style={{ width: '120px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 12px', cursor: 'pointer' }}
                 >
                   {Array.from({ length: 5 }).map((_, i) => (

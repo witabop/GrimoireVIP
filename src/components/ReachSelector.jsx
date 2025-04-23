@@ -384,10 +384,10 @@ const ReachSelector = ({
               </h4>
               
               {Object.entries(categorizedReaches).map(([category, reaches]) => (
-                <div key={category} className="mb-4">
+                <div key={category} className="mb-2 mt-2">
                   <div className="flex items-center mb-2">
                     <div className="h-px bg-slate-700 flex-grow"></div>
-                    <h5 className="text-xs font-bold text-slate-400 mx-3 uppercase tracking-wider">{category}</h5>
+                    <h5 className="font-bold text-slate-400 mx-3 uppercase tracking-wider" style={{fontSize: 14}}>{category}</h5>
                     <div className="h-px bg-slate-700 flex-grow"></div>
                   </div>
                   
@@ -409,7 +409,7 @@ const ReachSelector = ({
                               className="mr-3 h-4 w-4 text-indigo-500 rounded focus:ring-indigo-400"
                               style={{cursor: 'pointer'}}
                             />
-                            <span className={`flex-grow ${reach.dicePenalty ? 'text-yellow-300' : 'text-slate-300'}`}>
+                            <span className={`flex-grow text-slate-300`}>
                               {reach.name}
                             </span>
                             
@@ -433,7 +433,7 @@ const ReachSelector = ({
                           </label>
                           
                           {reach.description && (
-                            <div className="text-xs text-slate-400 ml-9 mt-1">
+                            <div className="text-slate-400 ml-9 mt-1" style={{fontSize: 13}}>
                               {reach.description}
                             </div>
                           )}

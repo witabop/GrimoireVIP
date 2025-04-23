@@ -48,6 +48,7 @@ export const getDefaultCharacterData = () => {
       time: 0
     },
     userSpells: [],
-    yantras: 0
+    yantras: 0,
+    majorArcana: [] // Default empty array for major Arcana
   };
 };

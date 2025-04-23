@@ -35,6 +35,9 @@ function App() {
     space: 0,
     time: 0
   });
+  
+  // Major Arcana state - new addition
+  const [majorArcana, setMajorArcana] = useState([]);
 
   // Spell casting state
   const [selectedSpell, setSelectedSpell] = useState(null);
@@ -65,6 +68,11 @@ function App() {
 
   const setYantrasAndSave = (newYantras) => {
     setYantras(newYantras);
+  };
+  
+  // New method for setting Major Arcana
+  const setMajorArcanaAndSave = (newMajorArcana) => {
+    setMajorArcana(newMajorArcana);
   };
 
   // Additional modifiers
@@ -104,6 +112,11 @@ function App() {
       if (typeof savedData.yantras === 'number') {
         setYantras(savedData.yantras);
       }
+      
+      // Load major Arcana
+      if (Array.isArray(savedData.majorArcana)) {
+        setMajorArcana(savedData.majorArcana);
+      }
     } else {
       console.log('No saved data found, using defaults');
     }
@@ -120,11 +133,12 @@ function App() {
       gnosis,
       arcanaValues,
       userSpells,
-      yantras
+      yantras,
+      majorArcana // Save major Arcana
     };
 
     saveCharacterData(characterData);
-  }, [gnosis, arcanaValues, userSpells, yantras, appReady]);
+  }, [gnosis, arcanaValues, userSpells, yantras, majorArcana, appReady]);
 
   // Calculate available reaches whenever necessary values change
   useEffect(() => {
@@ -353,13 +367,19 @@ function App() {
     setRollResults(results);
   };
 
+  // Check if the selected spell's arcanum is a major arcanum
+  const isSpellUsingMajorArcanum = () => {
+    if (!selectedSpell) return false;
+    return majorArcana.includes(selectedSpell.arcanum.toLowerCase());
+  };
+
   const calculateManaCost = () => {
     if (!selectedSpell) return 0;
 
     let manaCost = 0;
 
-    // Improvised spells cost 1 Mana (Praxis and Rote spells don't)
-    if (selectedSpell.castingType === 'improvised') {
+    // Improvised spells cost 1 Mana UNLESS they use a major Arcanum
+    if (selectedSpell.castingType === 'improvised' && !isSpellUsingMajorArcanum()) {
       manaCost += 1;
     }
 
@@ -399,6 +419,8 @@ function App() {
             setGnosis={setGnosisAndSave}
             arcanaValues={arcanaValues}
             setArcanaValues={setArcanaValuesAndSave}
+            majorArcana={majorArcana}
+            setMajorArcana={setMajorArcanaAndSave}
           />
 
           <SpellBook
@@ -451,7 +473,9 @@ function App() {
                   </div>
 
                   <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <div className="text-sm text-slate-400 mb-1">Mana Cost</div>
+                    <div className="text-sm text-slate-400 mb-1">
+                      Mana Cost
+                    </div>
                     <div className="text-2xl font-bold flex items-center">
                       <i className="fas fa-tint text-blue-400 mr-2"></i>
                       {calculateManaCost()}

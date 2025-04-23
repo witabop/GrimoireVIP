@@ -81,7 +81,7 @@ const SpellResults = ({
         <>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <h3 className="font-bold mb-2 flex items-center text-yellow-300">
+              <h3 className="font-bold mb-2 flex items-center">
                 <i className="fas fa-dice mr-2"></i> Dice Pool
               </h3>
               <p className="text-3xl font-bold">
