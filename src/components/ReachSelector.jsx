@@ -256,12 +256,12 @@ const ReachSelector = ({
             <h4 className="text-sm font-bold text-blue-300 mb-3 flex items-center">
               <i className="fas fa-info-circle mr-2"></i> Spell Information
             </h4>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-slate-800 p-3 rounded-lg">
+            <div className="grid grid-cols-2 gap-4 text-sm p-3">
+              <div className="bg-slate-700 rounded-lg">
                 <span className="text-slate-400 block mb-1">Practice:</span>
                 <span className="text-white font-medium">{selectedSpell.practice}</span>
               </div>
-              <div className="bg-slate-800 p-3 rounded-lg">
+              <div className="bg-slate-700 rounded-lg">
                 <span className="text-slate-400 block mb-1">Primary Factor:</span>
                 <span className="text-white font-medium flex items-center">
                   {getCurrentPrimaryFactor()}
@@ -270,21 +270,21 @@ const ReachSelector = ({
                   }
                 </span>
               </div>
-              <div className="bg-slate-800 p-3 rounded-lg">
+              <div className="bg-slate-700 rounded-lg">
                 <span className="text-slate-400 block mb-1">Default Potency:</span>
                 <span className="text-white font-medium flex items-center">
                   {defaultPotency}
                 </span>
               </div>
               {selectedSpell.withstand && (
-                <div className="bg-slate-800 p-3 rounded-lg">
+                <div className="bg-slate-700 rounded-lg">
                   <span className="text-slate-400 block mb-1">Withstand:</span>
                   <span className="text-white font-medium">{selectedSpell.withstand}</span>
                 </div>
               )}
             </div>
             {selectedSpell.skills && selectedSpell.skills.length > 0 && (
-            <div className="mt-4 mb-4 bg-indigo-900 bg-opacity-30 p-3 rounded-lg border border-indigo-800">
+            <div className="mt-3 mb-4 bg-indigo-900 bg-opacity-30 p-3 rounded-lg border border-indigo-800">
               <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
                 <i className="fas fa-graduation-cap mr-2"></i> Rote Skills
               </h4>
@@ -342,14 +342,14 @@ const ReachSelector = ({
           <div className="custom-scrollbar bg-slate-700 rounded-lg border border-slate-700 p-4 mb-4">
             {/* Special Reaches for this spell */}
             {selectedSpell.specialReaches && selectedSpell.specialReaches.length > 0 && (
-              <div className="mb-4">
+              <div className="mb-4 bg-slate-800 p-4 rounded-lg">
                 <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center">
                   <i className="fas fa-star mr-2"></i> Special Reaches
                 </h4>
-                <div className="bg-slate-800 rounded-lg p-3 space-y-2">
+                <div className="bg-slate-800 rounded-lg p-3 space-y-2" style={{fontSize: 14}}>
                   {selectedSpell.specialReaches.map(reach => (
                     <div key={reach.name} className="relative">
-                      <label className="flex items-center cursor-pointer p-2 rounded-lg hover:bg-slate-700 transition-colors" style={{cursor: 'pointer'}}>
+                      <label className="flex items-center cursor-pointer p-2 rounded-lg hover:bg-slate-700 transition-colors mb-4" style={{cursor: 'pointer'}}>
                         <input
                           type="checkbox"
                           checked={isReachSelected(reach.name)}
@@ -378,7 +378,7 @@ const ReachSelector = ({
             )}
             
             {/* Default Reaches categorized */}
-            <div>
+            <div className='bg-slate-800 p-4 rounded-lg'>
               <h4 className="text-sm font-bold text-green-400 mb-2 flex items-center">
                 <i className="fas fa-list mr-2"></i> Standard Reaches
               </h4>
@@ -511,7 +511,7 @@ const ReachSelector = ({
               />
               <div className="dot-notation flex-grow">{"+".repeat(yantras)}</div>
             </div>
-            <div className="mt-4 text-sm text-slate-400 bg-slate-800 p-3 rounded-md" style={{fontSize: 14}} >
+            <div className="mt-4 text-sm text-slate-400 bg-slate-800 p-3 rounded-lg" style={{fontSize: 14}} >
               <i className="fas fa-info-circle mr-2" ></i>
               <span className="font-medium">Yantras</span> add bonus dice to your spell casting. Common examples include: <span style={{fontSize: 11, fontStyle: 'italic'}}>Dedicated magical tool, Symbols, Runes, Descriptive Casting, Runes, etc.</span>
             </div>
@@ -532,7 +532,7 @@ const ReachSelector = ({
                 <div className="flex items-center">
                   <button 
                     onClick={() => setDicePoolModifier(Math.max(-10, dicePoolModifier - 1))}
-                    className="bg-slate-700 hover:bg-slate-600 rounded-l-lg px-3 py-2 transition-colors"
+                    className="hover:bg-slate-600 rounded-l-lg px-3 py-2 transition-colors"
                   >
                     <i className="fas fa-minus" style={{fontSize: 13, margin: 5}}></i>
                   </button>
@@ -541,7 +541,7 @@ const ReachSelector = ({
                   </div>
                   <button 
                     onClick={() => setDicePoolModifier(Math.min(10, dicePoolModifier + 1))}
-                    className="bg-slate-700 hover:bg-slate-600 rounded-r-lg px-3 py-2 transition-colors"
+                    className="hover:bg-slate-600 rounded-r-lg px-3 py-2 transition-colors"
                   >
                     <i className="fas fa-plus" style={{fontSize: 13, margin: 5}}></i>
                   </button>
@@ -557,7 +557,7 @@ const ReachSelector = ({
                 <div className="flex items-center">
                   <button 
                     onClick={() => setReachesModifier(Math.max(-5, reachesModifier - 1))}
-                    className="bg-slate-700 hover:bg-slate-600 rounded-l-lg px-3 py-2 transition-colors"
+                    className="hover:bg-slate-600 rounded-l-lg px-3 py-2 transition-colors"
                   >
                     <i className="fas fa-minus" style={{fontSize: 13, margin: 5}}></i>
                   </button>
@@ -566,7 +566,7 @@ const ReachSelector = ({
                   </div>
                   <button 
                     onClick={() => setReachesModifier(Math.min(5, reachesModifier + 1))}
-                    className="bg-slate-700 hover:bg-slate-600 rounded-r-lg px-3 py-2 transition-colors"
+                    className="hover:bg-slate-600 rounded-r-lg px-3 py-2 transition-colors"
                   >
                     <i className="fas fa-plus" style={{fontSize: 13, margin: 5}}></i>
                   </button>
@@ -582,7 +582,7 @@ const ReachSelector = ({
                 <div className="flex items-center">
                   <button 
                     onClick={() => setManaModifier(Math.max(-5, manaModifier - 1))}
-                    className="bg-slate-700 hover:bg-slate-600 rounded-l-lg px-3 py-2 transition-colors"
+                    className="hover:bg-slate-600 rounded-l-lg px-3 py-2 transition-colors"
                   >
                     <i className="fas fa-minus" style={{fontSize: 13, margin: 5}}></i>
                   </button>
@@ -591,7 +591,7 @@ const ReachSelector = ({
                   </div>
                   <button 
                     onClick={() => setManaModifier(Math.min(5, manaModifier + 1))}
-                    className="bg-slate-700 hover:bg-slate-600 rounded-r-lg px-3 py-2 transition-colors"
+                    className="hover:bg-slate-600 rounded-r-lg px-3 py-2 transition-colors"
                   >
                     <i className="fas fa-plus" style={{fontSize: 13, margin: 5}}></i>
                   </button>
@@ -599,7 +599,7 @@ const ReachSelector = ({
               </div>
             </div>
             
-            <div className="mt-4 text-sm text-slate-400 bg-slate-800 bg-opacity-50 p-3 rounded-md">
+            <div className="mt-4 text-sm text-slate-400 bg-slate-800 bg-opacity-50 p-3 rounded-lg">
               <i className="fas fa-info-circle mr-2"></i>
               These modifiers allow for additional adjustments to your spell that may not be covered by default.
             </div>

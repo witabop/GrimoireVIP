@@ -55,7 +55,7 @@ const CharacterStats = ({ gnosis, setGnosis, arcanaValues, setArcanaValues }) =>
         <div className="flex items-center space-x-3">
           <button 
             onClick={handleGnosisIncrease}
-            className="bg-slate-800 hover:bg-slate-600 rounded-full w-8 h-8 flex items-center justify-center shadow-md transition-colors"
+            className="bg-slate-700 hover:bg-slate-600 rounded-full w-8 h-8 flex items-center justify-center shadow-md transition-colors"
             disabled={gnosis >= 10}
           >
             <i className="fas fa-plus"></i>
@@ -63,7 +63,7 @@ const CharacterStats = ({ gnosis, setGnosis, arcanaValues, setArcanaValues }) =>
           
           <div 
             onClick={handleGnosisDecrease}
-            className="bg-slate-800 text-white rounded-full cursor-pointer"
+            className="bg-slate-700 text-white rounded-full cursor-pointer"
             style={{ width: '180px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 12px', cursor: 'pointer' }}
           >
             {Array.from({ length: 10 }).map((_, i) => (

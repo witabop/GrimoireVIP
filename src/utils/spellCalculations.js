@@ -29,17 +29,21 @@ export const calculateAvailableReaches = (arcanaValue, spellLevel, castingType) 
   return 1 + Math.max(0, effectiveArcanum - spellLevel);
 };
 
-// Roll dice with 10-again rule
-export const rollDice = (dicePool) => {
+// Roll dice with 10-again rule and optional 8-again or 9-again
+export const rollDice = (dicePool, options = {}) => {
+  const { eightAgain = false, nineAgain = false } = options;
   let results = [];
   let remainingDice = dicePool;
+  
+  // Set the threshold for rolling again based on options
+  const againThreshold = eightAgain ? 8 : (nineAgain ? 9 : 10);
   
   while (remainingDice > 0) {
     const roll = Math.floor(Math.random() * 10) + 1;
     results.push(roll);
     
-    // 10-again rule: roll an additional die
-    if (roll === 10) {
+    // Check if the roll meets the "again" threshold for an extra die
+    if (roll >= againThreshold) {
       remainingDice++;
     }
     
@@ -227,8 +231,8 @@ export const calculateReachEffectsWithPrimaryFactor = (
   // Handle case where spell might be null during initialization
   const specialReaches = spell?.specialReaches || [];
   
-  // Check for advanced duration and get selected duration option
-  const hasAdvancedDuration = selectedReaches.some(reach => 
+  // Check for advanced scale reach
+  const hasAdvancedDurationReach = selectedReaches.some(reach => 
     reach.startsWith("Duration: One") || reach === "Duration: Indefinite"
   );
   const selectedDuration = selectedReaches.find(reach => reach.startsWith("Duration:"));

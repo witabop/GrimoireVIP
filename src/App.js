@@ -47,6 +47,10 @@ function App() {
   // Results state
   const [dicePool, setDicePool] = useState(0);
   const [rollResults, setRollResults] = useState([]);
+  
+  // Roll options state
+  const [eightAgain, setEightAgain] = useState(false);
+  const [nineAgain, setNineAgain] = useState(false);
 
   // Animation state
   const [appReady, setAppReady] = useState(false);
@@ -344,7 +348,8 @@ function App() {
     finalDicePool += dicePoolModifier;
     setDicePool(finalDicePool);
 
-    const results = rollDice(finalDicePool);
+    // Pass the roll options to the rollDice function
+    const results = rollDice(finalDicePool, { eightAgain, nineAgain });
     setRollResults(results);
   };
 
@@ -453,6 +458,33 @@ function App() {
                     </div>
                   </div>
                 </div>
+                
+                {/* Roll Options */}
+                <div className="mb-4 bg-slate-800 p-3 rounded-lg">
+                  <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
+                    <i className="fas fa-dice mr-2"></i> Roll Options
+                  </h4>
+                  <div className="flex space-x-4">
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        checked={eightAgain} 
+                        onChange={() => setEightAgain(!eightAgain)}
+                        className="form-checkbox h-4 w-4 text-indigo-500 rounded focus:ring-indigo-400 cursor-pointer"
+                      />
+                      <span className="text-sm text-slate-300">8-Again</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        checked={nineAgain} 
+                        onChange={() => setNineAgain(!nineAgain)}
+                        className="form-checkbox h-4 w-4 text-indigo-500 rounded focus:ring-indigo-400 cursor-pointer"
+                      />
+                      <span className="text-sm text-slate-300">9-Again</span>
+                    </label>
+                  </div>
+                </div>
 
                 <button
                   onClick={castSpell}
@@ -517,6 +549,10 @@ function App() {
             primaryFactor={getCurrentPrimaryFactor()}
             onCastSpell={castSpell}
             effectivePenalty={calculateEffectivePenalty()}
+            eightAgain={eightAgain}
+            setEightAgain={setEightAgain}
+            nineAgain={nineAgain}
+            setNineAgain={setNineAgain}
           />
         </div>
       </div>

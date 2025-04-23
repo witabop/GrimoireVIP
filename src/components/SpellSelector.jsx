@@ -176,7 +176,7 @@ const SpellSelector = ({
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
                       <div 
-                        className={`flex items-center p-3 rounded-lg cursor-pointer ${
+                        className={`flex items-center p-2 rounded-lg cursor-pointer ${
                           hasAvailableSpells ? arcanum.color : 'bg-slate-700 opacity-50'
                         } hover:shadow-lg transition-all`}
                         style={{cursor: hasAvailableSpells ? 'pointer' : 'not-allowed', marginBottom: 5}}
@@ -197,12 +197,12 @@ const SpellSelector = ({
                       </div>
                       
                       {isExpanded && (
-                        <div className="bg-slate-700 p-4 space-y-2 max-h-72 overflow-y-auto custom-scrollbar animate-slideInUp shadow-inner" style={{marginBottom: 6, marginTop: -5, borderRadius: 1}}>
+                        <div className="bg-slate-700 p-3 space-y-2 max-h-72 overflow-y-auto custom-scrollbar animate-slideInUp shadow-inner" style={{marginBottom: 6, marginTop: -5, borderRadius: 1}}>
                           {getAvailableSpellsByArcanum(arcanum.name).map((spell, spellIndex) => (
                             <div 
                               key={`${spell.name}-${spellIndex}`}
                               className={`hover:bg-slate-600 p-3 rounded-xs cursor-pointer transition-all animate-fadeIn ${
-                                selectedSpell?.name === spell.name ? 'bg-blue-900 bg-opacity-50 border border-blue-500 shadow-md' : 'bg-slate-800'
+                                selectedSpell?.name === spell.name ? 'bg-blue-500' : 'bg-slate-700'
                               }`}
                               onClick={() => setSelectedSpell(spell)}
                               style={{ animationDelay: `${spellIndex * 30}ms`, cursor: 'pointer', paddingTop: 8, paddingBottom: 8, borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}
@@ -236,7 +236,7 @@ const SpellSelector = ({
           {selectedSpell ? (
             <div className="flex flex-col animate-fadeIn p-4">
               <div className="mb-4 bg-slate-700 p-4 rounded-lg shadow-md border border-slate-600" style={{borderWidth: .5, borderColor: '#818CF8'}}>
-                <h3 className="text-lg font-bold mb-2 flex items-center">
+                <h3 className="text-lg font-bold flex items-center">
                   <div className={`w-4 h-4 rounded-full flex items-center justify-center mr-3 ${getArcanumColor(selectedSpell.arcanum)} shadow-md`}>
                     {getArcanumIcon(selectedSpell.arcanum)}
                   </div>
@@ -250,16 +250,16 @@ const SpellSelector = ({
                     {selectedSpell.practice}
                   </div>
                 </div>
-                <p className="text-slate-300 mb-4 bg-slate-800 p-3 rounded-lg shadow-inner" style={{fontSize: 14}}>
+                <p className="text-slate-300 mb-4 bg-slate-700 p-2 rounded-lg shadow-inner" style={{fontSize: 14}}>
                   {selectedSpell.description}
                 </p>
                 <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div className="bg-slate-800 p-3 rounded-lg flex flex-col">
+                  <div className="bg-slate-700 p-2 rounded-lg flex flex-col">
                     <span className="text-slate-400 text-xs">Primary Factor:</span>
                     <span className="text-blue-300 font-medium">{selectedSpell.primaryFactor}</span>
                   </div>
                   {selectedSpell.withstand && (
-                    <div className="bg-slate-800 p-3 rounded-lg flex flex-col">
+                    <div className="bg-slate-700 p-2 rounded-lg flex flex-col">
                       <span className="text-slate-400 text-xs">Withstand:</span>
                       <span className="text-red-300 font-medium">{selectedSpell.withstand}</span>
                     </div>
@@ -286,7 +286,7 @@ const SpellSelector = ({
                       }`}
                       style={{borderColor: selectedType === type ? '#4F46E5' : '#334155', borderWidth: 1}}
                     >
-                      <div className="text-center mb-3 p-3" style={{fontSize: 25}}>
+                      <div className="text-center mb-4 p-2" style={{fontSize: 25}}>
                         {type === SPELL_TYPES.ROTE && <i className="fas fa-book text-4xl text-blue-400" style={{fontSize: 25}}></i>}
                         {type === SPELL_TYPES.PRAXIS && <i className="fas fa-bolt text-4xl text-yellow-200" style={{color: '#FACC15', fontSize: 25}}></i>}
                         {type === SPELL_TYPES.IMPROVISED && <i className="fas fa-hat-wizard text-4xl text-indigo-400" style={{fontSize: 25}}></i>}
@@ -302,7 +302,7 @@ const SpellSelector = ({
           ) : null}
           
           {/* Footer */}
-          <div className="mt-4 pt-4 border-t border-slate-700 flex justify-end p-4">
+          <div className="mt-2 pt-4 border-t border-slate-700 flex justify-end p-4">
             <button
               onClick={closeSpellSelector}
               className=" py-2 rounded-lg font-medium bg-slate-700 hover:bg-slate-600 mr-3 transition-all hover:-translate-y-1 shadow-md hover:shadow-lg"

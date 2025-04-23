@@ -9,7 +9,11 @@ const SpellResults = ({
   potencyBoost,
   selectedReaches,
   primaryFactor,
-  onCastSpell
+  onCastSpell,
+  eightAgain,
+  setEightAgain,
+  nineAgain,
+  setNineAgain
 }) => {
   // Calculate successes from roll results
   const calculateSuccesses = () => {
@@ -104,6 +108,7 @@ const SpellResults = ({
           </div>
 
           <div className="mb-4">
+
             {rollResults.length > 0 && (
               <h3 className="font-bold mb-3 flex items-center text-green-300">
                 <i className="fas fa-dice-d20 mr-2"></i> Roll Results
@@ -131,6 +136,11 @@ const SpellResults = ({
                     <span className="text-slate-400 mr-2">Successes:</span>
                     <span className="text-2xl font-bold text-green-400">{calculateSuccesses()}</span>
                   </div>
+                  <div className="text-sm text-slate-300">
+                    {eightAgain && !nineAgain && <span className="badge badge-indigo">8-Again Active</span>}
+                    {nineAgain && !eightAgain && <span className="badge badge-indigo">9-Again Active</span>}
+                    {eightAgain && nineAgain && <span className="badge badge-indigo">8 & 9-Again Active</span>}
+                  </div>
                 </div>
               </div>
             ) : null}
@@ -141,12 +151,12 @@ const SpellResults = ({
                 <i className="fas fa-book-open mr-2"></i> Spell Details
               </h3>
 
-              <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
-                <div className="bg-slate-800 p-3 rounded-lg">
+              <div className="grid grid-cols-2 gap-4 mb-4 text-sm p-3">
+                <div className="bg-slate-700 rounded-lg">
                   <span className="text-slate-400 block mb-1">Practice:</span>
                   <span className="text-white font-medium">{selectedSpell.practice}</span>
                 </div>
-                <div className="bg-slate-800 p-3 rounded-lg">
+                <div className="bg-slate-700 rounded-lg">
                   <span className="text-slate-400 block mb-1">Primary Factor:</span>
                   <span className="text-white font-medium flex items-center">
                     {primaryFactor || selectedSpell.primaryFactor}
@@ -156,7 +166,7 @@ const SpellResults = ({
                   </span>
                 </div>
                 {selectedSpell.withstand && (
-                  <div className="bg-slate-800 p-3 rounded-lg">
+                  <div className="bg-slate-700 rounded-lg">
                     <span className="text-slate-400 block mb-1">Withstand:</span>
                     <span className="text-white font-medium">{selectedSpell.withstand}</span>
                   </div>
@@ -193,19 +203,6 @@ const SpellResults = ({
                   <p className="text-slate-400 italic" style={{marginTop: -5}}>No reaches selected</p>
                 )}
               </div>
-
-              {/* Potency Boost Section */}
-              {potencyBoost > 0 && (
-                <div className="bg-slate-800 p-4 rounded-lg">
-                  <h4 className="text-sm font-bold mb-2 text-slate-200">Potency Boost:</h4>
-                  <div className="flex items-center">
-                    <span className="text-purple-300 font-medium">+{potencyBoost} to Potency</span>
-                    <span className="text-yellow-300 text-sm ml-3">
-                      (-{potencyBoost * 2} dice penalty)
-                    </span>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </>
