@@ -513,7 +513,7 @@ const ReachSelector = ({
             </div>
             <div className="mt-4 text-sm text-slate-400 bg-slate-800 p-3 rounded-lg" style={{fontSize: 14}} >
               <i className="fas fa-info-circle mr-2" ></i>
-              <span className="font-medium">Yantras</span> add bonus dice to your spell casting. Common examples include: <span style={{fontSize: 11, fontStyle: 'italic'}}>Dedicated magical tool, Symbols, Runes, Descriptive Casting, Runes, etc.</span>
+              <span className="font-medium">Yantras</span> add bonus dice to your spell casting. Common examples include: <span style={{fontSize: 11, fontStyle: 'italic'}}>Dedicated magical tool, Symbols, Runes, Descriptive Casting, etc.</span>
             </div>
           </div>
 
