@@ -2,7 +2,7 @@
 
 ![Grimoire](/public/logo512.png)
 
-## 🔮 Modern Spellcasting Calculator for Mage: The Awakening
+## 🔮 Spellcasting Assistant for Mage: The Awakening 2e
 
 Grimoire.VIP is an interactive web application for the Chronicles of Darkness game "Mage: The Awakening", 2nd Edition more specifically. This tool is intended to help players and Storytellers quickly customize and cast spells according to the game's magic system.
 
