@@ -25,9 +25,9 @@ const SpellBook = ({
       case SPELL_TYPES.ROTE:
         return <i className="fas fa-book text-blue-400"></i>;
       case SPELL_TYPES.PRAXIS:
-        return <i className="fas fa-bolt text-yellow-400"></i>;
+        return <i className="fas fa-bolt text-yellow-400" style={{color: '#fef08a'}}></i>;
       default:
-        return <i className="fas fa-hat-wizard text-purple-400"></i>;
+        return <i className="fas fa-hat-wizard text-indigo-400"></i>;
     }
   };
 
@@ -76,6 +76,7 @@ const SpellBook = ({
                   : 'spell-item-normal'
               } group`}
               onClick={() => selectSpell(spell)}
+              style={{border: '1px solid rgba(255, 255, 255, 0.1)', padding: '12px', borderRadius: '8px', marginBottom: 3}}
             >
               <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 ${getArcanumColor(spell.arcanum)} shadow-md group-hover:scale-110 transition-transform mr-2`}>
                 {getArcanumIcon(spell.arcanum)}
