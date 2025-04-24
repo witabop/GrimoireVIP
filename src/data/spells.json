@@ -1624,11 +1624,15 @@
       "Stealth",
       "Expression"
     ],
-    "description": "+ Subterfuge roll to get it right.",
+    "description": " This spell allows a mage to amplify or weaken the volume ofsound in the spell’s area of effect. She can make a loudspeaker into a thunderous blast or a barely audible squeak. Eachlevel of Potency doubles or halves the volume of sound in thetargeted area, creating a zone of altered sound. For example,casting this spell on a podium at the front of the room affectsthe sounds of anyone standing at the podium. The magecan also influence the direction of existing sounds. She canfocus sound waves from across the room to hear a whisperedconversation, ensure her own voice does not reach anyone buther intended target, or cause noises to emanate from nearbylocations instead of their original sources. The Scale factor determines the area she can affect.  Loud enough sounds can cause the Deafened Tilt in combat.  By directing her sound away from a subject that might possibly  notice her, the mage inflicts a penalty equal to her Arcanum dots to the subject’s Perception rolls to hear her approach.",
     "reaches": [
       {
         "level": 1,
         "effect": "The mage can create an echoing effect by “nudging” sound waves into nearby obstacles. This imposes a penalty to Stealth rolls in the affected area equal to the spell’s Potency, to a maximum of –5."
+      },
+      {
+        "level": 1,
+        "effect": "The caster gains a bonus to hearing-based Percep tion rolls within the affected area equal to the Potency of the  spell, to a maximum of +5."
       }
     ],
     "source": "MtAw2 p142",
