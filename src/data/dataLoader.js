@@ -23,6 +23,7 @@ export const processSpellData = (spellsJson) => {
         arcanum: spell.path.toLowerCase(),
         level,
         description: spell.description,
+        short_description: spell.short_description,
         practice: spell.practice,
         primaryFactor: spell.primaryFactor,
         withstand: spell.withstand,

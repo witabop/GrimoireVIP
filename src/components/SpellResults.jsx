@@ -192,7 +192,7 @@ const SpellResults = ({
                   <span className="text-white font-medium flex items-center">
                     {primaryFactor || selectedSpell.primaryFactor}
                     {primaryFactor && primaryFactor !== selectedSpell.primaryFactor &&
-                      <span className="ml-2 text-xs text-indigo-300">(changed)</span>
+                      <span className="ml-2 text-xs text-indigo-300" style={{marginLeft: 3, fontSize: 11}}>(changed)</span>
                     }
                   </span>
                 </div>
@@ -208,7 +208,7 @@ const SpellResults = ({
               <div className="bg-slate-800 p-4 rounded-lg mb-2" style={{ backgroundColor: '#1e293b' }}>
                 <div className="bg-slate-800 pb-4 rounded-lg mb-2" style={{ backgroundColor: '#1e293b' }}>
                   <h4 className="text-sm font-bold mb-2 text-slate-200">Description:</h4>
-                  <p className="text-slate-300">{selectedSpell.description}</p>
+                  <p className="text-slate-300" style={{fontSize: selectedSpell.description.length > 742 ? 12 : 16}}>{selectedSpell.description}</p>
                 </div>
                 <h4 className="text-sm font-bold mb-4 text-slate-200">Selected Reaches:</h4>
                 {selectedReachesWithDescriptions.length > 0 ? (

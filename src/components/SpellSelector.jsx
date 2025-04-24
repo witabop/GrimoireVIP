@@ -142,7 +142,7 @@ const SpellSelector = ({
                         </div>
                       </div>
                       <div className="mt-2 text-sm text-slate-400 line-clamp-2">
-                        {spell.description}
+                        {spell.short_description}
                       </div>
                     </div>
                   ))}
@@ -217,7 +217,7 @@ const SpellSelector = ({
                                 <div className="ml-2 text-sm dot-notation">{getDotNotation(spell.level)}</div>
                               </div>
                               <div className="mt-2 text-sm text-slate-400 line-clamp-2">
-                                {spell.description}
+                                {spell.short_description}
                               </div>
                             </div>
                           ))}
@@ -250,7 +250,7 @@ const SpellSelector = ({
                     {selectedSpell.practice}
                   </div>
                 </div>
-                <p className="text-slate-300 mb-4 bg-slate-700 p-2 rounded-lg shadow-inner" style={{fontSize: 14}}>
+                <p className="text-slate-300 mb-4 bg-slate-700 p-2 rounded-lg shadow-inner" style={{fontSize: selectedSpell.description.length > 742 ? 11 : 14}}>
                   {selectedSpell.description}
                 </p>
                 <div className="grid grid-cols-2 gap-3 text-sm">

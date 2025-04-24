@@ -266,7 +266,7 @@ const ReachSelector = ({
                 <span className="text-white font-medium flex items-center">
                   {getCurrentPrimaryFactor()}
                   {getCurrentPrimaryFactor() !== selectedSpell.primaryFactor && 
-                    <span className="ml-2 text-xs text-indigo-300">(changed)</span>
+                    <span className="ml-2 text-xs text-indigo-300" style={{marginLeft: 3, fontSize: 11}}>(changed)</span>
                   }
                 </span>
               </div>
@@ -361,16 +361,11 @@ const ReachSelector = ({
                           {reach.name} 
                         </span>
                         {reach.cost > 1 && 
-                          <span className="badge badge-purple ml-2" style={{textWrap: 'nowrap'}}>
+                          <span className="badge badge-purple ml-2" style={{textWrap: 'nowrap', marginLeft: 10}}>
                             {reach.cost} Reaches
                           </span>
                         }
                       </label>
-                      {reach.description && (
-                        <div className="text-xs text-slate-400 ml-9 mt-1">
-                          {reach.description}
-                        </div>
-                      )}
                     </div>
                   ))}
                 </div>
