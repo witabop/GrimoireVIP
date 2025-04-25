@@ -389,10 +389,14 @@ function App() {
     }
 
     // Add Mana costs from reaches
+    console.log(selectedReaches)
     selectedReaches.forEach(reachName => {
       const reach = DEFAULT_REACHES.find(r => r.name === reachName);
       if (reach && reach.manaCost) {
         manaCost += reach.manaCost;
+      }
+      if((reachName.toLowerCase().includes('spend') || reachName.toLowerCase().includes('point')) && reachName.toLowerCase().includes('mana')) {
+        manaCost += 1;
       }
     });
 

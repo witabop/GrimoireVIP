@@ -87,10 +87,16 @@ export const calculateReachEffects = (selectedReaches, spell, defaultReaches) =>
   selectedReaches.forEach(reachName => {
     // Check if it's a special reach for this spell
     const specialReach = specialReaches.find(r => r.name === reachName);
+    
     if (specialReach) {
+      if (specialReach.manaCost > 0) {
+        manaCost += specialReach.manaCost;
+      }
       totalCost += specialReach.cost;
       return;
     }
+
+    
     
     // Check if it's a default reach
     const defaultReach = defaultReaches.find(r => r.name === reachName);
@@ -259,6 +265,9 @@ export const calculateReachEffectsWithPrimaryFactor = (
     // Check if it's a special reach for this spell
     const specialReach = specialReaches.find(r => r.name === reachName);
     if (specialReach) {
+      if (specialReach.manaCost > 0) {
+        manaCost += specialReach.manaCost;
+      }
       totalCost += specialReach.cost;
       return;
     }
