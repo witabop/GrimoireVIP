@@ -54,6 +54,7 @@ const SpellResults = ({
             name: reach.name,
             description: reach.description,
             cost: reach.cost,
+            manaCost: reach.manaCost,
             isSpecial: true
           });
         }
@@ -100,7 +101,7 @@ const SpellResults = ({
               <p className="text-3xl font-bold">
                 {dicePool}
               </p>
-              
+
             </div>
 
             <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -134,14 +135,13 @@ const SpellResults = ({
                   {rollResults.map((result, index) => (
                     <div
                       key={index}
-                      className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg shadow-md transform transition-all duration-300 hover:scale-110 ${
-                        isChanceDie
-                          ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 
-                             result === 1 ? 'bg-red-600 text-white' : 'bg-slate-600 text-slate-300')
+                      className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg shadow-md transform transition-all duration-300 hover:scale-110 ${isChanceDie
+                          ? (result === 10 ? 'bg-green-600 text-white shine-effect' :
+                            result === 1 ? 'bg-red-600 text-white' : 'bg-slate-600 text-slate-300')
                           : (result >= 8
-                             ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 'bg-blue-600 text-white')
-                             : 'bg-slate-600 text-slate-300')
-                      }`}
+                            ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 'bg-blue-600 text-white')
+                            : 'bg-slate-600 text-slate-300')
+                        }`}
                       style={{ marginRight: 5, padding: 5 }}
                     >
                       {result}
@@ -166,7 +166,7 @@ const SpellResults = ({
                     )}
                   </div>
                 </div>
-                
+
                 {isDramaticFailure() && (
                   <div className="mt-4 text-red-400 text-sm bg-red-900 bg-opacity-30 p-3 rounded-lg border border-red-900 animate-pulse-subtle">
                     <i className="fas fa-exclamation-circle mr-2"></i>
@@ -192,7 +192,7 @@ const SpellResults = ({
                   <span className="text-white font-medium flex items-center">
                     {primaryFactor || selectedSpell.primaryFactor}
                     {primaryFactor && primaryFactor !== selectedSpell.primaryFactor &&
-                      <span className="ml-2 text-xs text-indigo-300" style={{marginLeft: 3, fontSize: 11}}>(changed)</span>
+                      <span className="ml-2 text-xs text-indigo-300" style={{ marginLeft: 3, fontSize: 11 }}>(changed)</span>
                     }
                   </span>
                 </div>
@@ -208,30 +208,35 @@ const SpellResults = ({
               <div className="bg-slate-800 p-4 rounded-lg mb-2" style={{ backgroundColor: '#1e293b' }}>
                 <div className="bg-slate-800 pb-4 rounded-lg mb-2" style={{ backgroundColor: '#1e293b' }}>
                   <h4 className="text-sm font-bold mb-2 text-slate-200">Description:</h4>
-                  <p className="text-slate-300" style={{fontSize: selectedSpell.description.length > 742 ? 12 : 16}}>{selectedSpell.description}</p>
+                  <p className="text-slate-300" style={{ fontSize: selectedSpell.description.length > 742 ? 12 : 16 }}>{selectedSpell.description}</p>
                 </div>
                 <h4 className="text-sm font-bold mb-4 text-slate-200">Selected Reaches:</h4>
                 {selectedReachesWithDescriptions.length > 0 ? (
                   <div className="space-y-2">
                     {selectedReachesWithDescriptions.map((reach, index) => (
                       <div key={index} className="flex">
+                        {console.log(reach)}
                         <span className="text-indigo-400 mr-2">•</span>
                         <div>
-                          <span className={`font-medium ${reach.isSpecial ? 'text-purple-300' : 'text-slate-300'}`}>
-                            {reach.name}
+                          <span className={`font-medium`}>
+                            {reach.isSpecial ? (
+                              <span className="text-slate-300"><span className="text-indigo-400">{reach.name.split(':')[0]}:</span>{reach.name.split(':')[1]}</span>
+                            ) : (
+                              <span className="text-slate-300">{reach.name}</span>
+                            )}
                           </span>
                           {reach.manaCost &&
-                            <span className="text-blue-300 text-xs ml-2">({reach.manaCost} Mana)</span>
+                            <span className="text-blue-100 text-xs" style={{marginLeft: 4, fontSize: 12, color: '#60a5fa'}}>({reach.manaCost} Mana)</span>
                           }
                           {reach.description && (
-                            <div className="text-xs text-slate-400 mt-1">{reach.description}</div>
+                            <div className="text-xs text-slate-400 mt-1 mb-3">{reach.isSpecial ? '' : reach.description}</div>
                           )}
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-slate-400 italic" style={{marginTop: -5}}>No reaches selected</p>
+                  <p className="text-slate-400 italic" style={{ marginTop: -5 }}>No reaches selected</p>
                 )}
               </div>
             </div>

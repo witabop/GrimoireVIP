@@ -389,7 +389,7 @@ function App() {
     }
 
     // Add Mana costs from reaches
-    console.log(selectedReaches)
+
     selectedReaches.forEach(reachName => {
       const reach = DEFAULT_REACHES.find(r => r.name === reachName);
       if (reach && reach.manaCost) {
