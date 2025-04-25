@@ -136,11 +136,11 @@ const SpellResults = ({
                     <div
                       key={index}
                       className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-lg shadow-md transform transition-all duration-300 hover:scale-110 ${isChanceDie
-                          ? (result === 10 ? 'bg-green-600 text-white shine-effect' :
-                            result === 1 ? 'bg-red-600 text-white' : 'bg-slate-600 text-slate-300')
-                          : (result >= 8
-                            ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 'bg-blue-600 text-white')
-                            : 'bg-slate-600 text-slate-300')
+                        ? (result === 10 ? 'bg-green-600 text-white shine-effect' :
+                          result === 1 ? 'bg-red-600 text-white' : 'bg-slate-600 text-slate-300')
+                        : (result >= 8
+                          ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 'bg-blue-600 text-white')
+                          : 'bg-slate-600 text-slate-300')
                         }`}
                       style={{ marginRight: 5, padding: 5 }}
                     >
@@ -225,8 +225,8 @@ const SpellResults = ({
                               <span className="text-slate-300">{reach.name}</span>
                             )}
                           </span>
-                          {reach.manaCost &&
-                            <span className="text-blue-100 text-xs" style={{marginLeft: 4, fontSize: 12, color: '#60a5fa'}}>({reach.manaCost} Mana)</span>
+                          {(reach.manaCost && reach.manaCost > 0) ?
+                            <span className="text-blue-100 text-xs" style={{ marginLeft: 4, fontSize: 12, color: '#60a5fa' }}>({reach.manaCost} Mana)</span> : ''
                           }
                           {reach.description && (
                             <div className="text-xs text-slate-400 mt-1 mb-3">{reach.isSpecial ? '' : reach.description}</div>
