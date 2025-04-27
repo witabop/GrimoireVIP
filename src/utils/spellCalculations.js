@@ -1,6 +1,8 @@
 // Calculate dice pool based on character stats and spell properties
 export const calculateDicePool = (gnosis, arcanaValue, castingType, yantras, reachPenalties) => {
   let dicePool = 0;
+
+  console.log(arcanaValue)
   
   // Calculate base dice based on casting type chosen by user
   if (castingType === 'rote') {
@@ -23,12 +25,18 @@ export const calculateDicePool = (gnosis, arcanaValue, castingType, yantras, rea
 };
 
 // Calculate how many reaches a mage can use for a spell
-export const calculateAvailableReaches = (arcanaValue, spellLevel, castingType) => {
+export const calculateAvailableReaches = (arcanaValue, spellLevel, castingType, isCombined = false) => {
+  // Combined spells use the same reach logic for each component
+  if (isCombined) {
+    // Rote spells use 5 instead of actual Arcanum rating
+    const effectiveArcanum = castingType === 'rote' ? 5 : arcanaValue;
+    return 1 + Math.max(0, effectiveArcanum - spellLevel);
+  }
+  
   // Rote spells use 5 instead of actual Arcanum rating
   const effectiveArcanum = castingType === 'rote' ? 5 : arcanaValue;
   return 1 + Math.max(0, effectiveArcanum - spellLevel);
 };
-
 // Roll dice with 10-again rule and optional 8-again or 9-again
 // Now handles chance die (dice pool of 0 or 1)
 export const rollDice = (dicePool, options = {}) => {
@@ -312,4 +320,22 @@ export const calculateReachEffectsWithPrimaryFactor = (
   });
   
   return { totalCost, totalPenalty, manaCost };
+};
+// Calculate the combined spell dice pool based on Gnosis, lowest Arcanum, and other factors
+export const calculateCombinedSpellDicePool = (gnosis, lowestArcanumValue, spellCount, yantras, reachPenalties) => {
+  // Base dice pool is Gnosis + lowest Arcanum
+  let dicePool = gnosis + lowestArcanumValue;
+  
+  // Add yantra bonuses
+  dicePool += yantras;
+  
+  // Apply -2 penalty per additional spell
+  const additionalSpellPenalty = (spellCount - 1) * 2;
+  dicePool -= additionalSpellPenalty;
+  
+  // Apply penalties from reaches
+  dicePool -= reachPenalties;
+  
+  // Return actual dice pool (can be less than 1 for UI indication, but handled as chance die when rolling)
+  return dicePool;
 };

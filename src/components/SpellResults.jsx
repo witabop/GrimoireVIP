@@ -15,9 +15,12 @@ const SpellResults = ({
   nineAgain,
   setNineAgain
 }) => {
-  // Check if we're using a chance die (pool ≤ 1)
-  const isChanceDie = dicePool <= 1;
 
+  const effectiveDicePool = selectedSpell?.combined
+    ? dicePool - (selectedSpell.additionalPenalty || 0)
+    : dicePool;
+  // Check if we're using a chance die (pool ≤ 1)
+  const isChanceDie = effectiveDicePool <= 1;
   // Calculate successes from roll results
   const calculateSuccesses = () => {
     if (isChanceDie) {
@@ -182,8 +185,10 @@ const SpellResults = ({
                 <i className="fas fa-book-open mr-2"></i> Spell Details
               </h3>
 
+
               <div className="grid grid-cols-2 gap-4 mb-4 text-sm p-3">
                 <div className="bg-slate-700 rounded-lg">
+
                   <span className="text-slate-400 block mb-1">Practice:</span>
                   <span className="text-white font-medium">{selectedSpell.practice}</span>
                 </div>
@@ -202,7 +207,21 @@ const SpellResults = ({
                     <span className="text-white font-medium">{selectedSpell.withstand}</span>
                   </div>
                 )}
+                {selectedSpell?.combined && (
+                  <div className="mb-4 rounded-lg" style={{ marginTop: -10 }}>
+                    <p className="text-slate-400 mt-2" style={{ marginTop: 13, marginBottom: 5 }}>Component Spells:</p>
+                    <div className=" gap-2">
+                      {selectedSpell.componentSpells.map((spell, idx) => (
+                        <div key={idx} className="text-xs text-indigo-200 rounded-full font-medium">
+                          • {spell.name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
               </div>
+
 
               {/* Description Section */}
               <div className="bg-slate-800 p-4 rounded-lg mb-2" style={{ backgroundColor: '#1e293b' }}>

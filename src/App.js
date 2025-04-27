@@ -14,6 +14,8 @@ import {
 } from './utils/spellCalculations';
 import { DEFAULT_REACHES } from './data/reachesData';
 import { saveCharacterData, loadCharacterData, getDefaultCharacterData } from './utils/localStorage';
+import SpellCombiner from './components/SpellCombiner';
+import { calculateCombinedSpellDicePool } from './utils/spellCalculations';
 
 import spellsJson from './data/spells.json';
 
@@ -79,6 +81,49 @@ function App() {
   // Additional modifiers
   const [dicePoolModifier, setDicePoolModifier] = useState(0);
   const [manaModifier, setManaModifier] = useState(0);
+
+  // Combiner states
+  const [showSpellCombiner, setShowSpellCombiner] = useState(false);
+  const [spellsForCombination, setSpellsForCombination] = useState([]);
+  const [defaultCSPotency, setDefaultCSPotency] = useState(0);
+
+  const handleCombineSpells = (spellsToMerge) => {
+    setSpellsForCombination(spellsToMerge);
+    setShowSpellCombiner(true);
+  };
+
+  const addCombinedSpell = (combinedSpell) => {
+    setUserSpells(prevSpells => [...prevSpells, combinedSpell]);
+    setShowSpellCombiner(false);
+    setSpellsForCombination([]);
+  };
+
+  const calculateSpellDicePool = () => {
+    if (!selectedSpell) return 0;
+
+    // Handle combined spells differently
+    if (selectedSpell.combined) {
+      // Get the lowest Arcanum value among the component spells
+      const lowestArcanumValue = arcanaValues[selectedSpell.lowestArcanum.name.toLowerCase()];
+
+      return calculateCombinedSpellDicePool(
+        gnosis,
+        lowestArcanumValue,
+        selectedSpell.componentSpells.length,
+        yantras,
+        calculateEffectivePenalty()
+      );
+    }
+
+    // Regular spell calculation
+    return calculateDicePool(
+      gnosis,
+      arcanaValues[selectedSpell.arcanum.toLowerCase()],
+      selectedSpell.castingType,
+      yantras,
+      calculateEffectivePenalty()
+    );
+  };
 
   // Reset potency boost when spell changes
   useEffect(() => {
@@ -148,10 +193,37 @@ function App() {
       return;
     }
 
-    const arcanumValue = arcanaValues[selectedSpell.arcanum.toLowerCase()];
+    // Handle combined spells differently
+    if (selectedSpell.combined) {
+      // For combined spells, we need to use the lowest arcanum value, not the spell level
+      const arcanumValue = selectedSpell.lowestArcanum.value;
+      let baseReaches = 1; // Start with the base 1 reach
+
+      // Additional reaches based on arcanum value vs spell level
+      // For combined spells, we use the lowest value component spell
+      const lowestLevelSpell = selectedSpell.componentSpells.reduce((lowest, current) =>
+        parseInt(current.level) < parseInt(lowest.level) ? current : lowest
+        , selectedSpell.componentSpells[0]);
+
+      // Calculate base reaches like: 1 + (arcanum value - spell level)
+      baseReaches += Math.max(0, arcanumValue - parseInt(lowestLevelSpell.level));
+
+      // Calculate used reaches from selectedReaches
+      const { totalCost } = calculateReachEffects(
+        selectedReaches,
+        selectedSpell,
+        DEFAULT_REACHES
+      );
+
+      setAvailableReaches(baseReaches - totalCost);
+      return;
+    }
+
+    // Regular spell calculation
+    const arcanumValue = arcanaValues[selectedSpell.arcanum.toLowerCase()] || 0;
     const baseAvailableReaches = calculateAvailableReaches(
       arcanumValue,
-      selectedSpell.level,
+      parseInt(selectedSpell.level),
       selectedSpell.castingType
     );
 
@@ -208,6 +280,13 @@ function App() {
     if (selectedSpell && selectedSpell.name === spellToRemove.name &&
       selectedSpell.castingType === spellToRemove.castingType) {
       setSelectedSpell(null);
+    }
+
+    // Also remove it from any selection for combination
+    if (spellsForCombination.some(s => s.name === spellToRemove.name && s.castingType === spellToRemove.castingType)) {
+      setSpellsForCombination(prev =>
+        prev.filter(s => !(s.name === spellToRemove.name && s.castingType === spellToRemove.castingType))
+      );
     }
   };
 
@@ -348,26 +427,14 @@ function App() {
   const castSpell = () => {
     if (!selectedSpell) return;
 
-    const arcanumValue = arcanaValues[selectedSpell.arcanum.toLowerCase()];
-
-    // Calculate final dice penalty
-    const finalPenalty = calculateEffectivePenalty();
-
-    let finalDicePool = calculateDicePool(
-      gnosis,
-      arcanumValue,
-      selectedSpell.castingType,
-      yantras,
-      finalPenalty
-    );
-    finalDicePool += dicePoolModifier;
+    // Calculate final dice pool
+    const finalDicePool = calculateSpellDicePool();
     setDicePool(finalDicePool);
 
     // Check if we're using a chance die
     const isChanceDie = finalDicePool <= 1;
 
-    // Pass the roll options to the rollDice function
-    // For chance die, we ignore the 8-again/9-again options
+    // Roll the dice
     const results = rollDice(finalDicePool, isChanceDie ? {} : { eightAgain, nineAgain });
     setRollResults(results);
   };
@@ -395,7 +462,7 @@ function App() {
       if (reach && reach.manaCost) {
         manaCost += reach.manaCost;
       }
-      if((reachName.toLowerCase().includes('spend') || reachName.toLowerCase().includes('point')) && reachName.toLowerCase().includes('mana')) {
+      if ((reachName.toLowerCase().includes('spend') || reachName.toLowerCase().includes('point')) && reachName.toLowerCase().includes('mana')) {
         manaCost += 1;
       }
     });
@@ -406,6 +473,11 @@ function App() {
   // Get the effective potency including boosts and primary factor
   const getEffectivePotency = () => {
     if (!selectedSpell) return 0;
+
+    if (selectedSpell.combined) {
+      console.log(defaultCSPotency)
+      return defaultCSPotency + potencyBoost;
+    }
 
     const arcanumValue = arcanaValues[selectedSpell.arcanum.toLowerCase()];
     const currentPrimaryFactor = getCurrentPrimaryFactor();
@@ -442,8 +514,23 @@ function App() {
             arcanaValues={arcanaValues}
             showSpellSelector={showSpellSelector}
             setShowSpellSelector={setShowSpellSelector}
+            onCombineSpells={handleCombineSpells}
+            gnosis={gnosis}
           />
+
         </div>
+        {showSpellCombiner && (
+          <div className="space-y-6 lg:h-full">
+            <SpellCombiner
+              selectedSpells={spellsForCombination}
+              closeSpellCombiner={() => setShowSpellCombiner(false)}
+              addCombinedSpell={addCombinedSpell}
+              arcanaValues={arcanaValues}
+              gnosis={gnosis}
+            />
+          </div>
+        )}
+
 
         {/* Spell Selector Column only visible when showSpellSelector is true */}
         {showSpellSelector && (
@@ -457,6 +544,7 @@ function App() {
           </div>
         )}
 
+
         {/* Middle column - Customization */}
         <div className="space-y-6">
           {selectedSpell ? (
@@ -466,6 +554,7 @@ function App() {
                   <i className="fas fa-scroll mr-3 text-amber-400"></i>
                   Casting Summary
                 </h3>
+                {console.log(selectedSpell)}
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -473,7 +562,7 @@ function App() {
                     <div className="text-2xl font-bold">{
                       calculateDicePool(
                         gnosis,
-                        arcanaValues[selectedSpell.arcanum.toLowerCase()],
+                        arcanaValues[selectedSpell.combined ? selectedSpell.lowestArcanum.name.toLowerCase() : selectedSpell.arcanum.toLowerCase()],
                         selectedSpell.castingType,
                         yantras,
                         calculateEffectivePenalty()
@@ -481,7 +570,7 @@ function App() {
                     }</div>
                     {(calculateDicePool(
                       gnosis,
-                      arcanaValues[selectedSpell.arcanum.toLowerCase()],
+                      arcanaValues[selectedSpell.combined ? selectedSpell.lowestArcanum.name.toLowerCase() : selectedSpell.arcanum.toLowerCase()],
                       selectedSpell.castingType,
                       yantras,
                       calculateEffectivePenalty()
@@ -555,7 +644,8 @@ function App() {
                 setPotencyBoost={setPotencyBoost}
                 potencyBoostLevel={potencyBoostLevel}
                 setPotencyBoostLevel={setPotencyBoostLevel}
-                arcanaValue={arcanaValues[selectedSpell.arcanum.toLowerCase()]}
+                arcanaValue={selectedSpell?.arcanum ? arcanaValues[selectedSpell.arcanum.toLowerCase()] : 0}
+                arcanaValues={arcanaValues} // Make sure this prop is being passed
                 getCurrentPrimaryFactor={getCurrentPrimaryFactor}
                 isDurationFree={isDurationFree}
                 calculateEffectivePenalty={calculateEffectivePenalty}
@@ -563,6 +653,7 @@ function App() {
                 dicePoolModifier={dicePoolModifier}
                 setManaModifier={setManaModifier}
                 manaModifier={manaModifier}
+                setDefaultCSPotency={setDefaultCSPotency}
               />
             </>
           ) : (

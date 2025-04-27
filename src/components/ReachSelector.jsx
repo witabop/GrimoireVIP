@@ -17,38 +17,22 @@ const ReachSelector = ({
   setYantras,
   setPotencyBoost,
   arcanaValue,
+  arcanaValues,
   setDicePoolModifier,
   dicePoolModifier,
   setManaModifier,
   manaModifier,
   potencyBoostLevel,
   setPotencyBoostLevel,
+  getCurrentPrimaryFactor,
+  setDefaultCSPotency
 }) => {
-
-  // const [potencyBoostLevel, setPotencyBoostLevel] = useState(0);
   const [isDurationAdvanced, setIsDurationAdvanced] = useState(false);
-
-  // Additional modifiers
   const [reachesModifier, setReachesModifier] = useState(0);
-
-  // Track which durations are selected
   const [selectedDuration, setSelectedDuration] = useState(null);
 
-  // Check if a reach option is selected
-  const isReachSelected = (reachName) => {
-    return selectedReaches.includes(reachName);
-  };
-
-  // Get current effective primary factor
-  const getCurrentPrimaryFactor = () => {
-    if (selectedReaches.includes("Change Primary Factor: Duration")) {
-      return "Duration";
-    }
-    if (selectedReaches.includes("Change Primary Factor: Potency")) {
-      return "Potency";
-    }
-    return selectedSpell?.primaryFactor || "";
-  };
+  // Track if we're viewing a combined spell
+  const isCombinedSpell = selectedSpell?.combined;
 
   // Update tracking state when selectedReaches changes
   useEffect(() => {
@@ -63,6 +47,7 @@ const ReachSelector = ({
     setSelectedDuration(durationReach || null);
   }, [selectedReaches]);
 
+  // Handle reach toggle
   const handleReachToggle = (reachName) => {
     // If toggling a duration option, unselect other durations
     if (reachName.startsWith("Duration:")) {
@@ -114,6 +99,11 @@ const ReachSelector = ({
     }
   };
 
+  // Check if a reach option is selected
+  const isReachSelected = (reachName) => {
+    return selectedReaches.includes(reachName);
+  };
+
   // Get category-based reaches
   const getReachesByCategory = () => {
     const categories = {};
@@ -128,12 +118,52 @@ const ReachSelector = ({
     return categories;
   };
 
+  // Get all special reaches from a combined spell
+  const getAllSpecialReaches = () => {
+    if (!isCombinedSpell || !selectedSpell) {
+      return selectedSpell?.specialReaches || [];
+    }
+
+    // Combine all special reaches from component spells
+    const allSpecialReaches = [];
+    selectedSpell.componentSpells.forEach(spell => {
+      if (spell.specialReaches) {
+        allSpecialReaches.push(...spell.specialReaches);
+      }
+    });
+
+    return allSpecialReaches;
+  };
+
+  // Get the current spellcasting arcana value
+  const getCurrentArcanaValue = () => {
+    if (!selectedSpell) return 0;
+
+    if (isCombinedSpell && selectedSpell.lowestArcanum) {
+      // This should now be the lowest arcanum by dots, not level
+      return selectedSpell.lowestArcanum.value;
+    }
+
+    // For non-combined spells
+    if (arcanaValues && selectedSpell.arcanum) {
+      const arcanum = selectedSpell.arcanum.toLowerCase();
+      return arcanaValues[arcanum] || 0;
+    }
+
+    return 0;
+  };
   // Determine if duration option has free penalty based on arcana level
   const getDurationPenaltyText = (durationOption) => {
     if (!selectedSpell) return null;
 
     const effectivePrimaryFactor = getCurrentPrimaryFactor();
-    const isDurationPrimary = effectivePrimaryFactor === "Duration";
+
+    // For combined spells, check if any component has Duration as primary
+    const isDurationPrimary = isCombinedSpell ?
+      selectedSpell.primaryFactor.split('/').includes('Duration') || effectivePrimaryFactor === 'Duration' :
+      effectivePrimaryFactor === 'Duration';
+
+    const currentArcanaValue = getCurrentArcanaValue();
 
     // If duration isn't primary, show full penalty
     if (!isDurationPrimary) {
@@ -143,30 +173,23 @@ const ReachSelector = ({
     // Check if this is an advanced scale option
     const isAdvanced = durationOption.startsWith("Duration: One") || durationOption === "Duration: Indefinite";
 
-    // Calculate the free level based on arcana value
-    const freeLevel = getFreeDurationLevel(arcanaValue, selectedSpell.primaryFactor, effectivePrimaryFactor, isAdvanced);
-
     // Get the level of this duration option
     const optionLevel = getDurationLevel(durationOption, isAdvanced);
+
+    // Calculate the free level based on arcana value
+    // For combined spells, use the selected spell's lowest arcanum value
+    const freeLevel = Math.min(currentArcanaValue, 5); // Cap at 5
 
     // If this option's level is <= free level, it's free
     if (optionLevel <= freeLevel) {
       return "Free";
     }
 
-    // Otherwise calculate the partial penalty
+    // Otherwise get the standard penalty
     const reach = DEFAULT_REACHES.find(r => r.name === durationOption);
     if (!reach) return 0;
 
-    const actualPenalty = calculateDurationPenalty(
-      durationOption,
-      arcanaValue,
-      selectedSpell.primaryFactor,
-      effectivePrimaryFactor,
-      isAdvanced
-    );
-
-    return actualPenalty;
+    return reach.dicePenalty;
   };
 
   // Helper to get duration level for UI display
@@ -200,6 +223,25 @@ const ReachSelector = ({
 
     const currentPrimaryFactor = getCurrentPrimaryFactor();
 
+    if (isCombinedSpell) {
+      // For combined spells, use the lowest arcanum
+      const currentArcanaValue = getCurrentArcanaValue();
+
+      // For combined spells, if any component has Duration as a primary factor,
+      // treat Duration as a primary factor for the whole spell
+      const primaryFactors = selectedSpell.primaryFactor.split('/');
+      const hasDuration = primaryFactors.includes('Duration') || currentPrimaryFactor === 'Duration';
+
+      return calculateReachEffectsWithPrimaryFactor(
+        selectedReaches,
+        selectedSpell,
+        DEFAULT_REACHES,
+        currentArcanaValue,
+        hasDuration ? 'Duration' : selectedSpell.primaryFactor,
+        currentPrimaryFactor
+      );
+    }
+
     return calculateReachEffectsWithPrimaryFactor(
       selectedReaches,
       selectedSpell,
@@ -217,11 +259,31 @@ const ReachSelector = ({
   const potencyPenalty = potencyBoostLevel * 2;
 
   const categorizedReaches = getReachesByCategory();
+  const specialReaches = getAllSpecialReaches();
 
   // Get the default potency based on primary factor
-  const defaultPotency = selectedSpell
-    ? getDefaultPotency(arcanaValue, selectedSpell.primaryFactor, getCurrentPrimaryFactor())
-    : 0;
+  const getDefaultPotencyForCombinedSpell = () => {
+    if (!selectedSpell) return 0;
+
+    const currentArcanaValue = getCurrentArcanaValue();
+    const primaryFactor = getCurrentPrimaryFactor();
+
+    // If it's a combined spell with mixed primary factors
+    if (isCombinedSpell) {
+      const primaryFactors = selectedSpell.primaryFactor.split('/');
+
+      // Make sure we always provide potency based on lowest arcanum when Potency is a primary factor
+      if (primaryFactors.includes('Potency') || primaryFactor === 'Potency') {
+        // Explicitly use the lowestArcanum value which should be correct
+        return selectedSpell.lowestArcanum.value;
+      }
+
+      // If no Potency as primary factor, default to 1
+      return 1;
+    }
+
+    return getDefaultPotency(currentArcanaValue, selectedSpell.primaryFactor, primaryFactor);
+  };
 
   return (
     <div className="card animate-slideInRight">
@@ -231,9 +293,9 @@ const ReachSelector = ({
         </h2>
       </div>
 
-
       {selectedSpell ? (
         <>
+
           <div className="flex justify-between items-center mb-3">
             <div className="font-medium flex items-center">
               <i className="fas fa-list-alt mr-2 text-green-400"></i>
@@ -247,9 +309,6 @@ const ReachSelector = ({
             </span>
           </div>
 
-
-
-
           {/* Spell Information */}
           <div className="mb-4 bg-slate-700 rounded-lg p-4">
             <h4 className="text-sm font-bold text-blue-300 mb-3 flex items-center">
@@ -258,31 +317,41 @@ const ReachSelector = ({
             <div className="grid grid-cols-2 gap-4 text-sm p-3">
               <div className="bg-slate-700 rounded-lg">
                 <span className="text-slate-400 block mb-1">Practice:</span>
-                <span className="text-white font-medium">{selectedSpell.practice}</span>
+                <span className="text-white font-medium">
+                  {isCombinedSpell
+                    ? selectedSpell.practice
+                    : selectedSpell.practice}
+                </span>
               </div>
               <div className="bg-slate-700 rounded-lg">
                 <span className="text-slate-400 block mb-1">Primary Factor:</span>
                 <span className="text-white font-medium flex items-center">
                   {getCurrentPrimaryFactor()}
                   {getCurrentPrimaryFactor() !== selectedSpell.primaryFactor &&
-                    <span className="ml-2 text-xs text-indigo-300" style={{ marginLeft: 3, fontSize: 11 }}>(changed)</span>
+                    <span className="ml-2 text-xs text-indigo-300" style={{ marginLeft: 3, fontSize: 11 }}>
+                      (changed)
+                    </span>
                   }
                 </span>
               </div>
               <div className="bg-slate-700 rounded-lg">
                 <span className="text-slate-400 block mb-1">Default Potency:</span>
                 <span className="text-white font-medium flex items-center">
-                  {defaultPotency}
+                  {setDefaultCSPotency(getDefaultPotencyForCombinedSpell())}
+                  {getDefaultPotencyForCombinedSpell()}
                 </span>
               </div>
               {selectedSpell.withstand && (
                 <div className="bg-slate-700 rounded-lg">
                   <span className="text-slate-400 block mb-1">Withstand:</span>
-                  <span className="text-white font-medium">{selectedSpell.withstand}</span>
+                  <span className="text-white font-medium">
+                    {selectedSpell.withstand}
+                  </span>
                 </div>
               )}
             </div>
-            {selectedSpell.skills && selectedSpell.skills.length > 0 && (
+
+            {(selectedSpell.skills?.length > 0 && !selectedSpell.combined) && (
               <div className="mt-3 mb-4 bg-indigo-900 bg-opacity-30 p-3 rounded-lg border border-indigo-800">
                 <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
                   <i className="fas fa-graduation-cap mr-2"></i> Rote Skills
@@ -336,16 +405,16 @@ const ReachSelector = ({
             </div>
           </div>
 
-
           <div className="custom-scrollbar bg-slate-700 rounded-lg border border-slate-700 p-4 mb-4">
-            {/* Special Reaches for this spell */}
-            {selectedSpell.specialReaches && selectedSpell.specialReaches.length > 0 && (
-              <div className="mb-4 bg-slate-800 p-4 rounded-lg">
-                <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center">
-                  <i className="fas fa-star mr-2"></i> Special Reaches
-                </h4>
-                <div className="bg-slate-800 rounded-lg p-3 space-y-2" style={{ fontSize: 14 }}>
-                  {selectedSpell.specialReaches.map(reach => (
+            <div className="mb-4 bg-slate-800 p-4 rounded-lg">
+              <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center">
+                <i className="fas fa-star mr-2"></i> All Available Reaches
+              </h4>
+
+              {/* Special Reaches */}
+              {specialReaches?.length > 0 && (
+                <div className="bg-slate-800 rounded-lg p-3 space-y-2 mb-4" style={{ fontSize: 14 }}>
+                  {specialReaches.map(reach => (
                     <div key={reach.name} className="relative">
                       <label className="flex items-center cursor-pointer p-2 rounded-lg hover:bg-slate-700 transition-colors mb-4" style={{ cursor: 'pointer' }}>
                         <input
@@ -370,20 +439,13 @@ const ReachSelector = ({
                             </span>
                           )}
                         </div>
-
                       </label>
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Default Reaches categorized */}
-            <div className='bg-slate-800 p-4 rounded-lg'>
-              <h4 className="text-sm font-bold text-green-400 mb-2 flex items-center">
-                <i className="fas fa-list mr-2"></i> Standard Reaches
-              </h4>
-
+              {/* Standard Reaches by category */}
               {Object.entries(categorizedReaches).map(([category, reaches]) => (
                 <div key={category} className="mb-2 mt-2">
                   <div className="flex items-center mb-2">
@@ -469,6 +531,12 @@ const ReachSelector = ({
                     Reach Penalty: -{totalPenalty} dice
                   </div>
                 )}
+                {isCombinedSpell && selectedSpell.additionalPenalty > 0 && (
+                  <div className="text-yellow-300 flex items-center p-2 bg-yellow-900 bg-opacity-30 rounded-lg">
+                    <i className="fas fa-magic mr-2"></i>
+                    Combined Spell Penalty: -{selectedSpell.additionalPenalty} dice
+                  </div>
+                )}
                 {dicePoolModifier !== 0 && (
                   <div className={`flex items-center p-2 rounded-lg ${dicePoolModifier > 0 ? 'text-green-300 bg-green-900 bg-opacity-30' : 'text-red-300 bg-red-900 bg-opacity-30'
                     }`}>
@@ -487,8 +555,7 @@ const ReachSelector = ({
                   <div className="text-blue-400 flex items-center p-2 bg-blue-900 bg-opacity-30 rounded-lg">
                     <i className="fas fa-tint mr-2"></i>
                     Mana Cost: {manaCost + manaModifier} {manaModifier !== 0 ? `(${manaModifier > 0 ? '+' : ''}${manaModifier} modified)` : ''}
-                  </div>
-                )}
+                  </div>)}
               </div>
             </div>
           )}
