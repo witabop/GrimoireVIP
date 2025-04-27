@@ -454,3 +454,43 @@ input:checked+.toggle-slider:before {
   background-size: 200% 100%;
   animation: shine 2s infinite linear;
 }
+
+/* Animation for the drop indicator */
+@keyframes pulse-drop {
+  0% {
+    opacity: 0.5;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.5);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scaleY(1);
+  }
+}
+
+.spell-item:has(.drop-indicator) {
+  padding-top: 24px;
+}
+
+.drop-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #818cf8;
+  animation: pulse-drop 1s infinite;
+  border-radius: 999px;
+}
+
+.drop-indicator-top {
+  top: 0;
+  transform: translateY(-50%);
+}
+
+.drop-indicator-bottom {
+  bottom: 0;
+  transform: translateY(50%);
+}

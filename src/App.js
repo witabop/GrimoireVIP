@@ -61,6 +61,10 @@ function App() {
   // Animation state
   const [appReady, setAppReady] = useState(false);
 
+  const updateSpellOrder = (newSpellOrder) => {
+    setUserSpells(newSpellOrder);
+  };
+
   const setGnosisAndSave = (newGnosis) => {
     setGnosis(newGnosis);
   };
@@ -516,6 +520,7 @@ function App() {
             setShowSpellSelector={setShowSpellSelector}
             onCombineSpells={handleCombineSpells}
             gnosis={gnosis}
+            updateSpellOrder={updateSpellOrder}
           />
 
         </div>

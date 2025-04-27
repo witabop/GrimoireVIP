@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { ARCANA } from '../data/arcanaData';
 
 const SPELL_TYPES = {
@@ -14,10 +14,13 @@ const SpellBook = ({
   selectedSpell,
   setShowSpellSelector,
   onCombineSpells,
-  gnosis
+  gnosis,
+  updateSpellOrder // New prop for updating the spell order
 }) => {
   // Track multi-selected spells for combining
   const [selectedSpells, setSelectedSpells] = useState([]);
+  const [draggedSpell, setDraggedSpell] = useState(null);
+  const [dragOverIndex, setDragOverIndex] = useState(null);
 
   // Calculate max spells that can be combined based on Gnosis
   const maxCombinedSpells =
@@ -30,7 +33,6 @@ const SpellBook = ({
 
   // Check if all spells are rotes (rotes cannot be combined)
   const anyRotes = selectedSpells.some(spell => spell.castingType === 'rote');
-
 
   // Convert numeric level to dot notation
   const getDotNotation = (level) => {
@@ -117,6 +119,62 @@ const SpellBook = ({
     );
   };
 
+  // Drag and drop handlers
+  const handleDragStart = (e, spell, index) => {
+    setDraggedSpell({ spell, index });
+    // Set the drag image to be transparent (optional)
+    const img = new Image();
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Transparent GIF
+    e.dataTransfer.setDragImage(img, 0, 0);
+    
+    // Add a class to the dragged element
+    e.currentTarget.classList.add('dragging');
+  };
+
+  const handleDragEnd = (e) => {
+    e.currentTarget.classList.remove('dragging');
+    setDraggedSpell(null);
+    setDragOverIndex(null);
+  };
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    if (draggedSpell === null) return;
+    if (dragOverIndex === index) return;
+    
+    setDragOverIndex(index);
+  };
+
+  const handleDrop = (e, targetIndex) => {
+    e.preventDefault();
+    if (draggedSpell === null) return;
+    
+    const { index: sourceIndex } = draggedSpell;
+    if (sourceIndex === targetIndex) return;
+
+    // Create a new array with the reordered spells
+    const newSpells = [...userSpells];
+    const [movedSpell] = newSpells.splice(sourceIndex, 1);
+    newSpells.splice(targetIndex, 0, movedSpell);
+
+    // Update the parent component with the new order
+    updateSpellOrder(newSpells);
+
+    setDraggedSpell(null);
+    setDragOverIndex(null);
+  };
+
+  // Determine if this index has a drop indicator above or below
+  const getDropIndicatorPosition = (index) => {
+    if (draggedSpell === null || dragOverIndex !== index) return null;
+    
+    if (draggedSpell.index < index) {
+      return 'below'; // Show indicator below when dragging from above
+    } else {
+      return 'above'; // Show indicator above when dragging from below
+    }
+  };
+
   return (
     <div className="card animate-slideInLeft">
       <div className="flex justify-between items-center mb-4">
@@ -180,50 +238,78 @@ const SpellBook = ({
           <p className="text-slate-400 text-sm mt-2">Click "Add" to get started</p>
         </div>
       ) : (
-        <div className="space-y-3 custom-scrollbar" style={{ paddingTop: 4 }}>
+        <div className="space-y-1 custom-scrollbar" style={{ paddingTop: 4 }}>
           {userSpells.map((spell, index) => (
             <div
               key={`${spell.name}-${spell.castingType}-${index}`}
-              className={`spell-item ${(selectedSpell && selectedSpell.name === spell.name && selectedSpell.castingType === spell.castingType)
-                ? 'spell-item-selected'
-                : isSpellSelected(spell)
-                  ? 'bg-indigo-900 border border-indigo-500'
-                  : 'spell-item-normal'
-                } group`}
+              className={`spell-item relative ${
+                (selectedSpell && selectedSpell.name === spell.name && selectedSpell.castingType === spell.castingType)
+                  ? 'spell-item-selected'
+                  : isSpellSelected(spell)
+                    ? 'bg-indigo-900 border border-indigo-500'
+                    : 'spell-item-normal'
+                } group cursor-move transition-transform ${
+                  draggedSpell?.index === index ? 'opacity-50' : 'opacity-100'
+                }`}
               onClick={(e) => handleSpellClick(spell, e)}
-              style={{ border: isSpellSelected(spell) ? '1px solid #6366f1' : '1px solid rgba(255, 255, 255, 0.1)', padding: '12px', borderRadius: '8px', marginBottom: 3 }}
+              draggable="true"
+              onDragStart={(e) => handleDragStart(e, spell, index)}
+              onDragEnd={handleDragEnd}
+              onDragOver={(e) => handleDragOver(e, index)}
+              onDrop={(e) => handleDrop(e, index)}
+              style={{ 
+                border: isSpellSelected(spell) ? '1px solid #6366f1' : '1px solid rgba(255, 255, 255, 0.1)', 
+                padding: '12px', 
+                borderRadius: '8px', 
+                marginBottom: 3,
+                transform: draggedSpell?.index === index ? 'scale(0.98)' : 'scale(1)',
+                position: 'relative',
+                zIndex: draggedSpell?.index === index ? 10 : 1
+              }}
             >
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 ${getArcanumColor(spell.arcanum)} shadow-md group-hover:scale-110 transition-transform mr-2`}>
-                {getArcanumIcon(spell.arcanum)}
+
+              <div className="flex items-center w-full">
+                <div className="flex items-center mr-2 opacity-70 cursor-grab">
+                  <i className="fas fa-grip-lines text-slate-400"></i>
+                </div>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 ${getArcanumColor(spell.arcanum)} shadow-md group-hover:scale-110 transition-transform mr-2`}>
+                  {getArcanumIcon(spell.arcanum)}
+                </div>
+
+                <div className="flex-grow">
+                  <div className="font-medium text-lg group-hover:text-white">
+                    {spell.name}
+                  </div>
+                  <div className="text-xs text-slate-400 flex items-center mt-1 space-x-3">
+                    <span className="inline-flex items-center">
+                      {getSpellTypeIcon(spell.castingType)}
+                      <span className="ml-4 capitalize" style={{ marginRight: 2, marginLeft: 5 }}>{spell.castingType}</span>
+                    </span>
+                    <span className="text-slate-500 mr-2"> | </span>
+                    <span className="inline-flex items-center">
+                      <span className="ml-2"> {spell.arcanum} <span className="dot-notation">{getDotNotation(spell.level)}</span></span>
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeUserSpell(spell);
+                  }}
+                  className="hover:text-red-400 ml-auto"
+                  title="Remove spell"
+                  style={{ marginLeft: 'auto ', color: 'gray' }}
+                >
+                  <i className="fas fa-trash-alt hover:text-red-400"></i>
+                </button>
               </div>
 
-              <div className="flex-grow">
-                <div className="font-medium text-lg group-hover:text-white">
-                  {spell.name}
-                </div>
-                <div className="text-xs text-slate-400 flex items-center mt-1 space-x-3">
-                  <span className="inline-flex items-center">
-                    {getSpellTypeIcon(spell.castingType)}
-                    <span className="ml-4 capitalize" style={{ marginRight: 2, marginLeft: 5 }}>{spell.castingType}</span>
-                  </span>
-                  <span className="text-slate-500 mr-2"> | </span>
-                  <span className="inline-flex items-center">
-                    <span className="ml-2"> {spell.arcanum} <span className="dot-notation">{getDotNotation(spell.level)}</span></span>
-                  </span>
-                </div>
-              </div>
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  removeUserSpell(spell);
-                }}
-                className="hover:text-red-50"
-                title="Remove spell"
-                style={{ marginLeft: 'auto', color: 'gray' }}
-              >
-                <i className="fas fa-trash-alt hover:text-red-50"></i>
-              </button>
+              {/* Drop indicator below */}
+              {getDropIndicatorPosition(index) === 'below' && (
+                <div className="absolute left-0 right-0 bottom-0 h-1 bg-indigo-500 rounded-full transform translate-y-1" 
+                     style={{ zIndex: 20 }}></div>
+              )}
             </div>
           ))}
         </div>
@@ -231,4 +317,5 @@ const SpellBook = ({
     </div>
   );
 };
+
 export default SpellBook;
