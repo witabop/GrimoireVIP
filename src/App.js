@@ -565,9 +565,19 @@ function App() {
                   <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                     <div className="text-sm text-slate-400 mb-1">Dice Pool</div>
                     <div className="text-2xl font-bold">{
-                      (dicePool - (selectedSpell.additionalPenalty || 0))
+                      ((calculateDicePool(
+                        gnosis,
+                        arcanaValues[selectedSpell.combined ? selectedSpell.lowestArcanum.name.toLowerCase() : selectedSpell.arcanum.toLowerCase()],
+                        selectedSpell.castingType,
+                        yantras,
+                        calculateEffectivePenalty()) + dicePoolModifier) - (selectedSpell.additionalPenalty || 0))
                     }</div>
-                    {(dicePool - (selectedSpell.additionalPenalty || 0)) <= 1 && (
+                    {((calculateDicePool(
+                      gnosis,
+                      arcanaValues[selectedSpell.combined ? selectedSpell.lowestArcanum.name.toLowerCase() : selectedSpell.arcanum.toLowerCase()],
+                      selectedSpell.castingType,
+                      yantras,
+                      calculateEffectivePenalty()) + dicePoolModifier) - (selectedSpell.additionalPenalty || 0)) <= 1 && (
                         <div className="flex items-center mt-2 badge badge-yellow">
                           <i className="fas fa-exclamation-triangle mr-2"></i>
                           Chance Die!
