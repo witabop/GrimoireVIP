@@ -46,12 +46,11 @@ const CastingCostsSummary = ({
     <div
       className={`p-4 bg-slate-700 rounded-lg text-sm shadow-lg shadow-black/25 ${className}`}
     >
-      <div className="font-bold mb-3 text-slate-300 flex items-center">
-        <i className="fas fa-list mr-2 text-amber-400" />
-        Breakdown
+      <div className="mb-3 text-slate-400 flex items-center">
+        Pool Breakdown
       </div>
 
-      <div className="space-y-1.5">
+      <div className="space-y-1.5" style={{ fontStyle: 'italic' }}>
         <Row icon="fa-brain" color="green">
           Gnosis: +{effectiveGnosis}
         </Row>
@@ -98,8 +97,8 @@ const CastingCostsSummary = ({
         }`}>
           <span className="flex items-center">
             <i className="fas fa-equals mr-2 w-4 text-center" />
+            {netPool} dice
           </span>
-          <span>{netPool}</span>
         </div>
 
       </div>

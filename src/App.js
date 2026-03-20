@@ -89,10 +89,12 @@ function App() {
   // Additional modifiers
   const [dicePoolModifier, setDicePoolModifier] = useState(0);
   const [manaModifier, setManaModifier] = useState(0);
+  const [reachesModifier, setReachesModifier] = useState(0);
   const [ritualBoost, setRitualBoost] = useState(0);
   const [castLog, setCastLog] = useState([]);
   const [showCastLog, setShowCastLog] = useState(false);
   const [rollContext, setRollContext] = useState(null);
+  const [showDiceBreakdown, setShowDiceBreakdown] = useState(false);
 
   // Combiner states
   const [showSpellCombiner, setShowSpellCombiner] = useState(false);
@@ -255,6 +257,7 @@ function App() {
     setSelectedReaches([]);
     setRollResults([]);
     setRollContext(null);
+    setReachesModifier(0);
   }, [selectedSpell]);
 
   const computeFinalDicePool = () => {
@@ -577,6 +580,8 @@ function App() {
       manaModifier,
       breakdown: { ...breakdown },
       reachLines,
+      reachCount: calculateReachEffects(selectedReaches, selectedSpell, DEFAULT_REACHES).totalCost,
+      overreachAmount: (availableReaches + reachesModifier) < 0 ? Math.abs(availableReaches + reachesModifier) : 0,
       combined: !!selectedSpell.combined,
       componentNames: selectedSpell.componentSpells?.map((s) => s.name),
       ritualBoost,
@@ -700,33 +705,56 @@ function App() {
                   Casting Summary
                 </h3>
                 <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <div className="text-sm text-slate-400 mb-1">Dice Pool</div>
+                  <div
+                    className="bg-slate-700 p-4 rounded-lg shadow-sm cursor-pointer hover:bg-slate-600/80 transition-colors"
+                    onClick={() => setShowDiceBreakdown(prev => !prev)}
+                    title="Click to toggle dice pool breakdown"
+                  >
+                    <div className="text-sm text-slate-400 mb-1 flex items-center justify-between">
+                      Dice Pool
+                      <i className={`fas fa-chevron-${showDiceBreakdown ? 'up' : 'down'} text-xs text-slate-500`} />
+                    </div>
                     <div className="text-2xl font-bold">{finalPoolDisplay}</div>
                     {castIsImpossible && (
-                      <div className="flex items-center mt-2 text-xs text-red-300 bg-red-900/40 border border-red-800 rounded-lg px-2 py-1.5">
+                      <div className="flex items-center mt-2 text-xs text-red-300 bg-red-900/40 border border-red-800/60 rounded-lg px-2 py-1.5">
                         <i className="fas fa-ban mr-2" />
                         Impossible to cast (pool ≤ −6).
                       </div>
                     )}
                     {!castIsImpossible && finalPoolDisplay <= 1 && (
-                        <div className="flex items-center mt-2 badge badge-yellow">
-                          <i className="fas fa-exclamation-triangle mr-2"></i>
-                          Chance Die!
-                        </div>
-                      )}
+                      <div className="flex items-center mt-2 badge badge-yellow">
+                        <i className="fas fa-exclamation-triangle mr-2"></i>
+                        Chance Die!
+                      </div>
+                    )}
                   </div>
 
-                  <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <div className="text-sm text-slate-400 mb-1">
-                      Mana Cost
-                    </div>
+                  <div className="bg-slate-700 p-4 rounded-lg shadow-sm">
+                    <div className="text-sm text-slate-400 mb-1">Mana Cost</div>
                     <div className="text-2xl font-bold flex items-center">
                       <i className="fas fa-tint text-blue-400 mr-2"></i>
                       {calculateManaCost()}
                     </div>
                   </div>
                 </div>
+
+                {showDiceBreakdown && (
+                  <CastingCostsSummary
+                    className="mb-4"
+                    selectedSpell={selectedSpell}
+                    selectedReaches={selectedReaches}
+                    getCurrentPrimaryFactor={getCurrentPrimaryFactor}
+                    arcanaValue={selectedSpell?.arcanum ? arcanaValues[selectedSpell.arcanum.toLowerCase()] : 0}
+                    arcanaValues={arcanaValues}
+                    arcanaLabel={selectedSpell?.combined ? selectedSpell.lowestArcanum?.name : selectedSpell?.arcanum}
+                    yantras={yantras}
+                    potencyBoostLevel={potencyBoostLevel}
+                    dicePoolModifier={dicePoolModifier}
+                    manaModifier={manaModifier}
+                    ritualBoost={ritualBoost}
+                    gnosis={gnosis}
+                  />
+                )}
 
                 {/* Roll Options */}
                 <div className="mb-4 bg-slate-800 p-3 rounded-lg">
@@ -755,22 +783,6 @@ function App() {
                   </div>
                 </div>
 
-                <CastingCostsSummary
-                  className="mb-4"
-                  selectedSpell={selectedSpell}
-                  selectedReaches={selectedReaches}
-                  getCurrentPrimaryFactor={getCurrentPrimaryFactor}
-                  arcanaValue={selectedSpell?.arcanum ? arcanaValues[selectedSpell.arcanum.toLowerCase()] : 0}
-                  arcanaValues={arcanaValues}
-                  arcanaLabel={selectedSpell?.combined ? selectedSpell.lowestArcanum?.name : selectedSpell?.arcanum}
-                  yantras={yantras}
-                  potencyBoostLevel={potencyBoostLevel}
-                  dicePoolModifier={dicePoolModifier}
-                  manaModifier={manaModifier}
-                  ritualBoost={ritualBoost}
-                  gnosis={gnosis}
-                />
-
                 <button
                   type="button"
                   onClick={castSpell}
@@ -784,7 +796,7 @@ function App() {
                   <i className="fas fa-bolt mr-3"></i>
                   Cast Spell!
                 </button>
-                {availableReaches < 0 && (
+                {(availableReaches + reachesModifier) < 0 && (
                   <p className="text-red-400 text-sm mt-2">
                     BEWARE! Casting this spell will result in an overreach!
                   </p>
@@ -809,6 +821,8 @@ function App() {
                 dicePoolModifier={dicePoolModifier}
                 setManaModifier={setManaModifier}
                 manaModifier={manaModifier}
+                reachesModifier={reachesModifier}
+                setReachesModifier={setReachesModifier}
                 setDefaultCSPotency={setDefaultCSPotency}
                 gnosis={gnosis}
                 ritualBoost={ritualBoost}

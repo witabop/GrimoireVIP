@@ -21,6 +21,8 @@ const ReachSelector = ({
   dicePoolModifier,
   setManaModifier,
   manaModifier,
+  reachesModifier,
+  setReachesModifier,
   potencyBoostLevel,
   setPotencyBoostLevel,
   getCurrentPrimaryFactor,
@@ -30,7 +32,6 @@ const ReachSelector = ({
   setRitualBoost
 }) => {
   const [isDurationAdvanced, setIsDurationAdvanced] = useState(false);
-  const [reachesModifier, setReachesModifier] = useState(0);
   const [selectedDuration, setSelectedDuration] = useState(null);
 
   // Track if we're viewing a combined spell
@@ -474,7 +475,7 @@ const ReachSelector = ({
           </div>
 
           {availableReaches + reachesModifier < 0 && (
-            <div className="mt-2 mb-4 text-red-300 text-sm flex items-center bg-red-950/50 p-3 rounded-lg border border-red-900/80 animate-pulse-subtle">
+            <div className="mt-2 mb-4 text-red-300 text-sm flex items-center bg-red-950/50 p-3 rounded-lg border border-slate-700 animate-pulse-subtle">
               <i className="fas fa-exclamation-triangle mr-2"></i>
               You've selected more reaches than available
             </div>
