@@ -3424,6 +3424,7 @@
     "path": "Mind",
     "tier": "Apprentice",
     "secondary": null,
+    "mana": 1,
     "practice": "Veiling",
     "primaryFactor": "Duration",
     "withstand": null,
@@ -6215,6 +6216,7 @@
     "path": "Time",
     "tier": "Disciple",
     "secondary": null,
+    "mana": 1,
     "practice": "Perfecting",
     "primaryFactor": "Potency",
     "withstand": "Stamina",
@@ -6232,14 +6234,6 @@
       {
         "level": 1,
         "effect": "For a point of Mana, Dodge actions taken while under this spell’s effect have the rote quality."
-      },
-      {
-        "level": 1,
-        "effect": "For a point of Mana, the subject loses Defense against attacks."
-      },
-      {
-        "level": 1,
-        "effect": "Multiply the time per roll of extended actions taken by the subject by Potency. The spell has no effect on the ritual casting interval of mages."
       }
     ],
     "source": "MtAw2ed p189",

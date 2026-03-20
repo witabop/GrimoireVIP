@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ARCANA } from '../data/arcanaData';
 
 const SPELL_TYPES = {
@@ -21,6 +21,37 @@ const SpellBook = ({
   const [selectedSpells, setSelectedSpells] = useState([]);
   const [draggedSpell, setDraggedSpell] = useState(null);
   const [dragOverIndex, setDragOverIndex] = useState(null);
+  const [spellSearch, setSpellSearch] = useState('');
+
+  const filteredSpells = useMemo(() => {
+    const q = spellSearch.trim().toLowerCase();
+    const tokens = q.split(/\s+/).filter(Boolean);
+    return userSpells
+      .map((spell, originalIndex) => ({ spell, originalIndex }))
+      .filter(({ spell }) => {
+        if (tokens.length === 0) return true;
+        const parts = [
+          spell.name,
+          spell.short_description,
+          spell.description,
+          spell.arcanum,
+          spell.practice,
+          spell.primaryFactor,
+          spell.castingType,
+          spell.withstand,
+          ...(spell.skills || []),
+          ...(spell.combined && spell.componentSpells
+            ? spell.componentSpells.flatMap((s) => [s.name, s.arcanum, s.short_description])
+            : [])
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase();
+        return tokens.every((tok) => parts.includes(tok));
+      });
+  }, [userSpells, spellSearch]);
+
+  const searchActive = spellSearch.trim().length > 0;
 
   // Calculate max spells that can be combined based on Gnosis
   const maxCombinedSpells =
@@ -120,8 +151,8 @@ const SpellBook = ({
   };
 
   // Drag and drop handlers
-  const handleDragStart = (e, spell, index) => {
-    setDraggedSpell({ spell, index });
+  const handleDragStart = (e, spell, originalIndex) => {
+    setDraggedSpell({ spell, index: originalIndex });
     // Set the drag image to be transparent (optional)
     const img = new Image();
     img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Transparent GIF
@@ -239,37 +270,52 @@ const SpellBook = ({
         </div>
       ) : (
         <div className="space-y-1 custom-scrollbar" style={{ paddingTop: 4 }}>
-          {userSpells.map((spell, index) => (
+          <input
+              id="spellbook-search"
+              type="search"
+              value={spellSearch}
+              onChange={(e) => setSpellSearch(e.target.value)}
+              placeholder="Search spells..."
+              autoComplete="off"
+              style={{ marginBottom: 10, padding: 4, marginTop: -4 }}
+              className="w-full bg-slate-700 text-white border border-slate-600 rounded-lg pl-9 pr-9 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none transition-all placeholder:text-slate-500"
+            />
+          {filteredSpells.map(({ spell, originalIndex }) => (
             <div
-              key={`${spell.name}-${spell.castingType}-${index}`}
+              key={`${spell.name}-${spell.castingType}-${originalIndex}`}
               className={`spell-item relative ${
                 (selectedSpell && selectedSpell.name === spell.name && selectedSpell.castingType === spell.castingType)
                   ? 'spell-item-selected'
                   : isSpellSelected(spell)
                     ? 'bg-indigo-900 border border-indigo-500'
                     : 'spell-item-normal'
-                } group cursor-move transition-transform ${
-                  draggedSpell?.index === index ? 'opacity-50' : 'opacity-100'
+                } group transition-transform ${
+                  searchActive ? 'cursor-default' : 'cursor-move'
+                } ${
+                  draggedSpell?.index === originalIndex ? 'opacity-50' : 'opacity-100'
                 }`}
               onClick={(e) => handleSpellClick(spell, e)}
-              draggable="true"
-              onDragStart={(e) => handleDragStart(e, spell, index)}
+              draggable={!searchActive}
+              onDragStart={(e) => handleDragStart(e, spell, originalIndex)}
               onDragEnd={handleDragEnd}
-              onDragOver={(e) => handleDragOver(e, index)}
-              onDrop={(e) => handleDrop(e, index)}
+              onDragOver={(e) => handleDragOver(e, originalIndex)}
+              onDrop={(e) => handleDrop(e, originalIndex)}
               style={{ 
                 border: isSpellSelected(spell) ? '1px solid #6366f1' : '1px solid rgba(255, 255, 255, 0.1)', 
                 padding: '12px', 
                 borderRadius: '8px', 
                 marginBottom: 3,
-                transform: draggedSpell?.index === index ? 'scale(0.98)' : 'scale(1)',
+                transform: draggedSpell?.index === originalIndex ? 'scale(0.98)' : 'scale(1)',
                 position: 'relative',
-                zIndex: draggedSpell?.index === index ? 10 : 1
+                zIndex: draggedSpell?.index === originalIndex ? 10 : 1
               }}
             >
 
               <div className="flex items-center w-full">
-                <div className="flex items-center mr-2 opacity-70 cursor-grab">
+                <div
+                  className={`flex items-center mr-2 opacity-70 ${searchActive ? 'cursor-default opacity-40' : 'cursor-grab'}`}
+                  title={searchActive ? undefined : 'Drag to reorder'}
+                >
                   <i className="fas fa-grip-lines text-slate-400"></i>
                 </div>
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 ${getArcanumColor(spell.arcanum)} shadow-md group-hover:scale-110 transition-transform mr-2`}>
@@ -306,7 +352,7 @@ const SpellBook = ({
               </div>
 
               {/* Drop indicator below */}
-              {getDropIndicatorPosition(index) === 'below' && (
+              {getDropIndicatorPosition(originalIndex) === 'below' && (
                 <div className="absolute left-0 right-0 bottom-0 h-1 bg-indigo-500 rounded-full transform translate-y-1" 
                      style={{ zIndex: 20 }}></div>
               )}

@@ -30,7 +30,8 @@ export const processSpellData = (spellsJson) => {
       withstand: spell.withstand,
       skills: spell.skills || [],
       specialReaches,
-      source: spell.source
+      source: spell.source,
+      ...(typeof spell.mana === 'number' ? { mana: spell.mana } : {})
     };
   });
 };

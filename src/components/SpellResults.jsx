@@ -3,24 +3,22 @@ import { DEFAULT_REACHES } from '../data/reachesData';
 
 const SpellResults = ({
   selectedSpell,
-  dicePool,
+  displayDicePool,
   rollResults,
+  rollContext,
   spellPotency,
   potencyBoost,
   selectedReaches,
   primaryFactor,
-  onCastSpell,
   eightAgain,
   setEightAgain,
   nineAgain,
   setNineAgain
 }) => {
 
-  const effectiveDicePool = selectedSpell?.combined
-    ? dicePool - (selectedSpell.additionalPenalty || 0)
-    : dicePool;
-  // Check if we're using a chance die (pool ≤ 1)
-  const isChanceDie = effectiveDicePool <= 1;
+  const isChanceDie = rollResults.length > 0 && rollContext
+    ? rollContext.isChanceDie
+    : displayDicePool <= 1;
   // Calculate successes from roll results
   const calculateSuccesses = () => {
     if (isChanceDie) {
@@ -102,7 +100,7 @@ const SpellResults = ({
                 <i className="fas fa-dice mr-2"></i> Dice Pool
               </h3>
               <p className="text-3xl font-bold">
-                {dicePool}
+                {displayDicePool}
               </p>
 
             </div>
@@ -234,7 +232,6 @@ const SpellResults = ({
                   <div className="space-y-2">
                     {selectedReachesWithDescriptions.map((reach, index) => (
                       <div key={index} className="flex">
-                        {console.log(reach)}
                         <span className="text-indigo-400 mr-2">•</span>
                         <div>
                           <span className={`font-medium`}>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import CharacterStats from './components/CharacterStats';
 import SpellBook from './components/SpellBook';
 import ReachSelector from './components/ReachSelector';
@@ -6,16 +7,20 @@ import SpellResults from './components/SpellResults';
 import SpellSelector from './components/SpellSelector';
 import { processSpellData } from './data/dataLoader';
 import {
-  calculateDicePool,
   calculateAvailableReaches,
+  calculateCombinedSpellDicePool,
+  calculateDicePool,
   rollDice,
   calculateReachEffects,
-  countSuccesses
+  countSuccesses,
+  getRitualIntervalMinutes,
+  formatRitualDuration
 } from './utils/spellCalculations';
 import { DEFAULT_REACHES } from './data/reachesData';
 import { saveCharacterData, loadCharacterData, getDefaultCharacterData } from './utils/localStorage';
 import SpellCombiner from './components/SpellCombiner';
-import { calculateCombinedSpellDicePool } from './utils/spellCalculations';
+import SpellCastLog from './components/SpellCastLog';
+import CastingCostsSummary from './components/CastingCostsSummary';
 
 import spellsJson from './data/spells.json';
 
@@ -51,7 +56,6 @@ function App() {
   const [potencyBoostLevel, setPotencyBoostLevel] = useState(0);
 
   // Results state
-  const [dicePool, setDicePool] = useState(0);
   const [rollResults, setRollResults] = useState([]);
 
   // Roll options state
@@ -85,6 +89,10 @@ function App() {
   // Additional modifiers
   const [dicePoolModifier, setDicePoolModifier] = useState(0);
   const [manaModifier, setManaModifier] = useState(0);
+  const [ritualBoost, setRitualBoost] = useState(0);
+  const [castLog, setCastLog] = useState([]);
+  const [showCastLog, setShowCastLog] = useState(false);
+  const [rollContext, setRollContext] = useState(null);
 
   // Combiner states
   const [showSpellCombiner, setShowSpellCombiner] = useState(false);
@@ -133,6 +141,7 @@ function App() {
   useEffect(() => {
     setPotencyBoost(0);
     setPotencyBoostLevel(0);
+    setRitualBoost(0);
   }, [selectedSpell]);
 
   // Load data from local storage on component mount
@@ -245,7 +254,47 @@ function App() {
   useEffect(() => {
     setSelectedReaches([]);
     setRollResults([]);
+    setRollContext(null);
   }, [selectedSpell]);
+
+  const computeFinalDicePool = () => {
+    if (!selectedSpell) return 0;
+    return calculateSpellDicePool() + dicePoolModifier + ritualBoost;
+  };
+
+  const getDicePoolBreakdown = () => {
+    if (!selectedSpell) return null;
+    const totalPenalty = calculateEffectivePenalty();
+    const potencyBoostPenalty = potencyBoost * 2;
+    const reachPenalty = totalPenalty - potencyBoostPenalty;
+    if (selectedSpell.combined) {
+      const arcanaRating =
+        arcanaValues[selectedSpell.lowestArcanum.name.toLowerCase()] ?? 0;
+      return {
+        gnosis,
+        arcanaRating,
+        arcanaLabel: selectedSpell.lowestArcanum.name,
+        yantras,
+        ritualBoost,
+        combinedSpellDicePenalty: Math.max(0, (selectedSpell.componentSpells?.length || 1) - 1) * 2,
+        reachPenalty,
+        potencyBoostPenalty,
+        dicePoolModifier
+      };
+    }
+    const arcanaRating = arcanaValues[selectedSpell.arcanum.toLowerCase()] ?? 0;
+    return {
+      gnosis,
+      arcanaRating,
+      arcanaLabel: selectedSpell.arcanum,
+      yantras,
+      ritualBoost,
+      combinedSpellDicePenalty: 0,
+      reachPenalty,
+      potencyBoostPenalty,
+      dicePoolModifier
+    };
+  };
 
   // Get current primary factor based on reaches
   const getCurrentPrimaryFactor = () => {
@@ -428,21 +477,6 @@ function App() {
     return totalPenalty + potencyPenalty;
   };
 
-  const castSpell = () => {
-    if (!selectedSpell) return;
-
-    // Calculate final dice pool
-    const finalDicePool = calculateSpellDicePool();
-    setDicePool(finalDicePool);
-
-    // Check if we're using a chance die
-    const isChanceDie = finalDicePool <= 1;
-
-    // Roll the dice
-    const results = rollDice(finalDicePool, isChanceDie ? {} : { eightAgain, nineAgain });
-    setRollResults(results);
-  };
-
   // Check if the selected spell's arcanum is a major arcanum
   const isSpellUsingMajorArcanum = () => {
     if (!selectedSpell) return false;
@@ -452,16 +486,21 @@ function App() {
   const calculateManaCost = () => {
     if (!selectedSpell) return 0;
 
-    let manaCost = 0;
+    let manaCost = typeof selectedSpell.mana === 'number' ? selectedSpell.mana : 0;
 
     // Improvised spells cost 1 Mana UNLESS they use a major Arcanum
     if (selectedSpell.castingType === 'improvised' && !isSpellUsingMajorArcanum()) {
       manaCost += 1;
     }
 
-    // Add Mana costs from reaches
-
     selectedReaches.forEach(reachName => {
+      const specialReach = selectedSpell.specialReaches?.find(r => r.name === reachName);
+      if (specialReach) {
+        if (specialReach.manaCost) {
+          manaCost += specialReach.manaCost;
+        }
+        return;
+      }
       const reach = DEFAULT_REACHES.find(r => r.name === reachName);
       if (reach && reach.manaCost) {
         manaCost += reach.manaCost;
@@ -479,7 +518,6 @@ function App() {
     if (!selectedSpell) return 0;
 
     if (selectedSpell.combined) {
-      console.log(defaultCSPotency)
       return defaultCSPotency + potencyBoost;
     }
 
@@ -493,9 +531,111 @@ function App() {
     return basePotency + potencyBoost;
   };
 
-  return (
-    <div className={`min-h-screen bg-gradient-to-r from-slate-900 to-indigo-900 text-white p-4 transition-opacity duration-500 ${appReady ? 'opacity-100' : 'opacity-0'}`}>
+  const buildCastLogEntry = (finalPool, isChanceDie, results, successes, breakdown) => {
+    const intervalMin = getRitualIntervalMinutes(gnosis);
+    const ritualMins = ritualBoost * intervalMin;
+    const intervalLabel =
+      formatRitualDuration(intervalMin) ||
+      `${intervalMin} minute${intervalMin === 1 ? '' : 's'}`;
 
+    const reachLines = [];
+    selectedReaches.forEach((reachName) => {
+      const sp = selectedSpell.specialReaches?.find((r) => r.name === reachName);
+      if (sp) {
+        reachLines.push(
+          `${reachName}${sp.manaCost ? ` (${sp.manaCost} Mana)` : ''}`
+        );
+        return;
+      }
+      const dr = DEFAULT_REACHES.find((r) => r.name === reachName);
+      if (dr) {
+        let suffix = '';
+        if (dr.dicePenalty) suffix += ` (−${dr.dicePenalty} dice)`;
+        if (dr.manaCost) suffix += ` (${dr.manaCost} Mana)`;
+        reachLines.push(`${dr.name}${suffix}`);
+      } else {
+        reachLines.push(reachName);
+      }
+    });
+
+    return {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+      timeLabel: new Date().toLocaleString(),
+      spellName: selectedSpell.name,
+      castingType: selectedSpell.castingType,
+      gnosis,
+      poolUsed: finalPool,
+      isChanceDie,
+      rollResults: [...results],
+      successes,
+      eightAgain,
+      nineAgain,
+      potency: getEffectivePotency(),
+      potencyBoost,
+      primaryFactor: getCurrentPrimaryFactor(),
+      manaCostTotal: calculateManaCost(),
+      manaModifier,
+      breakdown: { ...breakdown },
+      reachLines,
+      combined: !!selectedSpell.combined,
+      componentNames: selectedSpell.componentSpells?.map((s) => s.name),
+      ritualBoost,
+      ritualIntervalLabel: intervalLabel,
+      ritualTimeLabel: formatRitualDuration(ritualMins) || '—'
+    };
+  };
+
+  const castSpell = () => {
+    if (!selectedSpell) return;
+
+    const finalDicePool = computeFinalDicePool();
+    if (finalDicePool <= -6) return;
+
+    const isChanceDie = finalDicePool <= 1;
+    setRollContext({ poolUsed: finalDicePool, isChanceDie });
+
+    const results = rollDice(finalDicePool, isChanceDie ? {} : { eightAgain, nineAgain });
+    setRollResults(results);
+
+    const successes = countSuccesses(results, isChanceDie);
+    const breakdown = getDicePoolBreakdown();
+    setCastLog((prev) => [buildCastLogEntry(finalDicePool, isChanceDie, results, successes, breakdown), ...prev]);
+  };
+
+  const finalPoolDisplay = computeFinalDicePool();
+  const castIsImpossible = selectedSpell && finalPoolDisplay <= -6;
+
+  const logPortal =
+    typeof document !== 'undefined'
+      ? createPortal(
+          showCastLog ? (
+            <SpellCastLog onClose={() => setShowCastLog(false)} entries={castLog} />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setShowCastLog(true)}
+              className="fixed top-4 right-4 z-[99999] flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 hover:bg-slate-700 hover:text-white shadow-lg transition-colors text-sm font-medium"
+              aria-label="Open spell cast log"
+            >
+              <i className="fas fa-history" />
+              Log
+              {castLog.length > 0 && (
+                <span className="bg-indigo-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                  {castLog.length}
+                </span>
+              )}
+            </button>
+          ),
+          document.body
+        )
+      : null;
+
+  return (
+    <>
+      {logPortal}
+      <div
+        className={`min-h-screen bg-gradient-to-r from-slate-900 to-indigo-900 text-white p-4 transition-opacity duration-500 ${appReady ? 'opacity-100' : 'opacity-0'}`}
+      >
       <div className={`grid ${showSpellSelector ? 'grid-cols-1 lg:grid-cols-4' : 'grid-cols-1 lg:grid-cols-3'} gap-6 max-w-7xl mx-auto relative`}>
         {/* Left column - Character Stats & Spellbook */}
         <div className="space-y-6 relative">
@@ -559,25 +699,17 @@ function App() {
                   <i className="fas fa-scroll mr-3 text-amber-400"></i>
                   Casting Summary
                 </h3>
-                {console.log(selectedSpell)}
-
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                     <div className="text-sm text-slate-400 mb-1">Dice Pool</div>
-                    <div className="text-2xl font-bold">{
-                      ((calculateDicePool(
-                        gnosis,
-                        arcanaValues[selectedSpell.combined ? selectedSpell.lowestArcanum.name.toLowerCase() : selectedSpell.arcanum.toLowerCase()],
-                        selectedSpell.castingType,
-                        yantras,
-                        calculateEffectivePenalty()) + dicePoolModifier) - (selectedSpell.additionalPenalty || 0))
-                    }</div>
-                    {((calculateDicePool(
-                      gnosis,
-                      arcanaValues[selectedSpell.combined ? selectedSpell.lowestArcanum.name.toLowerCase() : selectedSpell.arcanum.toLowerCase()],
-                      selectedSpell.castingType,
-                      yantras,
-                      calculateEffectivePenalty()) + dicePoolModifier) - (selectedSpell.additionalPenalty || 0)) <= 1 && (
+                    <div className="text-2xl font-bold">{finalPoolDisplay}</div>
+                    {castIsImpossible && (
+                      <div className="flex items-center mt-2 text-xs text-red-300 bg-red-900/40 border border-red-800 rounded-lg px-2 py-1.5">
+                        <i className="fas fa-ban mr-2" />
+                        Impossible to cast (pool ≤ −6).
+                      </div>
+                    )}
+                    {!castIsImpossible && finalPoolDisplay <= 1 && (
                         <div className="flex items-center mt-2 badge badge-yellow">
                           <i className="fas fa-exclamation-triangle mr-2"></i>
                           Chance Die!
@@ -607,7 +739,7 @@ function App() {
                         type="checkbox"
                         checked={eightAgain}
                         onChange={() => setEightAgain(!eightAgain)}
-                        className="form-checkbox h-4 w-4 text-indigo-500 rounded focus:ring-indigo-400 cursor-pointer"
+                        className="h-4 w-4 text-indigo-500 rounded border-slate-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                       />
                       <span className="text-sm text-slate-300">8-Again</span>
                     </label>
@@ -616,17 +748,38 @@ function App() {
                         type="checkbox"
                         checked={nineAgain}
                         onChange={() => setNineAgain(!nineAgain)}
-                        className="form-checkbox h-4 w-4 text-indigo-500 rounded focus:ring-indigo-400 cursor-pointer"
+                        className="h-4 w-4 text-indigo-500 rounded border-slate-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                       />
                       <span className="text-sm text-slate-300">9-Again</span>
                     </label>
                   </div>
                 </div>
 
+                <CastingCostsSummary
+                  className="mb-4"
+                  selectedSpell={selectedSpell}
+                  selectedReaches={selectedReaches}
+                  getCurrentPrimaryFactor={getCurrentPrimaryFactor}
+                  arcanaValue={selectedSpell?.arcanum ? arcanaValues[selectedSpell.arcanum.toLowerCase()] : 0}
+                  arcanaValues={arcanaValues}
+                  arcanaLabel={selectedSpell?.combined ? selectedSpell.lowestArcanum?.name : selectedSpell?.arcanum}
+                  yantras={yantras}
+                  potencyBoostLevel={potencyBoostLevel}
+                  dicePoolModifier={dicePoolModifier}
+                  manaModifier={manaModifier}
+                  ritualBoost={ritualBoost}
+                  gnosis={gnosis}
+                />
+
                 <button
+                  type="button"
                   onClick={castSpell}
-                  className={`w-full py-3 rounded-lg font-bold flex items-center justify-center bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-lg hover:shadow-xl transition-all click-effect
-                    `}
+                  disabled={castIsImpossible}
+                  className={`w-full py-3 rounded-lg font-bold flex items-center justify-center shadow-lg transition-all click-effect ${
+                    castIsImpossible
+                      ? 'bg-slate-600 text-slate-400 cursor-not-allowed opacity-70'
+                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl'
+                  }`}
                 >
                   <i className="fas fa-bolt mr-3"></i>
                   Cast Spell!
@@ -657,6 +810,9 @@ function App() {
                 setManaModifier={setManaModifier}
                 manaModifier={manaModifier}
                 setDefaultCSPotency={setDefaultCSPotency}
+                gnosis={gnosis}
+                ritualBoost={ritualBoost}
+                setRitualBoost={setRitualBoost}
               />
             </>
           ) : (
@@ -680,14 +836,13 @@ function App() {
         <div className="space-y-6">
           <SpellResults
             selectedSpell={selectedSpell}
-            dicePool={dicePool}
+            displayDicePool={finalPoolDisplay}
             rollResults={rollResults}
+            rollContext={rollContext}
             spellPotency={getEffectivePotency()}
             potencyBoost={potencyBoost}
             selectedReaches={selectedReaches}
             primaryFactor={getCurrentPrimaryFactor()}
-            onCastSpell={castSpell}
-            effectivePenalty={calculateEffectivePenalty()}
             eightAgain={eightAgain}
             setEightAgain={setEightAgain}
             nineAgain={nineAgain}
@@ -700,7 +855,8 @@ function App() {
       <footer className="text-center mt-10 text-slate-400 text-sm pb-4">
         <a href='https://github.com/witabop/GrimoireVIP' target='_blank' rel="noreferrer">Grimoire.VIP ❤️</a>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }
 

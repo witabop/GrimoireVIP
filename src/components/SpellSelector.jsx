@@ -235,7 +235,7 @@ const SpellSelector = ({
         <div className="p-5 bg-slate-900 bg-opacity-70">
           {selectedSpell ? (
             <div className="flex flex-col animate-fadeIn p-4">
-              <div className="mb-4 bg-slate-700 p-4 rounded-lg shadow-md border border-slate-600" style={{borderWidth: .5, borderColor: '#818CF8'}}>
+              <div className="mb-4 bg-slate-700 p-4 rounded-lg shadow-md border border-slate-600">
                 <h3 className="text-lg font-bold flex items-center">
                   <div className={`w-4 h-4 rounded-full flex items-center justify-center mr-3 ${getArcanumColor(selectedSpell.arcanum)} shadow-md`}>
                     {getArcanumIcon(selectedSpell.arcanum)}
@@ -279,12 +279,11 @@ const SpellSelector = ({
                       key={type}
                       id={type}
                       onClick={() => setSelectedType(type)}
-                      className={`p-4 rounded-lg border transition-all duration-300 hover:-translate-y-1 ${
+                      className={`p-4 rounded-lg border border-slate-600 transition-all duration-300 hover:-translate-y-1 ${
                         selectedType === type 
-                          ? 'border-indigo-400 bg-slate-700 bg-opacity-70 scale-105 transform shadow-lg' 
-                          : 'border-slate-600 hover:border-slate-400 shadow-md hover:shadow-lg'
+                          ? 'border-indigo-500 bg-slate-700/70 scale-105 transform shadow-lg' 
+                          : 'hover:border-slate-500 shadow-md hover:shadow-lg'
                       }`}
-                      style={{borderColor: selectedType === type ? '#4F46E5' : '#334155', borderWidth: 1}}
                     >
                       <div className="text-center mb-4 p-2" style={{fontSize: 25}}>
                         {type === SPELL_TYPES.ROTE && <i className="fas fa-book text-4xl text-blue-400" style={{fontSize: 25}}></i>}

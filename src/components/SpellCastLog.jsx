@@ -1,0 +1,193 @@
+import React from 'react';
+
+export const formatCastEntryAsText = (entry) => {
+  if (!entry) return '';
+  const lines = [
+    `── ${entry.spellName} ──`,
+    `Time: ${entry.timeLabel}`,
+    `Gnosis: ${entry.gnosis} | Casting: ${entry.castingType || '—'}`,
+    `Dice pool (rolled): ${entry.poolUsed}${entry.isChanceDie ? ' (chance die)' : ''}`,
+    `Roll: [${entry.rollResults.join(', ')}] → ${entry.successes} success(es)`,
+    `8-Again: ${entry.eightAgain ? 'yes' : 'no'} | 9-Again: ${entry.nineAgain ? 'yes' : 'no'}`,
+    `Potency: ${entry.potency}${entry.potencyBoost ? ` (boost +${entry.potencyBoost})` : ''}`,
+    `Primary factor: ${entry.primaryFactor || '—'}`,
+    `Mana cost (total): ${entry.manaCostTotal}`,
+    '',
+    'Dice pool breakdown:',
+    `  Gnosis + Arcanum (${entry.breakdown.arcanaLabel} ${entry.breakdown.arcanaRating}): ${entry.breakdown.gnosis + entry.breakdown.arcanaRating}`,
+    `  Yantras: +${entry.breakdown.yantras}`,
+    ...(entry.breakdown.combinedSpellDicePenalty > 0
+      ? [`  Combined spell penalty: -${entry.breakdown.combinedSpellDicePenalty}`]
+      : []),
+    `  Reach penalty: -${entry.breakdown.reachPenalty}`,
+    ...(entry.breakdown.potencyBoostPenalty > 0
+      ? [`  Potency boost penalty: -${entry.breakdown.potencyBoostPenalty}`]
+      : []),
+    `  Ritual boost dice: +${entry.breakdown.ritualBoost}`,
+    `  Additional dice pool modifier: ${entry.breakdown.dicePoolModifier >= 0 ? '+' : ''}${entry.breakdown.dicePoolModifier}`,
+    `  = ${entry.poolUsed}`,
+    '',
+    ...(entry.ritualBoost > 0
+      ? [
+          `Ritual: +${entry.ritualBoost} die (interval ${entry.ritualIntervalLabel}), total cast time ~${entry.ritualTimeLabel}`,
+          ''
+        ]
+      : []),
+    'Reaches:',
+    ...(entry.reachLines.length ? entry.reachLines.map((l) => `  • ${l}`) : ['  (none)']),
+    '',
+    'Modifiers:',
+    `  Mana modifier (ST adj.): ${entry.manaModifier >= 0 ? '+' : ''}${entry.manaModifier}`,
+    ''
+  ];
+  if (entry.combined && entry.componentNames?.length) {
+    lines.push('Component spells:', ...entry.componentNames.map((n) => `  • ${n}`), '');
+  }
+  lines.push('─'.repeat(40));
+  return lines.join('\n');
+};
+
+const SpellCastLog = ({ onClose, entries }) => {
+  const copyEntry = async (entry) => {
+    const text = formatCastEntryAsText(entry);
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+  };
+
+  return (
+    <div
+      className="fixed top-4 right-4 z-[99999] w-[min(calc(100vw-1.5rem),26rem)] max-h-[min(85vh,calc(100vh-2rem))] flex flex-col rounded-xl border border-slate-700 bg-slate-800 shadow-2xl shadow-black/40 ring-1 ring-slate-600/50"
+      role="dialog"
+      aria-modal="true"
+      style={{ borderRadius: 10 }}
+      aria-label="Spell cast log"
+    >
+      <div className="relative flex items-center w-full px-4 py-3 border-b border-slate-700 bg-slate-800/95 shrink-0 rounded-t-xl">
+        <h2 className="text-base font-bold text-indigo-200 flex items-center gap-2">
+          <i className="fas fa-pen" />
+          Spell Log
+        </h2>
+        <button
+          type="button"
+          onClick={onClose}
+          className="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-700 transition-colors"
+          style={{ position: 'absolute', right: 10 }}
+          aria-label="Close log"
+        >
+          <i className="fas fa-times" />
+        </button>
+      </div>
+      <div style={{ borderRadius: 10 }} className="overflow-y-auto flex-1 p-3 space-y-3 custom-scrollbar bg-slate-800 min-h-0 rounded-b-xl">
+        {entries.length === 0 ? (
+          <p className="text-slate-400 text-center py-10 text-sm px-2">
+            No spells cast this session yet. Cast a spell to build your log.
+          </p>
+        ) : (
+          entries.map((entry) => (
+            <article
+              key={entry.id}
+              style={{ marginBottom: 10 }}
+              className="bg-slate-700 border border-slate-700 rounded-lg p-3 text-sm shadow-inner"
+            >
+              <div style={{ marginBottom: 5, position: 'relative' }} className="flex flex-wrap items-start justify-between gap-2 mb-2">
+                <div>
+                  <h3 className="font-bold text-amber-200 text-sm leading-tight">{entry.spellName}</h3>
+                  <i className="text-slate-500 text-[11px] mt-0.5">{entry.timeLabel}</i>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyEntry(entry)}
+                  style={{ position: 'absolute', right: 0 }}
+                  className="shrink-0 px-2.5 py-1 rounded-md bg-indigo-700 hover:bg-indigo-600 text-white text-[11px] font-medium transition-colors flex items-center gap-1"
+                >
+                  <i className="fas fa-copy text-[10px]" />
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-slate-300 text-xs">
+                <div>
+                  <span className="text-slate-500">Pool</span>{' '}
+                  <span className="font-mono font-bold text-white">{entry.poolUsed}</span>
+                  {entry.isChanceDie && (
+                    <span className="ml-1 text-[10px] text-amber-400">chance</span>
+                  )}
+                </div>
+                <div>
+                  <span className="text-slate-500">Potency</span>{' '}
+                  <span className="font-bold text-purple-300">{entry.potency}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500">Successes</span>{' '}
+                  <span className="font-bold text-green-400">{entry.successes}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500">Mana</span>{' '}
+                  <span className="text-blue-300">{entry.manaCostTotal}</span>
+                </div>
+              </div>
+              <div className="mt-2 flex flex-wrap gap-1">
+                {entry.rollResults.map((r, i) => (
+                  <span
+                    key={i}
+                    className={`inline-flex w-8 h-8 items-center justify-center rounded font-bold text-xs ${
+                      entry.isChanceDie
+                        ? r === 10
+                          ? 'bg-green-700 text-white'
+                          : r === 1
+                            ? 'bg-red-800 text-white'
+                            : 'bg-slate-700'
+                        : r >= 8
+                          ? r === 10
+                            ? 'bg-green-700 text-white'
+                            : 'bg-blue-700 text-white'
+                          : 'bg-slate-700 text-slate-300'
+                    }`}
+                  >
+                    {r}
+                  </span>
+                ))}
+              </div>
+              {entry.reachLines.length > 0 && (
+                <div className="mt-2 pt-2 border-t border-slate-700">
+                  <p className="text-[10px] text-slate-500 uppercase tracking-wide mb-1">Reaches</p>
+                  <ul className="text-slate-400 text-[11px] space-y-0.5">
+                    {entry.reachLines.map((line, i) => (
+                      <li key={i}>• {line}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <div className="mt-2 pt-2 border-t border-slate-700 text-[10px] text-slate-500 space-y-1 font-mono leading-relaxed">
+                <p>
+                  Gnosis {entry.breakdown.gnosis} + {entry.breakdown.arcanaLabel} {entry.breakdown.arcanaRating} | +{entry.breakdown.yantras} yantra dice
+                  {entry.breakdown.combinedSpellDicePenalty > 0 &&
+                    ` | −${entry.breakdown.combinedSpellDicePenalty} combined`}{' '}
+                  | −{entry.breakdown.reachPenalty} reach
+                  {entry.breakdown.potencyBoostPenalty > 0 &&
+                    ` | −${entry.breakdown.potencyBoostPenalty} potency boost`}{' '}
+                  | +{entry.breakdown.ritualBoost} ritual | mod{' '}
+                  {entry.breakdown.dicePoolModifier >= 0 ? '+' : ''}
+                  {entry.breakdown.dicePoolModifier}
+                </p>
+                {entry.ritualBoost > 0 && (
+                  <p className="text-indigo-400/95">
+                    Ritual ~{entry.ritualTimeLabel} ({entry.ritualIntervalLabel}/interval × {entry.ritualBoost})
+                  </p>
+                )}
+              </div>
+            </article>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default SpellCastLog;

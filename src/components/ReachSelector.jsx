@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { DEFAULT_REACHES } from '../data/reachesData';
 import {
-  calculateReachEffects,
   getDefaultPotency,
-  getFreeDurationLevel,
-  calculateDurationPenalty,
-  calculateReachEffectsWithPrimaryFactor
+  getRitualIntervalMinutes,
+  formatRitualDuration,
+  getMaxYantrasForGnosis
 } from '../utils/spellCalculations';
 
 const ReachSelector = ({
@@ -25,7 +24,10 @@ const ReachSelector = ({
   potencyBoostLevel,
   setPotencyBoostLevel,
   getCurrentPrimaryFactor,
-  setDefaultCSPotency
+  setDefaultCSPotency,
+  gnosis,
+  ritualBoost,
+  setRitualBoost
 }) => {
   const [isDurationAdvanced, setIsDurationAdvanced] = useState(false);
   const [reachesModifier, setReachesModifier] = useState(0);
@@ -217,46 +219,9 @@ const ReachSelector = ({
     }
   };
 
-  // Use the primary-factor-aware calculation
-  const getEffectiveCosts = () => {
-    if (!selectedSpell) return { totalPenalty: 0, manaCost: 0 };
-
-    const currentPrimaryFactor = getCurrentPrimaryFactor();
-
-    if (isCombinedSpell) {
-      // For combined spells, use the lowest arcanum
-      const currentArcanaValue = getCurrentArcanaValue();
-
-      // For combined spells, if any component has Duration as a primary factor,
-      // treat Duration as a primary factor for the whole spell
-      const primaryFactors = selectedSpell.primaryFactor.split('/');
-      const hasDuration = primaryFactors.includes('Duration') || currentPrimaryFactor === 'Duration';
-
-      return calculateReachEffectsWithPrimaryFactor(
-        selectedReaches,
-        selectedSpell,
-        DEFAULT_REACHES,
-        currentArcanaValue,
-        hasDuration ? 'Duration' : selectedSpell.primaryFactor,
-        currentPrimaryFactor
-      );
-    }
-
-    return calculateReachEffectsWithPrimaryFactor(
-      selectedReaches,
-      selectedSpell,
-      DEFAULT_REACHES,
-      arcanaValue,
-      selectedSpell.primaryFactor,
-      currentPrimaryFactor !== selectedSpell.primaryFactor ? currentPrimaryFactor : null
-    );
-  };
-
-  // Get costs that account for primary factor benefits
-  const { totalPenalty, manaCost } = getEffectiveCosts();
-
-  // Calculate additional dice penalty from potency boost
-  const potencyPenalty = potencyBoostLevel * 2;
+  const maxYantras = getMaxYantrasForGnosis(gnosis ?? 1);
+  const ritualIntervalMin = getRitualIntervalMinutes(gnosis ?? 1);
+  const ritualTotalMin = (ritualBoost || 0) * ritualIntervalMin;
 
   const categorizedReaches = getReachesByCategory();
   const specialReaches = getAllSpecialReaches();
@@ -352,7 +317,7 @@ const ReachSelector = ({
             </div>
 
             {(selectedSpell.skills?.length > 0 && !selectedSpell.combined) && (
-              <div className="mt-3 mb-4 bg-indigo-900 bg-opacity-30 p-3 rounded-lg border border-indigo-800">
+              <div className="mt-3 mb-4 bg-indigo-900/30 p-3 rounded-lg border border-slate-700">
                 <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
                   <i className="fas fa-graduation-cap mr-2"></i> Rote Skills
                 </h4>
@@ -384,10 +349,10 @@ const ReachSelector = ({
               <div className="flex items-center justify-between space-x-3" style={{ flexFlow: 'wrap' }}>
                 {[1, 2, 3, 4, 5].map((level) => (
                   <div key={level} className="flex flex-col items-center">
-                    <label className={`p-4 w-12 h-12 rounded-lg flex items-center justify-center cursor-pointer ${potencyBoostLevel === level
-                      ? 'bg-indigo-600 text-white shadow-lg border'
-                      : 'bg-slate-900 text-slate-300 hover:bg-slate-600 shadow-lg'
-                      } transition-colors mb-2`} style={{ cursor: 'pointer' }}>
+                    <label className={`p-4 w-12 h-12 rounded-lg flex items-center justify-center cursor-pointer border transition-colors mb-2 ${potencyBoostLevel === level
+                      ? 'bg-indigo-600 text-white shadow-lg border-indigo-500'
+                      : 'bg-slate-900 text-slate-300 hover:bg-slate-600 shadow-lg border-slate-700'
+                      }`} style={{ cursor: 'pointer' }}>
                       <input
                         type="checkbox"
                         className="sr-only"
@@ -405,7 +370,7 @@ const ReachSelector = ({
             </div>
           </div>
 
-          <div className="custom-scrollbar bg-slate-700 rounded-lg border border-slate-700 p-4 mb-4">
+          <div className="custom-scrollbar bg-slate-700 rounded-lg p-4 mb-4 ring-1 ring-slate-800/80">
             <div className="mb-4 bg-slate-800 p-4 rounded-lg">
               <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center">
                 <i className="fas fa-star mr-2"></i> All Available Reaches
@@ -421,7 +386,7 @@ const ReachSelector = ({
                           type="checkbox"
                           checked={isReachSelected(reach.name)}
                           onChange={() => handleReachToggle(reach.name)}
-                          className="mr-3 h-4 w-4 text-indigo-500 rounded focus:ring-indigo-400"
+                          className="mr-3 h-4 w-4 text-indigo-500 rounded border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                           style={{ cursor: 'pointer' }}
                         />
                         <span className="flex-grow">
@@ -468,7 +433,7 @@ const ReachSelector = ({
                               type="checkbox"
                               checked={isReachSelected(reach.name)}
                               onChange={() => handleReachToggle(reach.name)}
-                              className="mr-3 h-4 w-4 text-indigo-500 rounded focus:ring-indigo-400"
+                              className="mr-3 h-4 w-4 text-indigo-500 rounded border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                               style={{ cursor: 'pointer' }}
                             />
                             <span className={`flex-grow text-slate-300`}>
@@ -509,54 +474,9 @@ const ReachSelector = ({
           </div>
 
           {availableReaches + reachesModifier < 0 && (
-            <div className="mt-2 mb-4 text-red-400 text-sm flex items-center bg-red-900 bg-opacity-30 p-3 rounded-lg border border-red-900 animate-pulse-subtle">
+            <div className="mt-2 mb-4 text-red-300 text-sm flex items-center bg-red-950/50 p-3 rounded-lg border border-red-900/80 animate-pulse-subtle">
               <i className="fas fa-exclamation-triangle mr-2"></i>
               You've selected more reaches than available
-            </div>
-          )}
-
-          {(totalPenalty > 0 || potencyPenalty > 0 || manaCost > 0 || dicePoolModifier !== 0 || manaModifier !== 0) && (
-            <div className="p-4 bg-slate-800 rounded-lg mb-4 text-sm animate-fadeIn shadow-md">
-              <div className="font-bold mb-3 text-slate-300">Costs Summary:</div>
-              <div className="space-y-2">
-                {potencyPenalty > 0 && (
-                  <div className="text-yellow-300 flex items-center p-2 bg-yellow-900 bg-opacity-30 rounded-lg">
-                    <i className="fas fa-bolt mr-2"></i>
-                    Potency Boost Penalty: -{potencyPenalty} dice
-                  </div>
-                )}
-                {totalPenalty > 0 && (
-                  <div className="text-yellow-300 flex items-center p-2 bg-yellow-900 bg-opacity-30 rounded-lg">
-                    <i className="fas fa-dice-d20 mr-2"></i>
-                    Reach Penalty: -{totalPenalty} dice
-                  </div>
-                )}
-                {isCombinedSpell && selectedSpell.additionalPenalty > 0 && (
-                  <div className="text-yellow-300 flex items-center p-2 bg-yellow-900 bg-opacity-30 rounded-lg">
-                    <i className="fas fa-magic mr-2"></i>
-                    Combined Spell Penalty: -{selectedSpell.additionalPenalty} dice
-                  </div>
-                )}
-                {dicePoolModifier !== 0 && (
-                  <div className={`flex items-center p-2 rounded-lg ${dicePoolModifier > 0 ? 'text-green-300 bg-green-900 bg-opacity-30' : 'text-red-300 bg-red-900 bg-opacity-30'
-                    }`}>
-                    <i className="fas fa-dice-d20 mr-2"></i>
-                    Dice Pool Modifier: {dicePoolModifier > 0 ? `+${dicePoolModifier}` : dicePoolModifier} dice
-                  </div>
-                )}
-                {(potencyPenalty > 0 || totalPenalty > 0 || dicePoolModifier !== 0) && (
-                  <div className={`flex items-center p-2 rounded-lg ${(totalPenalty + potencyPenalty - dicePoolModifier) >= 0 ? 'text-red-400 bg-red-900 bg-opacity-30' : 'text-green-400 bg-green-900 bg-opacity-30'
-                    }`}>
-                    <i className="fas fa-dice-d20 mr-2"></i>
-                    Total Dice Modifier: {dicePoolModifier - totalPenalty - potencyPenalty} dice
-                  </div>
-                )}
-                {(manaCost > 0 || manaModifier !== 0) && (
-                  <div className="text-blue-400 flex items-center p-2 bg-blue-900 bg-opacity-30 rounded-lg">
-                    <i className="fas fa-tint mr-2"></i>
-                    Mana Cost: {manaCost + manaModifier} {manaModifier !== 0 ? `(${manaModifier > 0 ? '+' : ''}${manaModifier} modified)` : ''}
-                  </div>)}
-              </div>
             </div>
           )}
 
@@ -570,16 +490,66 @@ const ReachSelector = ({
                 type="number"
                 min="0"
                 value={yantras}
-                onChange={(e) => setYantras(parseInt(e.target.value))}
-                className="w-10 bg-slate-700 text-white border border-slate-600 rounded-md p-2 text-center focus-ring mr-2"
+                onChange={(e) => {
+                  const v = parseInt(e.target.value, 10);
+                  setYantras(Number.isNaN(v) ? 0 : Math.max(0, v));
+                }}
+                className="w-10 bg-slate-700 text-white border border-slate-600 rounded-md p-2 text-center mr-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                 style={{ fontSize: 14, fontWeight: 'bold', width: '20%' }}
               />
               <div className="dot-notation flex-grow">{"+".repeat(yantras)}</div>
             </div>
             <div className="mt-4 text-sm text-slate-400 bg-slate-800 p-3 rounded-lg" style={{ fontSize: 14 }} >
-              <i className="fas fa-info-circle mr-2" ></i>
-              <span className="font-medium">Yantras</span> add bonus dice to your spell casting. Common examples include: <span style={{ fontSize: 11, fontStyle: 'italic' }}>Dedicated magical tool, Symbols, Runes, Descriptive Casting, etc.</span>
+              <p>
+                <i className="fas fa-info-circle mr-2 text-slate-500" />
+                <span className="font-medium text-slate-300">Yantra dice bonus</span> — enter the total extra dice from your yantras.
+              </p>
+              <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                Common examples: dedicated tool, mudra, mantras, sacraments, demesne, etc.
+              </p>
+              <p className="mt-2 pt-3 border-t border-slate-700 text-indigo-200/95 text-xs leading-relaxed">
+                <i className="fas fa-layer-group mr-2 text-indigo-400" />
+                <span className="font-semibold text-indigo-200">Yantra limit (Gnosis {gnosis ?? 1}):</span> up to{' '}
+                <span className="font-bold text-white">{maxYantras}</span> separate yantras may be used on one spell.
+              </p>
             </div>
+          </div>
+
+          <div className="mb-3 bg-slate-700 p-4 rounded-lg">
+            <label className="block mb-3 font-medium flex items-center">
+              <i className="fas fa-hourglass-half mr-2"></i>
+              Ritual Boost
+            </label>
+            <p className="text-xs text-slate-400 mb-3">
+              Each point adds <span className="text-green-300 font-medium">+1 die</span> to the pool and extends casting by one ritual interval for your Gnosis (
+              {formatRitualDuration(ritualIntervalMin) || `${ritualIntervalMin} minutes`} per interval).
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {[0, 1, 2, 3, 4, 5].map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setRitualBoost(n)}
+                  style={{ padding: 5 }}
+                  className={`min-w-[2.5rem] px-3 py-2 rounded-lg text-sm font-bold transition-colors ${
+                    ritualBoost === n
+                      ? 'bg-amber-600 text-white shadow-md'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-600'
+                  }`}
+                >
+                  {n === 0 ? 'None' : `+${n}`}
+                </button>
+              ))}
+            </div>
+            {ritualBoost > 0 && (
+              <p className="mt-2 text-sm text-amber-200/95">
+                <i className="fas fa-clock mr-2" />
+                Estimated ritual casting time:{' '}
+                <span className="font-semibold text-white">
+                  {formatRitualDuration(ritualTotalMin) || '—'}
+                </span>
+              </p>
+            )}
           </div>
 
           {/* Additional Modifiers Section */}

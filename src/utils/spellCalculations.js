@@ -1,9 +1,44 @@
+/** Ritual interval length (minutes) per roll by Gnosis — MtAw 2e */
+export const getRitualIntervalMinutes = (gnosis) => {
+  const g = Math.max(1, Math.min(10, Number(gnosis) || 1));
+  if (g <= 2) return 180; // 3 hours
+  if (g <= 4) return 60;
+  if (g <= 6) return 30;
+  if (g <= 8) return 10;
+  return 1;
+};
+
+/** Maximum yantras allowed by Gnosis — MtAw 2e */
+export const getMaxYantrasForGnosis = (gnosis) => {
+  const g = Math.max(1, Math.min(10, Number(gnosis) || 1));
+  if (g <= 2) return 2;
+  if (g <= 4) return 3;
+  if (g <= 6) return 4;
+  if (g <= 8) return 5;
+  return 6;
+};
+
+/** Total ritual casting time when using ritual boost dice (each boost = one interval). */
+export const getRitualCastTimeMinutes = (gnosis, ritualBoost) => {
+  const b = Math.max(0, Number(ritualBoost) || 0);
+  if (b === 0) return 0;
+  return b * getRitualIntervalMinutes(gnosis);
+};
+
+export const formatRitualDuration = (totalMinutes) => {
+  if (!totalMinutes || totalMinutes <= 0) return null;
+  const h = Math.floor(totalMinutes / 60);
+  const m = totalMinutes % 60;
+  const parts = [];
+  if (h > 0) parts.push(`${h} hour${h === 1 ? '' : 's'}`);
+  if (m > 0) parts.push(`${m} minute${m === 1 ? '' : 's'}`);
+  return parts.join(' ') || null;
+};
+
 // Calculate dice pool based on character stats and spell properties
 export const calculateDicePool = (gnosis, arcanaValue, castingType, yantras, reachPenalties) => {
   let dicePool = 0;
 
-  console.log(arcanaValue)
-  
   // Calculate base dice based on casting type chosen by user
   if (castingType === 'rote') {
     // For rotes, we'd typically use Attribute + Skill + Arcanum
