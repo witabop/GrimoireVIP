@@ -98,7 +98,16 @@ const SpellCastLog = ({ onClose, entries }) => {
             >
               <div className="relative flex flex-wrap items-start justify-between gap-2 mb-2">
                 <div>
-                  <h3 className="font-bold text-amber-200 text-sm leading-tight">{entry.spellName}</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-bold text-amber-200 text-sm leading-tight">{entry.spellName}</h3>
+                    {entry.castingType && (
+                      <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded border ${
+                        entry.castingType === 'rote' ? 'bg-blue-600/30 text-blue-300 border-blue-500/40' :
+                        entry.castingType === 'praxis' ? 'bg-yellow-600/30 text-yellow-300 border-yellow-500/40' :
+                        'bg-purple-600/30 text-purple-300 border-purple-500/40'
+                      }`}>{entry.castingType}</span>
+                    )}
+                  </div>
                   <p className="text-slate-400 text-[11px] mt-0.5 italic">{entry.timeLabel}</p>
                 </div>
                 <button
