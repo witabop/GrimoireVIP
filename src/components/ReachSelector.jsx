@@ -316,27 +316,6 @@ const ReachSelector = ({
               </div>
             )}
 
-            {!selectedSpell.combined && selectedSpell.castingType !== 'rote' && selectedSpell.skills?.length > 0 && (
-              <div className="mt-3 mb-4 bg-indigo-900/30 p-3 rounded-lg border border-slate-700">
-                <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
-                  <i className="fas fa-graduation-cap mr-2"></i> Rote Skills
-                </h4>
-                <div className="flex flex-wrap gap-2 text-sm italic text-slate-300">
-                  {selectedSpell.skills.map((skill, index) => (
-                    <span
-                      key={index}
-                      className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-800 text-indigo-200 text-xs font-medium"
-                    >
-                      <i className="fas fa-book-open mr-1"></i> <span className="mr-1">{skill}</span>
-                    </span>
-                  ))}
-                </div>
-                <div className="text-xs text-slate-300 mt-2 italic">
-                  <i className="fas fa-info-circle mr-1" ></i>
-                  These skills can be added to the yantra bonus as Mudra when casting a Rote.
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Potency Boost Section */}
