@@ -7,9 +7,45 @@ const SPELL_TYPES = {
   PRAXIS: 'praxis'
 };
 
+const ALL_SKILLS = [
+  { key: 'academics', label: 'Academics' },
+  { key: 'computer', label: 'Computer' },
+  { key: 'craft', label: 'Craft' },
+  { key: 'investigation', label: 'Investigation' },
+  { key: 'medicine', label: 'Medicine' },
+  { key: 'occult', label: 'Occult' },
+  { key: 'politics', label: 'Politics' },
+  { key: 'science', label: 'Science' },
+  { key: 'athletics', label: 'Athletics' },
+  { key: 'brawl', label: 'Brawl' },
+  { key: 'drive', label: 'Drive' },
+  { key: 'firearms', label: 'Firearms' },
+  { key: 'larceny', label: 'Larceny' },
+  { key: 'stealth', label: 'Stealth' },
+  { key: 'survival', label: 'Survival' },
+  { key: 'weaponry', label: 'Weaponry' },
+  { key: 'animalKen', label: 'Animal Ken' },
+  { key: 'empathy', label: 'Empathy' },
+  { key: 'expression', label: 'Expression' },
+  { key: 'intimidation', label: 'Intimidation' },
+  { key: 'persuasion', label: 'Persuasion' },
+  { key: 'socialize', label: 'Socialize' },
+  { key: 'streetwise', label: 'Streetwise' },
+  { key: 'subterfuge', label: 'Subterfuge' },
+];
+
+const skillLabelToKey = (label) => {
+  if (!label) return null;
+  const lower = label.toLowerCase().trim();
+  if (lower === 'crafts') return 'craft';
+  const match = ALL_SKILLS.find((s) => s.label.toLowerCase() === lower || s.key === lower);
+  return match ? match.key : null;
+};
+
 const SpellSelector = ({ 
   spells, 
   arcanaValues, 
+  characterSkills,
   addUserSpell, 
   closeSpellSelector 
 }) => {
@@ -17,14 +53,24 @@ const SpellSelector = ({
   const [expandedArcanum, setExpandedArcanum] = useState(null);
   const [selectedSpell, setSelectedSpell] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
+  const [selectedRoteSkill, setSelectedRoteSkill] = useState(null);
   const [animateIn, setAnimateIn] = useState(false);
 
   useEffect(() => {
-    // Trigger animation after component mounts
     setAnimateIn(true);
   }, []);
 
-  // Filter spells the user can cast based on their Arcana
+  useEffect(() => {
+    if (selectedType !== SPELL_TYPES.ROTE) {
+      setSelectedRoteSkill(null);
+      return;
+    }
+    if (!selectedSpell) return;
+    const suggested = (selectedSpell.skills || []).map(skillLabelToKey).filter(Boolean);
+    if (suggested.length > 0) setSelectedRoteSkill(suggested[0]);
+    else setSelectedRoteSkill(ALL_SKILLS[0].key);
+  }, [selectedType, selectedSpell]);
+
   const getAvailableSpellsByArcanum = (arcanum) => {
     return spells.filter(spell => {
       return spell.arcanum.toLowerCase() === arcanum.toLowerCase() && 
@@ -32,51 +78,46 @@ const SpellSelector = ({
     });
   };
 
-  // Get spells matching search term
   const getSearchResults = () => {
     if (!searchTerm.trim()) return [];
-    
     return spells.filter(spell => {
       const canCast = arcanaValues[spell.arcanum.toLowerCase()] >= spell.level;
       const matchesSearch = spell.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            spell.description.toLowerCase().includes(searchTerm.toLowerCase());
-      
       return canCast && matchesSearch;
     });
   };
 
-  // Convert numeric level to dot notation
-  const getDotNotation = (level) => {
-    return "•".repeat(level);
-  };
+  const getDotNotation = (level) => "•".repeat(level);
 
-  // Get color class for arcanum
   const getArcanumColor = (arcanumName) => {
     const arcanum = ARCANA.find(a => a.name.toLowerCase() === arcanumName.toLowerCase());
     return arcanum ? arcanum.color : 'bg-slate-700 text-white';
   };
 
-  // Get icon for arcanum
   const getArcanumIcon = (arcanumName) => {
     const arcanum = ARCANA.find(a => a.name.toLowerCase() === arcanumName.toLowerCase());
     const icon = arcanum?.faIcon || 'magic';
     return <i className={`fas fa-${icon}`}></i>;
   };
 
-  // Handle adding a spell to the spellbook
+  const isRoteReady = selectedType !== SPELL_TYPES.ROTE || selectedRoteSkill;
+
   const handleAddSpell = () => {
-    if (selectedSpell && selectedType) {
-      addUserSpell({
-        ...selectedSpell,
-        castingType: selectedType
-      });
-      
-      // Reset state and close selector
+    if (selectedSpell && selectedType && isRoteReady) {
+      const spell = { ...selectedSpell, castingType: selectedType };
+      if (selectedType === SPELL_TYPES.ROTE && selectedRoteSkill) {
+        spell.roteSkill = selectedRoteSkill;
+      }
+      addUserSpell(spell);
       setSelectedSpell(null);
       setSelectedType(null);
+      setSelectedRoteSkill(null);
       closeSpellSelector();
     }
   };
+
+  const suggestedKeys = selectedSpell ? (selectedSpell.skills || []).map(skillLabelToKey).filter(Boolean) : [];
 
   return (
     <div className={`flex flex-col bg-slate-800 rounded-xl shadow-2xl border border-slate-700 transition-all duration-500 ${animateIn ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>
@@ -113,7 +154,6 @@ const SpellSelector = ({
       <div className="flex-1 overflow-hidden flex flex-col">
         {/* Spell Browser */}
         <div className="overflow-y-auto p-4 border-b border-slate-600 flex-1 custom-scrollbar">
-          {/* Search Results */}
           {searchTerm.trim() !== '' && (
             <div className="mb-4 animate-fadeIn">
               <h3 className="font-bold mb-2 text-blue-400 flex items-center">
@@ -156,7 +196,6 @@ const SpellSelector = ({
             </div>
           )}
           
-          {/* Browse by Arcanum */}
           {searchTerm.trim() === '' && (
             <div className="animate-fadeIn">
               <h3 className="font-bold mb-3 text-green-400 flex items-center">
@@ -285,9 +324,9 @@ const SpellSelector = ({
                           : 'hover:border-slate-500 shadow-md hover:shadow-lg'
                       }`}
                     >
-                      <div className="text-center mb-1" style={{fontSize: 20}}>
+                      <div className="text-center mb-1 text-xl">
                         {type === SPELL_TYPES.ROTE && <i className="fas fa-book text-blue-400"></i>}
-                        {type === SPELL_TYPES.PRAXIS && <i className="fas fa-bolt" style={{color: '#FACC15'}}></i>}
+                        {type === SPELL_TYPES.PRAXIS && <i className="fas fa-bolt text-yellow-200"></i>}
                         {type === SPELL_TYPES.IMPROVISED && <i className="fas fa-hat-wizard text-indigo-400"></i>}
                       </div>
                       <div className={`text-[10px] capitalize font-medium text-center truncate ${
@@ -296,6 +335,41 @@ const SpellSelector = ({
                     </button>
                   ))}
                 </div>
+
+                {/* Rote Skill Selection */}
+                {selectedType === SPELL_TYPES.ROTE && (
+                  <div className="mt-4 bg-slate-800/60 rounded-lg p-3 border border-slate-700 animate-fadeIn">
+                    {suggestedKeys.length > 0 && (
+                      <p className="text-[11px] text-slate-400 mb-2">
+                        <i className="fas fa-info-circle mr-1 text-indigo-400" />
+                        Suggested rote skills: {selectedSpell.skills.map((s, i) => (
+                          <span key={i} className="text-indigo-300 font-medium">{s}{i < selectedSpell.skills.length - 1 ? ', ' : ''}</span>
+                        ))}
+                      </p>
+                    )}
+                    <label className="flex items-center gap-2 text-xs text-slate-300">
+                      <span className="whitespace-nowrap font-medium">Rote Skill:</span>
+                      <select
+                        value={selectedRoteSkill || ''}
+                        onChange={(e) => setSelectedRoteSkill(e.target.value)}
+                        className="flex-1 bg-slate-700 text-white text-xs border border-slate-600 rounded-lg px-2 py-1.5 focus:outline-none focus:border-indigo-500"
+                      >
+                        {suggestedKeys.length > 0 && (
+                          <optgroup label="Suggested">
+                            {ALL_SKILLS.filter((s) => suggestedKeys.includes(s.key)).map((s) => (
+                              <option key={s.key} value={s.key}>{s.label} ({characterSkills[s.key] || 0})</option>
+                            ))}
+                          </optgroup>
+                        )}
+                        <optgroup label="All Skills">
+                          {ALL_SKILLS.map((s) => (
+                            <option key={s.key} value={s.key}>{s.label} ({characterSkills[s.key] || 0})</option>
+                          ))}
+                        </optgroup>
+                      </select>
+                    </label>
+                  </div>
+                )}
               </div>
             </div>
           ) : null}
@@ -312,9 +386,9 @@ const SpellSelector = ({
             <button
               type="button"
               onClick={handleAddSpell}
-              disabled={!selectedSpell || !selectedType}
+              disabled={!selectedSpell || !selectedType || !isRoteReady}
               className={`px-4 py-2.5 rounded-lg font-medium flex items-center text-white transition-all shadow-md ${
-                selectedSpell && selectedType
+                selectedSpell && selectedType && isRoteReady
                   ? 'bg-indigo-600 hover:bg-indigo-500 cursor-pointer hover:-translate-y-1 hover:shadow-lg'
                   : 'bg-slate-600 cursor-not-allowed opacity-70'
               }`}

@@ -33,8 +33,13 @@ const ActionsTab = ({ char, updateChar, onNavigate }) => {
   const arcanaValues = char.arcanaValues || {};
   const gnosis = char.gnosis || 1;
   const activeSpells = char.activeSpells || [];
+  const actionMods = char.actionModifiers || {};
   const defense = char.defenseOverride ?? Math.min(attr.dexterity || 1, attr.wits || 1) + (skills.athletics || 0);
   const speed = char.speedOverride ?? (attr.dexterity || 1) + (attr.strength || 1) + 5;
+
+  const setActionMod = (key, value) => {
+    updateChar({ actionModifiers: { ...actionMods, [key]: value } });
+  };
 
   const attackTypes = [
     { key: 'unarmed', label: 'Unarmed Combat', formula: 'Strength + Brawl', base: (attr.strength || 1) + (skills.brawl || 0), subtractDef: true },
@@ -68,8 +73,9 @@ const ActionsTab = ({ char, updateChar, onNavigate }) => {
       {show('Cast Spell') && <CastSpellAction onNavigate={onNavigate} />}
       {show('Cancel Spell') && <CancelSpellAction activeSpells={activeSpells} gnosis={gnosis} onCancel={cancelSpell} />}
       {show('Counterspell') && <CounterspellAction gnosis={gnosis} arcanaValues={arcanaValues} />}
-      {show('Attack') && <AttackAction attackTypes={attackTypes} />}
-      {show('Grapple') && <GrappleAction base={grappleBase} />}
+      {show('Attack') && <AttackAction attackTypes={attackTypes} actionMods={actionMods} setActionMod={setActionMod} />}
+      {show('Grapple') && <GrappleAction base={grappleBase} savedMod={actionMods.grappleMod || 0} onModChange={(v) => setActionMod('grappleMod', v)} />}
+      {show('Scour Pattern') && <ScourPatternAction gnosis={gnosis} />}
       {show('Dodge') && (
         <SimpleAction
           name="Dodge"
@@ -152,14 +158,14 @@ const RollResult = ({ results, pool }) => {
 };
 
 /* ─── Attack (rollable, with specified targets) ───────────── */
-const AttackAction = ({ attackTypes }) => {
+const AttackAction = ({ attackTypes, actionMods, setActionMod }) => {
   const [open, setOpen] = useState(false);
-  const [mods, setMods] = useState({});
-  const [targets, setTargets] = useState({});
   const [results, setResults] = useState({});
 
-  const getMod = (key) => mods[key] || 0;
-  const getTarget = (key) => targets[key] || 0;
+  const getMod = (key) => actionMods[`attack_mod_${key}`] || 0;
+  const getTarget = (key) => actionMods[`attack_target_${key}`] || 0;
+  const setMod = (key, v) => setActionMod(`attack_mod_${key}`, v);
+  const setTarget = (key, v) => setActionMod(`attack_target_${key}`, v);
   const getPool = (at) => Math.max(0, at.base + getMod(at.key) - getTarget(at.key));
 
   const roll = (at) => {
@@ -200,12 +206,12 @@ const AttackAction = ({ attackTypes }) => {
                 <div className="flex flex-wrap items-center gap-3 text-xs">
                   <label className="flex items-center gap-1.5 text-slate-400">
                     Modifier
-                    <input type="number" min={0} max={10} value={getMod(at.key)} onChange={(e) => setMods((p) => ({ ...p, [at.key]: Math.max(0, Math.min(10, parseInt(e.target.value, 10) || 0)) }))}
+                    <input type="number" min={0} max={10} value={getMod(at.key)} onChange={(e) => setMod(at.key, Math.max(0, Math.min(10, parseInt(e.target.value, 10) || 0)))}
                       className="w-12 bg-slate-700 text-white text-center border border-slate-600 rounded py-0.5 focus:outline-none focus:border-indigo-500" />
                   </label>
                   <label className="flex items-center gap-1.5 text-slate-400">
                     Target
-                    <select value={getTarget(at.key)} onChange={(e) => setTargets((p) => ({ ...p, [at.key]: parseInt(e.target.value, 10) }))}
+                    <select value={getTarget(at.key)} onChange={(e) => setTarget(at.key, parseInt(e.target.value, 10))}
                       className="bg-slate-700 text-white text-xs border border-slate-600 rounded px-2 py-0.5 focus:outline-none focus:border-indigo-500">
                       {SPECIFIED_TARGETS.map((t) => (
                         <option key={t.label} value={t.penalty}>{t.label}</option>
@@ -240,10 +246,11 @@ const GRAPPLE_MOVES = [
   { name: 'Take Cover', desc: 'Use opponent\'s body as cover. Ranged attacks until end of turn auto-hit them.' },
 ];
 
-const GrappleAction = ({ base }) => {
+const GrappleAction = ({ base, savedMod, onModChange }) => {
   const [open, setOpen] = useState(false);
-  const [mod, setMod] = useState(0);
   const [result, setResult] = useState(null);
+  const mod = savedMod;
+  const setMod = (v) => onModChange(v);
 
   const pool = Math.max(0, base + mod);
 
@@ -720,6 +727,49 @@ const TeamworkAction = ({ gnosis, arcanaValues }) => {
             </p>
             {mageResult && <RollResult results={mageResult.dice} pool={mageResult.pool} />}
           </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ─── Scour Pattern ──────────────────────────────────────── */
+const ScourPatternAction = ({ gnosis }) => {
+  const [open, setOpen] = useState(false);
+  const maxScours = gnosis >= 10 ? 4 : gnosis >= 7 ? 3 : gnosis >= 5 ? 2 : 1;
+
+  return (
+    <div className="bg-slate-700/60 rounded-lg overflow-hidden">
+      <button type="button" className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-slate-700 transition-colors" onClick={() => setOpen(!open)}>
+        <div className="flex items-center gap-2">
+          <span className="font-medium text-sm text-white">Scour Pattern</span>
+          <ActionTypeBadge type="instant" />
+          <span className="text-xs text-slate-400">{maxScours}/day — produces 3 Mana</span>
+        </div>
+        <i className={`fas fa-chevron-${open ? 'up' : 'down'} text-xs text-slate-500`} />
+      </button>
+      {open && (
+        <div className="px-4 pb-4 pt-2 border-t border-slate-600/50 space-y-3 animate-fadeIn">
+          <p className="text-sm text-slate-300 leading-relaxed">A mage can Scour her Pattern for Mana, literally tearing apart some of the building blocks that maintain her physical form. She reduces a Physical Attribute (Strength, Dexterity, or Stamina) and all derived traits by one dot for 24 hours, <strong className="text-white">or</strong> suffers one resistant lethal wound. Either method produces <strong className="text-green-300">3 Mana</strong>.</p>
+          <div className="bg-slate-800/50 rounded-lg p-3 space-y-2">
+            <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">Scour Limits by Gnosis</p>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-xs">
+              {[
+                { range: '1–4', limit: 1 },
+                { range: '5–6', limit: 2 },
+                { range: '7–9', limit: 3 },
+                { range: '10', limit: 4 },
+              ].map((r) => (
+                <div key={r.range} className={`flex justify-between ${r.limit === maxScours ? 'text-indigo-300 font-medium' : 'text-slate-500'}`}>
+                  <span>Gnosis {r.range}</span>
+                  <span>{r.limit}/day</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="text-xs text-amber-300/80 bg-amber-900/20 rounded-lg px-3 py-2 border border-amber-800/30">
+            <i className="fas fa-exclamation-triangle mr-1.5" />At your current Gnosis ({gnosis}), you can Scour <strong>{maxScours} time{maxScours !== 1 ? 's' : ''}</strong> per day.
+          </p>
         </div>
       )}
     </div>

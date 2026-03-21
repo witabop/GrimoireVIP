@@ -110,6 +110,9 @@ export const DEFAULT_CHARACTER = {
   // Spellbook
   userSpells: [],
   yantras: 0,
+
+  // Action modifier persistence (attack mods/targets, grapple mod)
+  actionModifiers: {},
 };
 
 export const getDefaultCharacterData = () => ({ ...DEFAULT_CHARACTER });
@@ -162,6 +165,7 @@ export const mergeWithDefaults = (saved) => {
   if (!Array.isArray(merged.activeSpells)) merged.activeSpells = [];
   if (!Array.isArray(merged.inuredSpells)) merged.inuredSpells = [];
   if (!Array.isArray(merged.userSpells)) merged.userSpells = [];
+  if (!merged.actionModifiers || typeof merged.actionModifiers !== 'object') merged.actionModifiers = {};
   return merged;
 };
 

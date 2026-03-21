@@ -334,7 +334,13 @@ function App() {
     }
   };
 
-  const selectSpell = (spell) => setSelectedSpell(spell);
+  const selectSpell = (spell) => {
+    setSelectedSpell(spell);
+    if (spell?.castingType === 'rote' && spell.roteSkill) {
+      const skillDots = characterData.skills[spell.roteSkill] || 0;
+      setYantras(skillDots);
+    }
+  };
 
   const isDurationFree = (durationOption) => {
     if (!selectedSpell) return false;
@@ -740,6 +746,7 @@ function App() {
                   <SpellSelector
                     spells={spells}
                     arcanaValues={arcanaValues}
+                    characterSkills={characterData.skills}
                     addUserSpell={addUserSpell}
                     closeSpellSelector={() => setShowSpellSelector(false)}
                   />
