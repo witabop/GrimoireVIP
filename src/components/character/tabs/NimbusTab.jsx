@@ -21,7 +21,7 @@ const NimbusTab = ({ nimbus, onChange }) => {
     if (!isNaN(n)) {
       onChange({
         ...nimbus,
-        effectedStats: { ...stats, [key]: Math.max(0, Math.min(10, n)) },
+        effectedStats: { ...stats, [key]: Math.max(-10, Math.min(10, n)) },
       });
     }
   };

@@ -99,7 +99,7 @@ Add merits by name with a dot rating from 1 to 10. Delete by hovering and clicki
 
 ### Nimbus Tab
 
-Text fields for Long-Term, Immediate, Signature, and Peripheral Mage Sight nimbus descriptions. An "Effected Stats" grid lets you assign a 0--10 modifier to each of the nine attributes.
+Text fields for Long-Term, Immediate, Signature, and Peripheral Mage Sight nimbus descriptions. An "Effected Stats" grid lets you assign a -10 to +10 modifier to each of the nine attributes.
 
 ### Extras Tab
 
