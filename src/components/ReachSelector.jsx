@@ -206,7 +206,7 @@ const ReachSelector = ({
 
   const maxYantras = getMaxYantrasForGnosis(gnosis ?? 1);
   const ritualIntervalMin = getRitualIntervalMinutes(gnosis ?? 1);
-  const ritualTotalMin = (ritualBoost || 0) * ritualIntervalMin;
+  const ritualTotalMin = (1 + (ritualBoost || 0)) * ritualIntervalMin;
 
   const categorizedReaches = getReachesByCategory();
   const specialReaches = getAllSpecialReaches();

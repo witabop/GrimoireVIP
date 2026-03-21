@@ -464,13 +464,13 @@ function App() {
   const getCastingTime = () => {
     if (selectedReaches.includes('Casting Time: Instant')) return 'Instant';
     const intervalMin = getRitualIntervalMinutes(gnosis);
-    const totalMins = (ritualBoost > 0 ? ritualBoost : 1) * intervalMin;
+    const totalMins = (1 + ritualBoost) * intervalMin;
     return formatRitualDuration(totalMins) || `${totalMins} minutes`;
   };
 
   const buildCastLogEntry = (finalPool, isChanceDie, results, successes, breakdown) => {
     const intervalMin = getRitualIntervalMinutes(gnosis);
-    const ritualMins = ritualBoost * intervalMin;
+    const ritualMins = (1 + ritualBoost) * intervalMin;
     const intervalLabel = formatRitualDuration(intervalMin) || `${intervalMin} minute${intervalMin === 1 ? '' : 's'}`;
 
     const reachLines = buildReachLines();
