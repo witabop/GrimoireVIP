@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ATTR_LIST = [
   { key: 'intelligence', label: 'Intelligence' },
@@ -15,6 +15,8 @@ const ATTR_LIST = [
 const NimbusTab = ({ nimbus, onChange }) => {
   const update = (key, val) => onChange({ ...nimbus, [key]: val });
   const stats = nimbus.effectedStats || {};
+  const effectedSkills = nimbus.effectedSkills || [];
+  const [draft, setDraft] = useState('');
 
   const updateStat = (key, raw) => {
     const n = parseInt(raw, 10);
@@ -24,6 +26,17 @@ const NimbusTab = ({ nimbus, onChange }) => {
         effectedStats: { ...stats, [key]: Math.max(-10, Math.min(10, n)) },
       });
     }
+  };
+
+  const addSkill = () => {
+    const v = draft.trim();
+    if (!v) return;
+    onChange({ ...nimbus, effectedSkills: [...effectedSkills, v] });
+    setDraft('');
+  };
+
+  const removeSkill = (i) => {
+    onChange({ ...nimbus, effectedSkills: effectedSkills.filter((_, idx) => idx !== i) });
   };
 
   return (
@@ -49,6 +62,35 @@ const NimbusTab = ({ nimbus, onChange }) => {
               />
             </div>
           ))}
+        </div>
+      </div>
+
+      <div>
+        <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Effected Skills</p>
+        {effectedSkills.length > 0 && (
+          <div className="space-y-1 mb-2">
+            {effectedSkills.map((skill, i) => (
+              <div key={i} className="flex items-center justify-between bg-slate-700/60 rounded-lg px-3 py-1.5 group">
+                <span className="text-xs text-slate-300">{skill}</span>
+                <button type="button" onClick={() => removeSkill(i)} className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-red-400 text-xs transition-opacity">
+                  <i className="fas fa-trash-alt" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addSkill(); } }}
+            placeholder="Add effected skill..."
+            className="flex-1 bg-slate-700 text-white text-xs border border-slate-600 rounded-lg px-3 py-1.5 focus:border-indigo-500 focus:outline-none placeholder:text-slate-500"
+          />
+          <button type="button" onClick={addSkill} className="text-green-400 hover:text-green-300 text-sm px-2">
+            <i className="fas fa-check" />
+          </button>
         </div>
       </div>
     </div>

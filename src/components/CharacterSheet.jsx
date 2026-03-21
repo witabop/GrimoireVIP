@@ -64,8 +64,10 @@ const CharacterSheet = ({ char, updateChar, onNavigate }) => {
           <SkillsSection
             skills={char.skills}
             roteSkills={char.roteSkills || []}
+            skillSpecialties={char.skillSpecialties || {}}
             onSkillChange={onSkillChange}
             onToggleRote={onToggleRote}
+            onSpecialtyChange={(key, value) => updateChar({ skillSpecialties: { ...(char.skillSpecialties || {}), [key]: value } })}
           />
         </div>
 

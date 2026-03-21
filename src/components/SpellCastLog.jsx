@@ -11,6 +11,8 @@ export const formatCastEntryAsText = (entry) => {
     `8-Again: ${entry.eightAgain ? 'yes' : 'no'} | 9-Again: ${entry.nineAgain ? 'yes' : 'no'}`,
     `Potency: ${entry.potency}${entry.potencyBoost ? ` (boost +${entry.potencyBoost})` : ''}`,
     `Primary factor: ${entry.primaryFactor || '—'}`,
+    `Duration: ${entry.duration || '—'}`,
+    `Casting time: ${entry.castingTime || '—'}`,
     `Mana cost (total): ${entry.manaCostTotal}`,
     '',
     'Dice pool breakdown:',
@@ -127,6 +129,18 @@ const SpellCastLog = ({ onClose, entries }) => {
                   <span className="text-slate-400">Mana:</span>{' '}
                   <span className="text-blue-300">{entry.manaCostTotal}</span>
                 </div>
+                {entry.duration && (
+                  <div>
+                    <span className="text-slate-400">Duration:</span>{' '}
+                    <span className="text-amber-300">{entry.duration}</span>
+                  </div>
+                )}
+                {entry.castingTime && (
+                  <div>
+                    <span className="text-slate-400">Cast time:</span>{' '}
+                    <span className="text-slate-300">{entry.castingTime}</span>
+                  </div>
+                )}
               </div>
               <div className="mt-2 flex flex-wrap gap-1">
                 {entry.rollResults.map((r, i) => (

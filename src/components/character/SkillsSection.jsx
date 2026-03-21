@@ -33,7 +33,7 @@ const SOCIAL_SKILLS = [
   { key: 'subterfuge', label: 'Subterfuge' },
 ];
 
-const SkillsSection = ({ skills, roteSkills, onSkillChange, onToggleRote }) => {
+const SkillsSection = ({ skills, roteSkills, skillSpecialties, onSkillChange, onToggleRote, onSpecialtyChange }) => {
   const set = (key, raw) => {
     const n = parseInt(raw, 10);
     if (!isNaN(n)) onSkillChange(key, Math.max(0, Math.min(10, n)));
@@ -46,15 +46,15 @@ const SkillsSection = ({ skills, roteSkills, onSkillChange, onToggleRote }) => {
         Skills
       </h3>
       <div className="space-y-4">
-        <SkillGroup title="Mental" icon="fa-brain" color="text-blue-400" skills={MENTAL_SKILLS} values={skills} roteSkills={roteSkills} onChange={set} onToggleRote={onToggleRote} />
-        <SkillGroup title="Physical" icon="fa-fist-raised" color="text-red-400" skills={PHYSICAL_SKILLS} values={skills} roteSkills={roteSkills} onChange={set} onToggleRote={onToggleRote} />
-        <SkillGroup title="Social" icon="fa-comments" color="text-green-400" skills={SOCIAL_SKILLS} values={skills} roteSkills={roteSkills} onChange={set} onToggleRote={onToggleRote} />
+        <SkillGroup title="Mental" icon="fa-brain" color="text-blue-400" skills={MENTAL_SKILLS} values={skills} roteSkills={roteSkills} specialties={skillSpecialties} onChange={set} onToggleRote={onToggleRote} onSpecialtyChange={onSpecialtyChange} />
+        <SkillGroup title="Physical" icon="fa-fist-raised" color="text-red-400" skills={PHYSICAL_SKILLS} values={skills} roteSkills={roteSkills} specialties={skillSpecialties} onChange={set} onToggleRote={onToggleRote} onSpecialtyChange={onSpecialtyChange} />
+        <SkillGroup title="Social" icon="fa-comments" color="text-green-400" skills={SOCIAL_SKILLS} values={skills} roteSkills={roteSkills} specialties={skillSpecialties} onChange={set} onToggleRote={onToggleRote} onSpecialtyChange={onSpecialtyChange} />
       </div>
     </div>
   );
 };
 
-const SkillGroup = ({ title, icon, color, skills: skillList, values, roteSkills, onChange, onToggleRote }) => (
+const SkillGroup = ({ title, icon, color, skills: skillList, values, roteSkills, specialties, onChange, onToggleRote, onSpecialtyChange }) => (
   <div>
     <h4 className={`text-xs font-bold uppercase tracking-wider mb-2 ${color} flex items-center gap-1.5`}>
       <i className={`fas ${icon} text-[10px]`} />
@@ -77,14 +77,21 @@ const SkillGroup = ({ title, icon, color, skills: skillList, values, roteSkills,
             >
               <i className="fas fa-book" />
             </button>
-            <span className="text-sm text-slate-300 flex-1 min-w-0 truncate">{label}</span>
+            <span className="text-sm text-slate-300 w-20 shrink-0 truncate">{label}</span>
+            <input
+              type="text"
+              value={specialties[key] || ''}
+              onChange={(e) => onSpecialtyChange(key, e.target.value)}
+              placeholder="Specialty"
+              className="flex-1 min-w-0 bg-slate-700/50 text-slate-300 text-[11px] border border-slate-600/50 rounded px-1.5 py-1 focus:border-indigo-500 focus:outline-none placeholder:text-slate-600"
+            />
             <input
               type="number"
               min={0}
               max={10}
               value={values[key] || 0}
               onChange={(e) => onChange(key, e.target.value)}
-              className="w-12 bg-slate-700 text-white text-center text-xs border border-slate-600 rounded-lg py-1 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none"
+              className="w-12 shrink-0 bg-slate-700 text-white text-center text-xs border border-slate-600 rounded-lg py-1 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none"
             />
           </div>
         );

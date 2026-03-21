@@ -19,7 +19,10 @@ import {
   formatRitualDuration
 } from './utils/spellCalculations';
 import { DEFAULT_REACHES } from './data/reachesData';
-import { saveCharacterData, loadCharacterData, mergeWithDefaults } from './utils/localStorage';
+import {
+  saveCharacterData, loadCharacterData, mergeWithDefaults,
+  initRoster, saveCharacterToRoster, addCharacterToRoster, deleteCharacterFromRoster, getDefaultCharacterData
+} from './utils/localStorage';
 import SpellCombiner from './components/SpellCombiner';
 import SpellCastLog from './components/SpellCastLog';
 import CastingCostsSummary from './components/CastingCostsSummary';
@@ -50,6 +53,42 @@ function App() {
   };
   const setYantras = (v) => updateChar({ yantras: v });
 
+  // ─── Multi-character roster ──────────────────────────────
+  const [roster, setRoster] = useState(null);
+  const activeCharId = roster?.activeId || null;
+
+  const switchCharacter = (id) => {
+    if (!roster || id === activeCharId) return;
+    const updated = saveCharacterToRoster(roster, activeCharId, characterData);
+    const target = updated.characters.find((c) => c.id === id);
+    if (!target) return;
+    const next = { ...updated, activeId: id };
+    saveRoster_fn(next);
+    setRoster(next);
+    setCharacterData(mergeWithDefaults(target.data));
+  };
+
+  const createNewCharacter = () => {
+    if (!roster) return;
+    const saved = saveCharacterToRoster(roster, activeCharId, characterData);
+    const fresh = getDefaultCharacterData();
+    const { roster: next } = addCharacterToRoster(saved, fresh);
+    setRoster(next);
+    setCharacterData(fresh);
+  };
+
+  const deleteCurrentCharacter = () => {
+    if (!roster || roster.characters.length <= 1) return;
+    const next = deleteCharacterFromRoster(roster, activeCharId);
+    setRoster(next);
+    const target = next.characters.find((c) => c.id === next.activeId);
+    if (target) setCharacterData(mergeWithDefaults(target.data));
+  };
+
+  const saveRoster_fn = (r) => {
+    try { localStorage.setItem('mage-character-roster', JSON.stringify(r)); } catch { /* ignore */ }
+  };
+
   // ─── Page navigation ──────────────────────────────────────
   const [activePage, setActivePage] = useState('character');
   const fileInputRef = useRef(null);
@@ -70,8 +109,13 @@ function App() {
     const reader = new FileReader();
     reader.onload = (ev) => {
       try {
-        const data = JSON.parse(ev.target.result);
-        setCharacterData(mergeWithDefaults(data));
+        const data = mergeWithDefaults(JSON.parse(ev.target.result));
+        if (roster) {
+          const saved = saveCharacterToRoster(roster, activeCharId, characterData);
+          const { roster: next } = addCharacterToRoster(saved, data);
+          setRoster(next);
+        }
+        setCharacterData(data);
       } catch { /* ignore bad JSON */ }
     };
     reader.readAsText(file);
@@ -165,9 +209,13 @@ function App() {
     setSpells(processedSpells);
 
     const saved = loadCharacterData();
-    if (saved) {
-      setCharacterData(mergeWithDefaults(saved));
-    }
+    const charData = mergeWithDefaults(saved);
+    setCharacterData(charData);
+
+    const r = initRoster(charData);
+    setRoster(r);
+    const active = r.characters.find((c) => c.id === r.activeId);
+    if (active) setCharacterData(mergeWithDefaults(active.data));
 
     setTimeout(() => setAppReady(true), 100);
   }, []);
@@ -175,6 +223,11 @@ function App() {
   useEffect(() => {
     if (!appReady) return;
     saveCharacterData(characterData);
+    if (roster && activeCharId) {
+      const updated = saveCharacterToRoster(roster, activeCharId, characterData);
+      setRoster(updated);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [characterData, appReady]);
 
   // ─── Active spell reach overhead ─────────────────────────
@@ -402,6 +455,19 @@ function App() {
     return lines;
   };
 
+  const getSpellDuration = () => {
+    const durationReach = selectedReaches.find((r) => r.startsWith('Duration:'));
+    if (durationReach) return durationReach.replace('Duration: ', '');
+    return '1 turn';
+  };
+
+  const getCastingTime = () => {
+    if (selectedReaches.includes('Casting Time: Instant')) return 'Instant';
+    const intervalMin = getRitualIntervalMinutes(gnosis);
+    const totalMins = (ritualBoost > 0 ? ritualBoost : 1) * intervalMin;
+    return formatRitualDuration(totalMins) || `${totalMins} minutes`;
+  };
+
   const buildCastLogEntry = (finalPool, isChanceDie, results, successes, breakdown) => {
     const intervalMin = getRitualIntervalMinutes(gnosis);
     const ritualMins = ritualBoost * intervalMin;
@@ -433,7 +499,9 @@ function App() {
       componentNames: selectedSpell.componentSpells?.map((s) => s.name),
       ritualBoost,
       ritualIntervalLabel: intervalLabel,
-      ritualTimeLabel: formatRitualDuration(ritualMins) || '—'
+      ritualTimeLabel: formatRitualDuration(ritualMins) || '—',
+      duration: getSpellDuration(),
+      castingTime: getCastingTime()
     };
   };
 
@@ -521,10 +589,44 @@ function App() {
 
         {/* Navigation bar */}
         <div className="max-w-7xl mx-auto flex items-center justify-between mb-6">
-          <h1 className="text-lg font-bold flex items-center gap-2 text-slate-200">
-            <img src="/favicon.ico" alt="" className="w-6 h-6" />
-            Grimoire<span className="-ml-1 text-indigo-400">.VIP</span>
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-lg font-bold flex items-center gap-2 text-slate-200">
+              <img src="/favicon.ico" alt="" className="w-6 h-6" />
+              Grimoire<span className="-ml-1 text-indigo-400">.VIP</span>
+            </h1>
+            {roster && roster.characters.length > 0 && (
+              <div className="flex items-center gap-1.5">
+                <select
+                  value={activeCharId || ''}
+                  onChange={(e) => switchCharacter(e.target.value)}
+                  className="bg-slate-800 text-slate-300 text-xs border border-slate-700 rounded-lg px-2 py-1.5 focus:outline-none focus:border-indigo-500 max-w-[160px] truncate"
+                  title="Switch character"
+                >
+                  {roster.characters.map((c) => (
+                    <option key={c.id} value={c.id}>{c.name || 'Unnamed Mage'}</option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={createNewCharacter}
+                  className="text-slate-500 hover:text-green-400 text-xs p-1 transition-colors"
+                  title="New character"
+                >
+                  <i className="fas fa-plus" />
+                </button>
+                {roster.characters.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={deleteCurrentCharacter}
+                    className="text-slate-500 hover:text-red-400 text-xs p-1 transition-colors"
+                    title="Delete current character"
+                  >
+                    <i className="fas fa-trash-alt" />
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
           <div className="flex gap-2">
             <input type="file" accept=".json" ref={fileInputRef} onChange={importCharacter} className="hidden" />
             <button

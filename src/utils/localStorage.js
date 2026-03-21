@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'mage-spell-caster-data';
+const ROSTER_KEY = 'mage-character-roster';
 
 export const DEFAULT_CHARACTER = {
   // Identity
@@ -41,6 +42,7 @@ export const DEFAULT_CHARACTER = {
     persuasion: 0, socialize: 0, streetwise: 0, subterfuge: 0,
   },
   roteSkills: [],
+  skillSpecialties: {},
 
   // Arcana
   arcanaValues: {
@@ -89,6 +91,7 @@ export const DEFAULT_CHARACTER = {
       strength: 0, dexterity: 0, stamina: 0,
       presence: 0, manipulation: 0, composure: 0,
     },
+    effectedSkills: [],
   },
 
   // Attainments
@@ -152,10 +155,64 @@ export const mergeWithDefaults = (saved) => {
   if (!Array.isArray(merged.obsessions)) merged.obsessions = [];
   if (!merged.nimbus || typeof merged.nimbus !== 'object') merged.nimbus = { ...defaults.nimbus };
   if (!merged.nimbus.effectedStats) merged.nimbus.effectedStats = { ...defaults.nimbus.effectedStats };
+  if (!Array.isArray(merged.nimbus.effectedSkills)) merged.nimbus.effectedSkills = [];
+  if (!merged.skillSpecialties || typeof merged.skillSpecialties !== 'object') merged.skillSpecialties = {};
   if (!Array.isArray(merged.arcanaAttainments)) merged.arcanaAttainments = [];
   if (!Array.isArray(merged.legacyAttainments)) merged.legacyAttainments = [];
   if (!Array.isArray(merged.activeSpells)) merged.activeSpells = [];
   if (!Array.isArray(merged.inuredSpells)) merged.inuredSpells = [];
   if (!Array.isArray(merged.userSpells)) merged.userSpells = [];
   return merged;
+};
+
+// ─── Multi-character roster ─────────────────────────────────
+const generateId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+
+export const loadRoster = () => {
+  try {
+    const raw = localStorage.getItem(ROSTER_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch { /* ignore */ }
+  return null;
+};
+
+export const saveRoster = (roster) => {
+  try { localStorage.setItem(ROSTER_KEY, JSON.stringify(roster)); } catch { /* ignore */ }
+};
+
+export const initRoster = (currentCharData) => {
+  let roster = loadRoster();
+  if (roster && Array.isArray(roster.characters) && roster.characters.length > 0) {
+    return roster;
+  }
+  const id = generateId();
+  roster = { activeId: id, characters: [{ id, name: currentCharData.shadowName || 'Unnamed Mage', data: currentCharData }] };
+  saveRoster(roster);
+  return roster;
+};
+
+export const saveCharacterToRoster = (roster, charId, charData) => {
+  const chars = roster.characters.map((c) =>
+    c.id === charId ? { ...c, name: charData.shadowName || 'Unnamed Mage', data: charData } : c
+  );
+  const updated = { ...roster, characters: chars };
+  saveRoster(updated);
+  return updated;
+};
+
+export const addCharacterToRoster = (roster, charData) => {
+  const id = generateId();
+  const entry = { id, name: charData.shadowName || 'Unnamed Mage', data: charData };
+  const updated = { ...roster, activeId: id, characters: [...roster.characters, entry] };
+  saveRoster(updated);
+  return { roster: updated, id };
+};
+
+export const deleteCharacterFromRoster = (roster, charId) => {
+  const chars = roster.characters.filter((c) => c.id !== charId);
+  if (chars.length === 0) return roster;
+  const activeId = roster.activeId === charId ? chars[0].id : roster.activeId;
+  const updated = { activeId, characters: chars };
+  saveRoster(updated);
+  return updated;
 };
