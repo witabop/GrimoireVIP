@@ -94,11 +94,14 @@ function App() {
   const fileInputRef = useRef(null);
 
   const exportCharacter = () => {
+    const now = new Date();
+    const dateSuffix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const baseName = characterData.shadowName || 'character';
     const blob = new Blob([JSON.stringify(characterData, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${characterData.shadowName || 'character'}.json`;
+    a.download = `${baseName}_${dateSuffix}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
