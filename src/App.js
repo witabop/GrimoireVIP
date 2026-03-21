@@ -522,8 +522,8 @@ function App() {
         {/* Navigation bar */}
         <div className="max-w-7xl mx-auto flex items-center justify-between mb-6">
           <h1 className="text-lg font-bold flex items-center gap-2 text-slate-200">
-            <i className="fas fa-book text-indigo-400" />
-            Grimoire<span style={{ marginLeft: -6 }} className="text-indigo-400">.VIP</span>
+            <img src="/favicon.ico" alt="" className="w-6 h-6" />
+            Grimoire<span className="-ml-1 text-indigo-400">.VIP</span>
           </h1>
           <div className="flex gap-2">
             <input type="file" accept=".json" ref={fileInputRef} onChange={importCharacter} className="hidden" />

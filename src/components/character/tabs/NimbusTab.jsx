@@ -41,7 +41,7 @@ const NimbusTab = ({ nimbus, onChange }) => {
               <span className="text-xs text-slate-400">{label}</span>
               <input
                 type="number"
-                min={0}
+                min={-10}
                 max={10}
                 value={stats[key] ?? 0}
                 onChange={(e) => updateStat(key, e.target.value)}
