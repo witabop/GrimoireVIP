@@ -310,7 +310,7 @@ const MAGE_ARMORS = [
 
 const MageArmorAction = ({ arcanaValues }) => {
   const [open, setOpen] = useState(false);
-  const known = MAGE_ARMORS.filter((a) => (arcanaValues[a.arcanum.toLowerCase()] || 0) >= 1);
+  const known = MAGE_ARMORS.filter((a) => (arcanaValues[a.arcanum.toLowerCase()] || 0) >= 2);
 
   return (
     <div className="bg-slate-700/60 rounded-lg overflow-hidden">
