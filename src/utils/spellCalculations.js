@@ -297,11 +297,6 @@ export const calculateReachEffectsWithPrimaryFactor = (
   // Handle case where spell might be null during initialization
   const specialReaches = spell?.specialReaches || [];
   
-  // Check for advanced scale reach
-  const hasAdvancedDurationReach = selectedReaches.some(reach => 
-    reach.startsWith("Duration: One") || reach === "Duration: Indefinite"
-  );
-  const selectedDuration = selectedReaches.find(reach => reach.startsWith("Duration:"));
   const isPrimaryFactorDuration = primaryFactor === 'Duration' || changedPrimaryFactor === 'Duration';
   
   selectedReaches.forEach(reachName => {

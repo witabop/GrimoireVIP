@@ -14,6 +14,7 @@ const CastingCostsSummary = ({
   dicePoolModifier,
   ritualBoost,
   gnosis,
+  activeSpellReachCost = 0,
   className = ''
 }) => {
   if (!selectedSpell) return null;
@@ -50,7 +51,7 @@ const CastingCostsSummary = ({
         Pool Breakdown
       </div>
 
-      <div className="space-y-1.5" style={{ fontStyle: 'italic' }}>
+      <div className="space-y-1.5 italic">
         <Row icon="fa-brain" color="green">
           Gnosis: +{effectiveGnosis}
         </Row>
@@ -74,6 +75,12 @@ const CastingCostsSummary = ({
         {totalPenalty > 0 && (
           <Row icon="fa-hand-point-up" color="yellow">
             Reach penalty: −{totalPenalty}
+          </Row>
+        )}
+        {activeSpellReachCost > 0 && (
+          <Row icon="fa-layer-group" color="blue">
+            Active spell Reach: +{activeSpellReachCost}
+            <span className="ml-1.5 text-blue-200/60 text-xs">(reach only, no dice penalty)</span>
           </Row>
         )}
         {potencyPenalty > 0 && (

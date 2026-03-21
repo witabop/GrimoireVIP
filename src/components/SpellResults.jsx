@@ -13,7 +13,10 @@ const SpellResults = ({
   eightAgain,
   setEightAgain,
   nineAgain,
-  setNineAgain
+  setNineAgain,
+  onAddToActive,
+  onAddToInured,
+  inuredFull
 }) => {
 
   const isChanceDie = rollResults.length > 0 && rollContext
@@ -112,7 +115,7 @@ const SpellResults = ({
               <p className="text-3xl font-bold flex items-center">
                 {spellPotency}
                 {spellPotency > 0 &&
-                  <span className="text-sm text-amber-400 ml-2 dot-notation" style={{ marginLeft: 5 }}>
+                  <span className="text-sm text-amber-400 ml-1.5 dot-notation">
                     {getDotNotation(spellPotency)}
                   </span>
                 }
@@ -131,8 +134,8 @@ const SpellResults = ({
               </h3>
             )}
             {rollResults.length > 0 ? (
-              <div className="bg-slate-700 p-4 rounded-lg shadow-md" style={{ marginBottom: 10 }}>
-                <div className="flex flex-wrap gap-3 mb-4" style={{ flexFlow: 'wrap' }}>
+              <div className="bg-slate-700 p-4 rounded-lg shadow-md mb-2.5">
+                <div className="flex flex-wrap gap-3 mb-4">
                   {rollResults.map((result, index) => (
                     <div
                       key={index}
@@ -143,7 +146,7 @@ const SpellResults = ({
                           ? (result === 10 ? 'bg-green-600 text-white shine-effect' : 'bg-blue-600 text-white')
                           : 'bg-slate-600 text-slate-300')
                         }`}
-                      style={{ marginRight: 5, padding: 5 }}
+                      
                     >
                       {result}
                     </div>
@@ -195,7 +198,7 @@ const SpellResults = ({
                   <span className="text-white font-medium flex items-center">
                     {primaryFactor || selectedSpell.primaryFactor}
                     {primaryFactor && primaryFactor !== selectedSpell.primaryFactor &&
-                      <span className="ml-2 text-xs text-indigo-300" style={{ marginLeft: 3, fontSize: 11 }}>(changed)</span>
+                      <span className="ml-1 text-[11px] text-indigo-300">(changed)</span>
                     }
                   </span>
                 </div>
@@ -206,9 +209,9 @@ const SpellResults = ({
                   </div>
                 )}
                 {selectedSpell?.combined && (
-                  <div className="mb-4 rounded-lg" style={{ marginTop: -10 }}>
-                    <p className="text-slate-400 mt-2" style={{ marginTop: 13, marginBottom: 5 }}>Component Spells:</p>
-                    <div className=" gap-2">
+                  <div className="-mt-2 mb-4 rounded-lg">
+                    <p className="text-slate-400 mt-3 mb-1">Component Spells:</p>
+                    <div className="gap-2">
                       {selectedSpell.componentSpells.map((spell, idx) => (
                         <div key={idx} className="text-xs text-indigo-200 rounded-full font-medium">
                           • {spell.name}
@@ -222,10 +225,10 @@ const SpellResults = ({
 
 
               {/* Description Section */}
-              <div className="bg-slate-800 p-4 rounded-lg mb-2" style={{ backgroundColor: '#1e293b' }}>
-                <div className="bg-slate-800 pb-4 rounded-lg mb-2" style={{ backgroundColor: '#1e293b' }}>
+              <div className="bg-slate-800 p-4 rounded-lg mb-2">
+                <div className="pb-4 rounded-lg mb-2">
                   <h4 className="text-sm font-bold mb-2 text-slate-200">Description:</h4>
-                  <p className="text-slate-300" style={{ fontSize: selectedSpell.description.length > 742 ? 12 : 16 }}>{selectedSpell.description}</p>
+                  <p className={`text-slate-300 ${selectedSpell.description.length > 742 ? 'text-xs' : 'text-base'}`}>{selectedSpell.description}</p>
                 </div>
                 <h4 className="text-sm font-bold mb-4 text-slate-200">Selected Reaches:</h4>
                 {selectedReachesWithDescriptions.length > 0 ? (
@@ -257,6 +260,37 @@ const SpellResults = ({
               </div>
             </div>
           </div>
+
+          {onAddToActive && (
+            <button
+              type="button"
+              onClick={onAddToActive}
+              className="w-full mt-4 py-2.5 rounded-lg text-sm font-medium bg-amber-600/20 text-amber-300 border border-amber-600/40 hover:bg-amber-600/30 hover:border-amber-500/50 transition-all duration-200 flex items-center justify-center gap-2"
+            >
+              <i className="fas fa-bolt" />
+              Add to Active Spells
+            </button>
+          )}
+          {onAddToInured && (
+            <div className="mt-2">
+              <button
+                type="button"
+                onClick={onAddToInured}
+                disabled={inuredFull}
+                className={`w-full py-2.5 rounded-lg text-sm font-medium border transition-all duration-200 flex items-center justify-center gap-2 ${
+                  inuredFull
+                    ? 'bg-slate-700/40 text-slate-500 border-slate-600 cursor-not-allowed'
+                    : 'bg-teal-600/20 text-teal-300 border-teal-600/40 hover:bg-teal-600/30 hover:border-teal-500/50'
+                }`}
+              >
+                <i className="fas fa-shield-alt" />
+                {inuredFull ? 'Inured Spells Full' : 'Add to Inured Spells'}
+              </button>
+              <p className="text-[10px] text-slate-500 mt-1.5 text-center leading-relaxed">
+                Inuring a spell requires it to have triggered an act of hubris that resulted in Wisdom loss.
+              </p>
+            </div>
+          )}
         </>
       ) : (
         <div className="bg-slate-700 p-8 rounded-lg text-center shadow-md relative overflow-hidden">

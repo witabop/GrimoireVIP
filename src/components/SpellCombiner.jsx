@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { DEFAULT_REACHES } from '../data/reachesData';
 
 const SpellCombiner = ({
     selectedSpells,
@@ -91,20 +90,20 @@ const SpellCombiner = ({
 
     return (
         <div className={`fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 transition-opacity duration-300 ${animateIn ? 'opacity-100' : 'opacity-0'}`}>
-            <div className={`p-4 rounded-lg border border-slate-400 bg-slate-800 rounded-xl shadow-2xl transform transition-all duration-500 max-w-2xl w-full ${animateIn ? 'scale-100' : 'scale-95'}`} style={{ maxHeight: '90vh', overflowY: 'auto', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+            <div className={`p-4 bg-slate-800 rounded-xl shadow-2xl border border-white/10 max-h-[90vh] overflow-y-auto transform transition-all duration-500 max-w-2xl w-full ${animateIn ? 'scale-100' : 'scale-95'}`}>
                 {/* Header */}
                 <div className="mb-4 border-b border-slate-700 flex justify-between items-center">
                     <h2 className="text-xl font-bold flex items-center">
                         <i className="fas fa-magic mr-3 text-indigo-400"></i> Combine Spells
                     </h2>
                     <button
+                        type="button"
                         onClick={() => {
                             setAnimateIn(false);
                             setTimeout(closeSpellCombiner, 300);
                         }}
                         className="text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-700 transition-all"
                         aria-label="Close spell combiner"
-                        style={{ marginLeft: 'auto' }}
                     >
                         <i className="fas fa-times"></i>
                     </button>
@@ -176,7 +175,7 @@ const SpellCombiner = ({
                                 </span>
                             </div>
                         </div>
-                        <div className="text-xs text-slate-400 mt-4" style={{ fontSize: '0.8rem' }}>
+                        <div className="text-xs text-slate-400 mt-4">
                             <i className="fas fa-info-circle mr-1"></i> Combined spells use your Gnosis + lowest Arcanum rating with a penalty of -2 per additional spell.
                         </div>
                     </div>
@@ -189,7 +188,7 @@ const SpellCombiner = ({
                                 <div key={index} className="bg-slate-700 p-3 rounded-lg hover:bg-slate-600 transition-all mb-4">
                                     <div className="flex justify-between items-center">
                                         <div className="font-medium mr-2">{spell.name}</div>
-                                        <div className="text-xs" style={{ fontSize: '0.9rem' }}>
+                                        <div className="text-sm">
                                             {spell.arcanum} <span className="dot-notation">{"•".repeat(spell.level)}</span>
                                         </div>
                                     </div>
@@ -213,23 +212,23 @@ const SpellCombiner = ({
                 {/* Footer */}
                 <div className="p-5 border-t border-slate-700 flex justify-end mt-4">
                     <button
+                        type="button"
                         onClick={() => {
                             setAnimateIn(false);
                             setTimeout(closeSpellCombiner, 300);
                         }}
-                        className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-lg mr-3 transition-all"
-                        style={{ padding: '10px 15px' }}
+                        className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 rounded-lg mr-3 transition-all"
                     >
                         Cancel
                     </button>
                     <button
+                        type="button"
                         onClick={handleMergeSpells}
                         disabled={!isValidCombination}
                         className={`rounded-lg font-medium flex items-center ${isValidCombination
                             ? 'bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer'
                             : 'bg-slate-600 text-slate-400 cursor-not-allowed'
-                            }`}
-                        style={{ padding: '10px 15px' }}
+                            } px-4 py-2.5`}
                     >
                         <i className="fas fa-magic mr-2"></i> Merge Spells
                     </button>

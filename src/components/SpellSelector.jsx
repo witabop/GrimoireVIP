@@ -79,13 +79,14 @@ const SpellSelector = ({
   };
 
   return (
-    <div style={{position: 'flex', backgroundColor: '#1E293B', borderRadius: '.75rem', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.25)', borderWidth: "1px", borderColor: '#334155' }} className={`flex flex-col transform transition-all duration-500 ${animateIn ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>
+    <div className={`flex flex-col bg-slate-800 rounded-xl shadow-2xl border border-slate-700 transition-all duration-500 ${animateIn ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>
       {/* Header */}
       <div className="p-4 border-b border-slate-700 flex justify-between items-center rounded-t-xl">
-        <h2 className="text-xl font-bold flex items-center" style={{marginRight: 'auto'}}>
+        <h2 className="text-xl font-bold flex items-center mr-auto">
           <i className="fas fa-magic mr-3 text-indigo-400"></i> Add Spell
         </h2>
         <button 
+          type="button"
           onClick={closeSpellSelector}
           className="text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-700 transition-all"
           aria-label="Close spell selector"
@@ -102,9 +103,8 @@ const SpellSelector = ({
             placeholder="🔎 Search spells by name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-slate-700 text-white border border-slate-600 rounded-lg pl-10 p-3 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 focus:outline-none transition-all duration-300"
+            className="w-full bg-slate-700 text-white text-sm border border-slate-600 rounded-lg px-3 py-2.5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 focus:outline-none transition-all duration-300"
             autoFocus
-            style={{ fontSize: 15, padding: 10, outline: 'none' }}
           />
         </div>
       </div>
@@ -129,7 +129,7 @@ const SpellSelector = ({
                         selectedSpell?.name === spell.name ? 'bg-blue-500 bg-opacity-20 border border-blue-400' : 'bg-slate-700'
                       }`}
                       onClick={() => setSelectedSpell(spell)}
-                      style={{ animationDelay: `${index * 50}ms`, cursor: 'pointer', paddingTop: 8, paddingBottom: 8, borderBottom: '1px solid rgba(255, 255, 255, 0.1)' } }
+                      style={{ animationDelay: `${index * 50}ms` }}
                     >
                       <div className="flex items-center">
                         <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 ${getArcanumColor(spell.arcanum)} shadow-md`}>
@@ -137,7 +137,7 @@ const SpellSelector = ({
                         </div>
                         <div className="font-medium text-xs">{spell.name}</div>
                         <div className="ml-auto text-sm flex items-center">
-                          <span className="mr-2 ml-2" style={{marginLeft: 2}}>{spell.arcanum}</span>
+                          <span className="ml-1 mr-2">{spell.arcanum}</span>
                           <span className="dot-notation">{getDotNotation(spell.level)}</span>
                         </div>
                       </div>
@@ -179,7 +179,7 @@ const SpellSelector = ({
                         className={`flex items-center p-2 rounded-lg cursor-pointer ${
                           hasAvailableSpells ? arcanum.color : 'bg-slate-700 opacity-50'
                         } hover:shadow-lg transition-all`}
-                        style={{cursor: hasAvailableSpells ? 'pointer' : 'not-allowed', marginBottom: 5}}
+                        style={{ cursor: hasAvailableSpells ? 'pointer' : 'not-allowed' }}
                         onClick={() => {
                           if (hasAvailableSpells) {
                             setExpandedArcanum(isExpanded ? null : arcanum.name);
@@ -197,7 +197,7 @@ const SpellSelector = ({
                       </div>
                       
                       {isExpanded && (
-                        <div className="bg-slate-700 p-3 space-y-2 max-h-72 overflow-y-auto custom-scrollbar animate-slideInUp shadow-inner" style={{marginBottom: 6, marginTop: -5, borderRadius: 1}}>
+                        <div className="bg-slate-700 p-3 space-y-2 max-h-72 overflow-y-auto custom-scrollbar animate-slideInUp shadow-inner rounded-sm mb-1.5 -mt-1">
                           {getAvailableSpellsByArcanum(arcanum.name).map((spell, spellIndex) => (
                             <div 
                               key={`${spell.name}-${spellIndex}`}
@@ -205,7 +205,7 @@ const SpellSelector = ({
                                 selectedSpell?.name === spell.name ? 'bg-blue-500' : 'bg-slate-700'
                               }`}
                               onClick={() => setSelectedSpell(spell)}
-                              style={{ animationDelay: `${spellIndex * 30}ms`, cursor: 'pointer', paddingTop: 8, paddingBottom: 8, borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}
+                              style={{ animationDelay: `${spellIndex * 30}ms` }}
                             >
                               <div className="flex items-center justify-between">
                                 <div className="font-medium flex items-center">
@@ -250,7 +250,7 @@ const SpellSelector = ({
                     {selectedSpell.practice}
                   </div>
                 </div>
-                <p className="text-slate-300 mb-4 bg-slate-700 p-2 rounded-lg shadow-inner" style={{fontSize: selectedSpell.description.length > 742 ? 11 : 14}}>
+                <p className={`text-slate-300 mb-4 bg-slate-700 p-2 rounded-lg shadow-inner ${selectedSpell.description.length > 742 ? 'text-[11px]' : 'text-sm'}`}>
                   {selectedSpell.description}
                 </p>
                 <div className="grid grid-cols-2 gap-3 text-sm">
@@ -272,27 +272,27 @@ const SpellSelector = ({
                   <i className="fas fa-hat-wizard mr-2 text-purple-400"></i>
                   How will you cast {selectedSpell.name}?
                 </h3>
-                <div className="grid grid-cols-3 gap-4" style={{display: 'inline-flex'}}>
-                  {console.log(selectedType)}
+                <div className="grid grid-cols-3 gap-3 w-full">
                   {Object.values(SPELL_TYPES).map(type => (
                     <button
                       key={type}
+                      type="button"
                       id={type}
                       onClick={() => setSelectedType(type)}
-                      className={`p-4 rounded-lg border border-slate-600 transition-all duration-300 hover:-translate-y-1 ${
+                      className={`p-2 rounded-lg border border-slate-600 overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
                         selectedType === type 
                           ? 'border-indigo-500 bg-slate-700/70 scale-105 transform shadow-lg' 
                           : 'hover:border-slate-500 shadow-md hover:shadow-lg'
                       }`}
                     >
-                      <div className="text-center mb-4 p-2" style={{fontSize: 25}}>
-                        {type === SPELL_TYPES.ROTE && <i className="fas fa-book text-4xl text-blue-400" style={{fontSize: 25}}></i>}
-                        {type === SPELL_TYPES.PRAXIS && <i className="fas fa-bolt text-4xl text-yellow-200" style={{color: '#FACC15', fontSize: 25}}></i>}
-                        {type === SPELL_TYPES.IMPROVISED && <i className="fas fa-hat-wizard text-4xl text-indigo-400" style={{fontSize: 25}}></i>}
+                      <div className="text-center mb-1" style={{fontSize: 20}}>
+                        {type === SPELL_TYPES.ROTE && <i className="fas fa-book text-blue-400"></i>}
+                        {type === SPELL_TYPES.PRAXIS && <i className="fas fa-bolt" style={{color: '#FACC15'}}></i>}
+                        {type === SPELL_TYPES.IMPROVISED && <i className="fas fa-hat-wizard text-indigo-400"></i>}
                       </div>
-                      <div className={`text-sm capitalize font-medium ${
+                      <div className={`text-[10px] capitalize font-medium text-center truncate ${
                         selectedType === type ? 'text-indigo-400' : ''
-                      }`} style={{fontSize: 10, width: 45}}>{type}</div>
+                      }`}>{type}</div>
                     </button>
                   ))}
                 </div>
@@ -301,23 +301,23 @@ const SpellSelector = ({
           ) : null}
           
           {/* Footer */}
-          <div className="mt-2 pt-4 border-t border-slate-700 flex justify-end p-4">
+          <div className="mt-2 pt-4 border-t border-slate-700 flex justify-end p-4 gap-3">
             <button
+              type="button"
               onClick={closeSpellSelector}
-              className=" py-2 rounded-lg font-medium bg-slate-700 hover:bg-slate-600 mr-3 transition-all hover:-translate-y-1 shadow-md hover:shadow-lg"
-              style={{cursor: 'pointer', padding: 10}}
+              className="px-4 py-2.5 rounded-lg font-medium bg-slate-700 hover:bg-slate-600 transition-all hover:-translate-y-1 shadow-md hover:shadow-lg cursor-pointer"
             >
               Cancel
             </button>
             <button
+              type="button"
               onClick={handleAddSpell}
               disabled={!selectedSpell || !selectedType}
-              className={`px-4 py-2 rounded-lg font-medium flex items-center transition-all hover:-translate-y-1 shadow-md hover:shadow-lg ${
+              className={`px-4 py-2.5 rounded-lg font-medium flex items-center text-white transition-all shadow-md ${
                 selectedSpell && selectedType
-                  ? 'bg-slate-400 cursor-pointer'
+                  ? 'bg-indigo-600 hover:bg-indigo-500 cursor-pointer hover:-translate-y-1 hover:shadow-lg'
                   : 'bg-slate-600 cursor-not-allowed opacity-70'
               }`}
-              style={{padding: 10, backgroundColor: selectedSpell && selectedType ? '#4F46E5' : '#475569', color: 'white'}}
             >
               <i className="fas fa-plus mr-2"></i> Add Spell
             </button>

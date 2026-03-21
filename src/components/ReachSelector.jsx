@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { DEFAULT_REACHES } from '../data/reachesData';
 import {
   getDefaultPotency,
@@ -31,24 +31,8 @@ const ReachSelector = ({
   ritualBoost,
   setRitualBoost
 }) => {
-  const [isDurationAdvanced, setIsDurationAdvanced] = useState(false);
-  const [selectedDuration, setSelectedDuration] = useState(null);
-
   // Track if we're viewing a combined spell
   const isCombinedSpell = selectedSpell?.combined;
-
-  // Update tracking state when selectedReaches changes
-  useEffect(() => {
-    // Check for advanced scale reach
-    const hasAdvancedDurationReach = selectedReaches.some(reach =>
-      reach.startsWith("Duration: One") || reach === "Duration: Indefinite"
-    );
-    setIsDurationAdvanced(hasAdvancedDurationReach);
-
-    // Update selected duration
-    const durationReach = selectedReaches.find(reach => reach.startsWith("Duration:"));
-    setSelectedDuration(durationReach || null);
-  }, [selectedReaches]);
 
   // Handle reach toggle
   const handleReachToggle = (reachName) => {
@@ -251,6 +235,11 @@ const ReachSelector = ({
     return getDefaultPotency(currentArcanaValue, selectedSpell.primaryFactor, primaryFactor);
   };
 
+  const combinedDefaultPotency = isCombinedSpell ? getDefaultPotencyForCombinedSpell() : 0;
+  useEffect(() => {
+    if (isCombinedSpell) setDefaultCSPotency(combinedDefaultPotency);
+  }, [isCombinedSpell, combinedDefaultPotency, setDefaultCSPotency]);
+
   return (
     <div className="card animate-slideInRight">
       <div className="flex justify-between items-center mb-3">
@@ -294,7 +283,7 @@ const ReachSelector = ({
                 <span className="text-white font-medium flex items-center">
                   {getCurrentPrimaryFactor()}
                   {getCurrentPrimaryFactor() !== selectedSpell.primaryFactor &&
-                    <span className="ml-2 text-xs text-indigo-300" style={{ marginLeft: 3, fontSize: 11 }}>
+                    <span className="ml-1 text-[11px] text-indigo-300">
                       (changed)
                     </span>
                   }
@@ -303,8 +292,7 @@ const ReachSelector = ({
               <div className="bg-slate-700 rounded-lg">
                 <span className="text-slate-400 block mb-1">Default Potency:</span>
                 <span className="text-white font-medium flex items-center">
-                  {setDefaultCSPotency(getDefaultPotencyForCombinedSpell())}
-                  {getDefaultPotencyForCombinedSpell()}
+                  {combinedDefaultPotency}
                 </span>
               </div>
               {selectedSpell.withstand && (
@@ -322,17 +310,17 @@ const ReachSelector = ({
                 <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
                   <i className="fas fa-graduation-cap mr-2"></i> Rote Skills
                 </h4>
-                <div className="flex flex-wrap gap-2" style={{ fontSize: 15, fontStyle: 'italic', color: '#cbd5e1' }}>
+                <div className="flex flex-wrap gap-2 text-sm italic text-slate-300">
                   {selectedSpell.skills.map((skill, index) => (
                     <span
                       key={index}
                       className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-800 text-indigo-200 text-xs font-medium"
                     >
-                      <i className="fas fa-book-open mr-1"></i> <span style={{ marginRight: 5 }}>{skill}</span>
+                      <i className="fas fa-book-open mr-1"></i> <span className="mr-1">{skill}</span>
                     </span>
                   ))}
                 </div>
-                <div className="text-xs text-indigo-200 mt-2" style={{ fontSize: 12, fontStyle: 'italic', color: '#cbd5e1' }}>
+                <div className="text-xs text-slate-300 mt-2 italic">
                   <i className="fas fa-info-circle mr-1" ></i>
                   These skills can be added to the yantra bonus as Mudra when casting a Rote.
                 </div>
@@ -347,13 +335,13 @@ const ReachSelector = ({
             </h4>
             <div className="space-y-4">
               <p className="text-sm text-slate-300 mb-2">Select a potency boost level:</p>
-              <div className="flex items-center justify-between space-x-3" style={{ flexFlow: 'wrap' }}>
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 {[1, 2, 3, 4, 5].map((level) => (
                   <div key={level} className="flex flex-col items-center">
                     <label className={`p-4 w-12 h-12 rounded-lg flex items-center justify-center cursor-pointer border transition-colors mb-2 ${potencyBoostLevel === level
                       ? 'bg-indigo-600 text-white shadow-lg border-indigo-500'
                       : 'bg-slate-900 text-slate-300 hover:bg-slate-600 shadow-lg border-slate-700'
-                      }`} style={{ cursor: 'pointer' }}>
+                      }`}>
                       <input
                         type="checkbox"
                         className="sr-only"
@@ -363,7 +351,7 @@ const ReachSelector = ({
                       +{level}
                     </label>
                     {potencyBoostLevel === level && (
-                      <span className="text-yellow" style={{ fontSize: 11, color: '#facc15', padding: 3.5, borderRadius: 10, marginTop: 5 }}>-{level * 2} dice</span>
+                      <span className="text-[11px] text-yellow-400 p-1 rounded-lg mt-1">-{level * 2} dice</span>
                     )}
                   </div>
                 ))}
@@ -379,28 +367,27 @@ const ReachSelector = ({
 
               {/* Special Reaches */}
               {specialReaches?.length > 0 && (
-                <div className="bg-slate-800 rounded-lg p-3 space-y-2 mb-4" style={{ fontSize: 14 }}>
+                <div className="bg-slate-800 rounded-lg p-3 space-y-2 mb-4 text-sm">
                   {specialReaches.map(reach => (
                     <div key={reach.name} className="relative">
-                      <label className="flex items-center cursor-pointer p-2 rounded-lg hover:bg-slate-700 transition-colors mb-4" style={{ cursor: 'pointer' }}>
+                      <label className="flex items-center cursor-pointer p-2 rounded-lg hover:bg-slate-700 transition-colors mb-4">
                         <input
                           type="checkbox"
                           checked={isReachSelected(reach.name)}
                           onChange={() => handleReachToggle(reach.name)}
-                          className="mr-3 h-4 w-4 text-indigo-500 rounded border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
-                          style={{ cursor: 'pointer' }}
+                          className="mr-3 h-4 w-4 cursor-pointer text-indigo-500 rounded border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                         />
                         <span className="flex-grow">
                           {reach.name}
                         </span>
                         <div>
                           {reach.cost > 1 &&
-                            <span className="badge badge-purple ml-2 mb-4" style={{ textWrap: 'nowrap', marginLeft: 10 }}>
+                            <span className="badge badge-purple ml-2.5 mb-4 whitespace-nowrap">
                               {reach.cost} Reaches
                             </span>
                           }
                           {reach.manaCost > 0 && (
-                            <span className="badge badge-blue" style={{ textWrap: 'nowrap', marginLeft: 10 }}>
+                            <span className="badge badge-blue ml-2.5 whitespace-nowrap">
                               {reach.manaCost} Mana
                             </span>
                           )}
@@ -416,7 +403,7 @@ const ReachSelector = ({
                 <div key={category} className="mb-2 mt-2">
                   <div className="flex items-center mb-2">
                     <div className="h-px bg-slate-700 flex-grow"></div>
-                    <h5 className="font-bold text-slate-400 mx-3 uppercase tracking-wider" style={{ fontSize: 14 }}>{category}</h5>
+                    <h5 className="font-bold text-slate-400 mx-3 uppercase tracking-wider text-sm">{category}</h5>
                     <div className="h-px bg-slate-700 flex-grow"></div>
                   </div>
 
@@ -429,13 +416,12 @@ const ReachSelector = ({
                       return (
                         <div key={reach.name} className="relative">
                           <label className={`flex items-center cursor-pointer p-2 rounded-lg transition-colors ${isReachSelected(reach.name) ? 'bg-slate-700' : 'hover:bg-slate-700'
-                            }`} style={{ cursor: 'pointer' }}>
+                            }`}>
                             <input
                               type="checkbox"
                               checked={isReachSelected(reach.name)}
                               onChange={() => handleReachToggle(reach.name)}
-                              className="mr-3 h-4 w-4 text-indigo-500 rounded border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
-                              style={{ cursor: 'pointer' }}
+                              className="mr-3 h-4 w-4 cursor-pointer text-indigo-500 rounded border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                             />
                             <span className={`flex-grow text-slate-300`}>
                               {reach.name}
@@ -453,7 +439,7 @@ const ReachSelector = ({
                               ) : null}
 
                               {reach.manaCost && (
-                                <span className="badge badge-blue" style={{ textWrap: 'nowrap' }}>
+                                <span className="badge badge-blue whitespace-nowrap">
                                   {reach.manaCost} Mana
                                 </span>
                               )}
@@ -461,7 +447,7 @@ const ReachSelector = ({
                           </label>
 
                           {reach.description && (
-                            <div className="text-slate-400 ml-9 mt-1" style={{ fontSize: 13 }}>
+                            <div className="text-slate-400 ml-9 mt-1 text-[13px]">
                               {reach.description}
                             </div>
                           )}
@@ -495,12 +481,11 @@ const ReachSelector = ({
                   const v = parseInt(e.target.value, 10);
                   setYantras(Number.isNaN(v) ? 0 : Math.max(0, v));
                 }}
-                className="w-10 bg-slate-700 text-white border border-slate-600 rounded-md p-2 text-center mr-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
-                style={{ fontSize: 14, fontWeight: 'bold', width: '20%' }}
+                className="w-1/5 bg-slate-700 text-white text-sm font-bold border border-slate-600 rounded-md p-2 text-center mr-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800"
               />
               <div className="dot-notation flex-grow">{"+".repeat(yantras)}</div>
             </div>
-            <div className="mt-4 text-sm text-slate-400 bg-slate-800 p-3 rounded-lg" style={{ fontSize: 14 }} >
+            <div className="mt-4 text-sm text-slate-400 bg-slate-800 p-3 rounded-lg">
               <p>
                 <i className="fas fa-info-circle mr-2 text-slate-500" />
                 <span className="font-medium text-slate-300">Yantra dice bonus</span> — enter the total extra dice from your yantras.
@@ -531,7 +516,6 @@ const ReachSelector = ({
                   key={n}
                   type="button"
                   onClick={() => setRitualBoost(n)}
-                  style={{ padding: 5 }}
                   className={`min-w-[2.5rem] px-3 py-2 rounded-lg text-sm font-bold transition-colors ${
                     ritualBoost === n
                       ? 'bg-amber-600 text-white shadow-md'
@@ -558,81 +542,38 @@ const ReachSelector = ({
             <h4 className="text-sm font-bold text-amber-300 mb-3 flex items-center">
               <i className="fas fa-sliders-h mr-2"></i> Additional Modifiers
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Dice Pool Modifier */}
-              <div className="bg-slate-800 p-3 rounded-lg">
-                <label className="block mb-2 text-sm font-medium flex items-center">
-                  <i className="fas fa-dice-d20 mr-2 text-slate-400"></i>
-                  Dice Pool
-                </label>
-                <div className="flex items-center">
-                  <button
-                    onClick={() => setDicePoolModifier(Math.max(-10, dicePoolModifier - 1))}
-                    className="hover:bg-slate-600 rounded-l-lg px-3 py-2 transition-colors"
-                  >
-                    <i className="fas fa-minus" style={{ fontSize: 13, margin: 5 }}></i>
-                  </button>
-                  <div className="w-12 py-2 bg-slate-900 text-center font-bold text-white">
-                    {dicePoolModifier > 0 ? `+${dicePoolModifier}` : dicePoolModifier}
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { label: 'Dice', icon: 'fa-dice-d20', color: 'text-slate-400', value: dicePoolModifier, set: setDicePoolModifier, min: -10, max: 10 },
+                { label: 'Reaches', icon: 'fa-magic', color: 'text-indigo-400', value: reachesModifier, set: setReachesModifier, min: -5, max: 5 },
+                { label: 'Mana', icon: 'fa-tint', color: 'text-blue-400', value: manaModifier, set: setManaModifier, min: -5, max: 5 },
+              ].map((m) => (
+                <div key={m.label} className="bg-slate-800 p-3 rounded-lg overflow-hidden">
+                  <label className="block mb-2 text-sm font-medium flex items-center">
+                    <i className={`fas ${m.icon} mr-2 ${m.color}`}></i>
+                    {m.label}
+                  </label>
+                  <div className="flex items-stretch rounded-lg overflow-hidden bg-slate-900">
+                    <button
+                      type="button"
+                      onClick={() => m.set(Math.max(m.min, m.value - 1))}
+                      className="flex-1 py-2 hover:bg-slate-600 transition-colors flex items-center justify-center"
+                    >
+                      <i className="fas fa-minus text-xs"></i>
+                    </button>
+                    <div className="w-10 py-2 text-center font-bold text-white text-sm flex items-center justify-center border-x border-slate-700">
+                      {m.value > 0 ? `+${m.value}` : m.value}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => m.set(Math.min(m.max, m.value + 1))}
+                      className="flex-1 py-2 hover:bg-slate-600 transition-colors flex items-center justify-center"
+                    >
+                      <i className="fas fa-plus text-xs"></i>
+                    </button>
                   </div>
-                  <button
-                    onClick={() => setDicePoolModifier(Math.min(10, dicePoolModifier + 1))}
-                    className="hover:bg-slate-600 rounded-r-lg px-3 py-2 transition-colors"
-                  >
-                    <i className="fas fa-plus" style={{ fontSize: 13, margin: 5 }}></i>
-                  </button>
                 </div>
-              </div>
-
-              {/* Reaches Modifier */}
-              <div className="bg-slate-800 p-3 rounded-lg">
-                <label className="block mb-2 text-sm font-medium flex items-center">
-                  <i className="fas fa-magic mr-2 text-indigo-400"></i>
-                  Reaches
-                </label>
-                <div className="flex items-center">
-                  <button
-                    onClick={() => setReachesModifier(Math.max(-5, reachesModifier - 1))}
-                    className="hover:bg-slate-600 rounded-l-lg px-3 py-2 transition-colors"
-                  >
-                    <i className="fas fa-minus" style={{ fontSize: 13, margin: 5 }}></i>
-                  </button>
-                  <div className="w-12 py-2 bg-slate-900 text-center font-bold text-white">
-                    {reachesModifier > 0 ? `+${reachesModifier}` : reachesModifier}
-                  </div>
-                  <button
-                    onClick={() => setReachesModifier(Math.min(5, reachesModifier + 1))}
-                    className="hover:bg-slate-600 rounded-r-lg px-3 py-2 transition-colors"
-                  >
-                    <i className="fas fa-plus" style={{ fontSize: 13, margin: 5 }}></i>
-                  </button>
-                </div>
-              </div>
-
-              {/* Mana Modifier */}
-              <div className="bg-slate-800 p-3 rounded-lg">
-                <label className="block mb-2 text-sm font-medium flex items-center">
-                  <i className="fas fa-tint mr-2 text-blue-400"></i>
-                  Mana
-                </label>
-                <div className="flex items-center">
-                  <button
-                    onClick={() => setManaModifier(Math.max(-5, manaModifier - 1))}
-                    className="hover:bg-slate-600 rounded-l-lg px-3 py-2 transition-colors"
-                  >
-                    <i className="fas fa-minus" style={{ fontSize: 13, margin: 5 }}></i>
-                  </button>
-                  <div className="w-12 py-2 bg-slate-900 text-center font-bold text-white">
-                    {manaModifier > 0 ? `+${manaModifier}` : manaModifier}
-                  </div>
-                  <button
-                    onClick={() => setManaModifier(Math.min(5, manaModifier + 1))}
-                    className="hover:bg-slate-600 rounded-r-lg px-3 py-2 transition-colors"
-                  >
-                    <i className="fas fa-plus" style={{ fontSize: 13, margin: 5 }}></i>
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
 
             <div className="mt-4 text-sm text-slate-400 bg-slate-800 bg-opacity-50 p-3 rounded-lg">

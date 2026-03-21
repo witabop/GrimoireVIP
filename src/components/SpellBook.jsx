@@ -76,7 +76,7 @@ const SpellBook = ({
       case SPELL_TYPES.ROTE:
         return <i className="fas fa-book text-blue-400"></i>;
       case SPELL_TYPES.PRAXIS:
-        return <i className="fas fa-bolt text-yellow-400" style={{ color: '#fef08a' }}></i>;
+        return <i className="fas fa-bolt text-yellow-200"></i>;
       default:
         return <i className="fas fa-hat-wizard text-indigo-400"></i>;
     }
@@ -209,12 +209,13 @@ const SpellBook = ({
   return (
     <div className="card animate-slideInLeft">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold flex items-center" style={{ marginRight: '10px' }}>
+        <h2 className="text-xl font-bold flex items-center mr-2.5">
           <i className="fas fa-book-open mr-3 text-purple-400"></i> Spell Book
         </h2>
         <div className="flex">
           {selectedSpells.length > 1 ? (
             <button
+              type="button"
               onClick={handleCombineClick}
               className={`btn ${selectedSpells.length <= maxCombinedSpells && !hasAlreadyCombinedSpell && !anyRotes
                 ? 'bg-indigo-600 hover:bg-indigo-500 text-white'
@@ -233,6 +234,7 @@ const SpellBook = ({
             </button>
           ) : (
             <button
+              type="button"
               onClick={() => setShowSpellSelector(true)}
               className="btn btn-primary"
               aria-label="Add Spell"
@@ -269,7 +271,7 @@ const SpellBook = ({
           <p className="text-slate-400 text-sm mt-2">Click "Add" to get started</p>
         </div>
       ) : (
-        <div className="space-y-1 custom-scrollbar" style={{ paddingTop: 4 }}>
+        <div className="space-y-1 custom-scrollbar pt-1">
           <input
               id="spellbook-search"
               type="search"
@@ -277,18 +279,17 @@ const SpellBook = ({
               onChange={(e) => setSpellSearch(e.target.value)}
               placeholder="Search spells..."
               autoComplete="off"
-              style={{ marginBottom: 10, padding: 4, marginTop: -4 }}
-              className="w-full bg-slate-700 text-white border border-slate-600 rounded-lg pl-9 pr-9 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none transition-all placeholder:text-slate-500"
+              className="w-full bg-slate-700 text-white border border-slate-600 rounded-lg pl-9 pr-9 py-2.5 text-sm mb-2.5 -mt-1 p-1 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none transition-all placeholder:text-slate-500"
             />
           {filteredSpells.map(({ spell, originalIndex }) => (
             <div
               key={`${spell.name}-${spell.castingType}-${originalIndex}`}
-              className={`spell-item relative ${
+              className={`spell-item relative p-3 rounded-lg mb-0.5 border ${
                 (selectedSpell && selectedSpell.name === spell.name && selectedSpell.castingType === spell.castingType)
-                  ? 'spell-item-selected'
+                  ? 'spell-item-selected border-indigo-500'
                   : isSpellSelected(spell)
-                    ? 'bg-indigo-900 border border-indigo-500'
-                    : 'spell-item-normal'
+                    ? 'bg-indigo-900 border-indigo-500'
+                    : 'spell-item-normal border-white/10'
                 } group transition-transform ${
                   searchActive ? 'cursor-default' : 'cursor-move'
                 } ${
@@ -300,14 +301,9 @@ const SpellBook = ({
               onDragEnd={handleDragEnd}
               onDragOver={(e) => handleDragOver(e, originalIndex)}
               onDrop={(e) => handleDrop(e, originalIndex)}
-              style={{ 
-                border: isSpellSelected(spell) ? '1px solid #6366f1' : '1px solid rgba(255, 255, 255, 0.1)', 
-                padding: '12px', 
-                borderRadius: '8px', 
-                marginBottom: 3,
-                transform: draggedSpell?.index === originalIndex ? 'scale(0.98)' : 'scale(1)',
-                position: 'relative',
-                zIndex: draggedSpell?.index === originalIndex ? 10 : 1
+              style={{
+                zIndex: draggedSpell?.index === originalIndex ? 10 : 1,
+                transform: draggedSpell?.index === originalIndex ? 'scale(0.98)' : undefined,
               }}
             >
 
@@ -329,7 +325,7 @@ const SpellBook = ({
                   <div className="text-xs text-slate-400 flex items-center mt-1 space-x-3">
                     <span className="inline-flex items-center">
                       {getSpellTypeIcon(spell.castingType)}
-                      <span className="ml-4 capitalize" style={{ marginRight: 2, marginLeft: 5 }}>{spell.castingType}</span>
+                      <span className="ml-1.5 mr-0.5 capitalize">{spell.castingType}</span>
                     </span>
                     <span className="text-slate-500 mr-2"> | </span>
                     <span className="inline-flex items-center">
@@ -339,13 +335,13 @@ const SpellBook = ({
                 </div>
 
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     removeUserSpell(spell);
                   }}
-                  className="hover:text-red-400 ml-auto"
+                  className="ml-auto text-slate-500 hover:text-red-400"
                   title="Remove spell"
-                  style={{ marginLeft: 'auto ', color: 'gray' }}
                 >
                   <i className="fas fa-trash-alt hover:text-red-400"></i>
                 </button>

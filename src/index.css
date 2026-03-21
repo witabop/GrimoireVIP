@@ -367,6 +367,10 @@
   @apply bg-yellow-900 text-yellow-200;
 }
 
+.badge-indigo {
+  @apply bg-indigo-900 text-indigo-200;
+}
+
 /* Custom toggle switch */
 .toggle-switch {
   @apply relative inline-block w-12 h-6;
