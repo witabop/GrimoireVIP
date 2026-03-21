@@ -67,6 +67,7 @@ const ActionsTab = ({ char, updateChar, onNavigate }) => {
       </div>
       {show('Cast Spell') && <CastSpellAction onNavigate={onNavigate} />}
       {show('Cancel Spell') && <CancelSpellAction activeSpells={activeSpells} gnosis={gnosis} onCancel={cancelSpell} />}
+      {show('Counterspell') && <CounterspellAction gnosis={gnosis} arcanaValues={arcanaValues} />}
       {show('Attack') && <AttackAction attackTypes={attackTypes} />}
       {show('Grapple') && <GrappleAction base={grappleBase} />}
       {show('Dodge') && (
@@ -533,6 +534,100 @@ const CancelSpellAction = ({ activeSpells, gnosis, onCancel }) => {
           ) : (
             <p className="text-xs text-slate-500 italic">No active spells.</p>
           )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ─── Counterspell (rollable Clash of Wills) ─────────────── */
+const CounterspellAction = ({ gnosis, arcanaValues }) => {
+  const [open, setOpen] = useState(false);
+  const knownArcana = ARCANA_NAMES.filter((a) => (arcanaValues[a.toLowerCase()] || 0) >= 1);
+  const firstKnown = knownArcana.length > 0 ? knownArcana[0].toLowerCase() : 'death';
+  const [selectedArcanum, setSelectedArcanum] = useState(firstKnown);
+  const [universal, setUniversal] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const hasPrime2 = (arcanaValues.prime || 0) >= 2;
+  const arcanumVal = universal ? (arcanaValues.prime || 0) : (arcanaValues[selectedArcanum] || 0);
+  const pool = Math.max(0, gnosis + arcanumVal);
+
+  return (
+    <div className="bg-slate-700/60 rounded-lg overflow-hidden">
+      <button type="button" className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-slate-700 transition-colors" onClick={() => setOpen(!open)}>
+        <div className="flex items-center gap-2">
+          <span className="font-medium text-sm text-white">Counterspell</span>
+          <ActionTypeBadge type="instant" />
+          <span className="text-xs text-slate-400">Clash of Wills</span>
+        </div>
+        <i className={`fas fa-chevron-${open ? 'up' : 'down'} text-xs text-slate-500`} />
+      </button>
+      {open && (
+        <div className="px-4 pb-4 pt-2 border-t border-slate-600/50 space-y-3 animate-fadeIn">
+          <p className="text-sm text-slate-300 leading-relaxed">Knowledge of an Arcanum lets you disrupt another mage's Imago before the spell takes effect. You must be using Active Mage Sight to see the spell being cast. Counterspell is a Clash of Wills: your Gnosis + Arcanum vs. the caster's Gnosis + Arcanum.</p>
+          <p className="text-sm text-slate-300 leading-relaxed">You always counter the <strong className="text-white">highest Arcanum</strong> of the target spell. Arcanum ratings don't need to match — an Initiate can counter a Master — but countering a mage with a <strong className="text-white">higher rating</strong> in the target Arcanum costs <strong className="text-blue-300">1 Mana</strong>.</p>
+
+          {/* Arcanum-specific counterspell */}
+          <div className="bg-slate-800/40 rounded-lg p-3 space-y-2">
+            <div className="flex items-center gap-2 mb-1">
+              <p className="text-xs font-bold text-indigo-300">Arcanum Counterspell</p>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">Counter a spell that uses an Arcanum you know (at least 1 dot).</p>
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-3 text-xs">
+                <label className="flex items-center gap-1.5 text-slate-400">
+                  Arcanum
+                  <select
+                    value={universal ? '' : selectedArcanum}
+                    onChange={(e) => { setSelectedArcanum(e.target.value); setUniversal(false); setResult(null); }}
+                    disabled={universal}
+                    className="bg-slate-700 text-white text-xs border border-slate-600 rounded px-2 py-0.5 focus:outline-none focus:border-indigo-500 disabled:opacity-40"
+                  >
+                    {knownArcana.length > 0 ? (
+                      knownArcana.map((a) => (
+                        <option key={a} value={a.toLowerCase()}>{a} ({arcanaValues[a.toLowerCase()] || 0})</option>
+                      ))
+                    ) : (
+                      <option disabled>No Arcana known</option>
+                    )}
+                  </select>
+                </label>
+                {!universal && <span className="text-sm font-mono text-white font-bold">{pool} dice</span>}
+              </div>
+              {!universal && (
+                <button type="button" onClick={() => setResult({ dice: rollDice(pool), pool })} disabled={knownArcana.length === 0}
+                  className="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 text-xs text-white font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+                  <i className="fas fa-dice mr-1" />Roll Clash
+                </button>
+              )}
+            </div>
+            {!universal && result && <RollResult results={result.dice} pool={result.pool} />}
+          </div>
+
+          {/* Universal Counterspell */}
+          <div className="bg-slate-800/40 rounded-lg p-3 space-y-2">
+            <div className="flex items-center gap-2 mb-1">
+              <p className="text-xs font-bold text-indigo-300">Universal Counterspell</p>
+              <span className="text-[10px] text-slate-500">Requires Prime 2</span>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">With Prime 2, a mage can counter <strong className="text-slate-200">any</strong> spell regardless of Arcanum, using Gnosis + Prime. This costs <strong className="text-blue-300">1 Mana</strong>.</p>
+            {hasPrime2 ? (
+              <>
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <span className="text-xs text-slate-400">Gnosis {gnosis} + Prime {arcanaValues.prime} = <span className="text-sm font-mono text-white font-bold">{Math.max(0, gnosis + arcanaValues.prime)} dice</span></span>
+                  <button type="button" onClick={() => { setUniversal(true); setResult({ dice: rollDice(Math.max(0, gnosis + arcanaValues.prime)), pool: Math.max(0, gnosis + arcanaValues.prime) }); }}
+                    className="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 text-xs text-white font-medium transition-colors">
+                    <i className="fas fa-dice mr-1" />Roll Clash
+                  </button>
+                </div>
+                {universal && result && <RollResult results={result.dice} pool={result.pool} />}
+                <p className="text-[10px] text-blue-300/70">Costs 1 Mana to use.</p>
+              </>
+            ) : (
+              <p className="text-xs text-slate-500 italic">You need Prime 2 to use Universal Counterspell.</p>
+            )}
+          </div>
         </div>
       )}
     </div>
