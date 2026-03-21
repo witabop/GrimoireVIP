@@ -18,11 +18,10 @@ export const getMaxYantrasForGnosis = (gnosis) => {
   return 6;
 };
 
-/** Total ritual casting time when using ritual boost dice (each boost = one interval). */
+/** Total ritual casting time in minutes: one base interval plus one per ritual boost die (MtAw 2e). */
 export const getRitualCastTimeMinutes = (gnosis, ritualBoost) => {
   const b = Math.max(0, Number(ritualBoost) || 0);
-  if (b === 0) return 0;
-  return b * getRitualIntervalMinutes(gnosis);
+  return (1 + b) * getRitualIntervalMinutes(gnosis);
 };
 
 export const formatRitualDuration = (totalMinutes) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { getEffectiveReachCosts } from '../utils/castingCosts';
-import { formatRitualDuration, getRitualIntervalMinutes } from '../utils/spellCalculations';
+import { formatRitualDuration, getRitualCastTimeMinutes } from '../utils/spellCalculations';
 
 const CastingCostsSummary = ({
   selectedSpell,
@@ -33,8 +33,7 @@ const CastingCostsSummary = ({
   const potencyPenalty = potencyBoostLevel * 2;
   const isCombinedSpell = selectedSpell.combined;
   const combinedPenalty = isCombinedSpell ? (selectedSpell.additionalPenalty || 0) : 0;
-  const ritualIntervalMin = getRitualIntervalMinutes(effectiveGnosis);
-  const ritualTotalMin = (ritualBoost || 0) * ritualIntervalMin;
+  const ritualTotalMin = getRitualCastTimeMinutes(effectiveGnosis, ritualBoost || 0);
 
   const totalPositive =
     effectiveGnosis + effectiveArcana + effectiveYantras +

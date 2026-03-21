@@ -205,7 +205,7 @@ const SpellCastLog = ({ onClose, entries }) => {
                 </p>
                 {entry.ritualBoost > 0 && (
                   <p className="text-indigo-400/95">
-                    Ritual ~{entry.ritualTimeLabel} ({entry.ritualIntervalLabel}/interval × {entry.ritualBoost})
+                    Ritual ~{entry.ritualTimeLabel} ({entry.ritualIntervalLabel} × {1 + entry.ritualBoost} intervals)
                   </p>
                 )}
               </div>
