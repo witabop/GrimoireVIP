@@ -28,9 +28,12 @@ const CharacterInfoBar = ({ char, updateChar }) => {
   return (
     <>
       <div
-        className="bg-slate-800 rounded-lg p-3 cursor-pointer hover:bg-slate-700/80 transition-colors border border-slate-700 shadow-md min-w-[220px]"
+        className="bg-slate-800 rounded-lg p-3 cursor-pointer hover:bg-slate-700/80 transition-colors border border-slate-700 shadow-md min-w-[220px] relative"
         onClick={() => setOpen(true)}
       >
+        <span className="text-slate-500 pointer-events-none absolute top-0.5 right-2.5" aria-hidden>
+          <i className="fas fa-pen text-xs" />
+        </span>
         <div className="flex items-baseline gap-2 text-sm">
           <span className="font-bold text-white truncate max-w-[140px]">{displayName}</span>
           <span className="text-slate-400 text-xs whitespace-nowrap">AE: {ae}, E: {e}</span>
