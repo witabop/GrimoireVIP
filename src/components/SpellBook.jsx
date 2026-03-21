@@ -271,7 +271,7 @@ const SpellBook = ({
           <p className="text-slate-400 text-sm mt-2">Click "Add" to get started</p>
         </div>
       ) : (
-        <div className="space-y-1 custom-scrollbar pt-1">
+        <>
           <input
               id="spellbook-search"
               type="search"
@@ -279,8 +279,9 @@ const SpellBook = ({
               onChange={(e) => setSpellSearch(e.target.value)}
               placeholder="Search spells..."
               autoComplete="off"
-              className="w-full bg-slate-700 text-white border border-slate-600 rounded-lg pl-9 pr-9 py-2.5 text-sm mb-2.5 -mt-1 p-1 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none transition-all placeholder:text-slate-500"
+              className="w-full bg-slate-700 text-white border border-slate-600 rounded-lg pl-9 pr-9 py-2.5 text-sm mb-2 p-1 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none transition-all placeholder:text-slate-500"
             />
+          <div className="space-y-1 custom-scrollbar overflow-y-auto max-h-[60vh]">
           {filteredSpells.map(({ spell, originalIndex }) => (
             <div
               key={`${spell.name}-${spell.castingType}-${originalIndex}`}
@@ -354,7 +355,8 @@ const SpellBook = ({
               )}
             </div>
           ))}
-        </div>
+          </div>
+        </>
       )}
     </div>
   );
