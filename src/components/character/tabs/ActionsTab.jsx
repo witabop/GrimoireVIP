@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { rollDice, countSuccesses } from '../../../utils/spellCalculations';
+import { normalizeActionsTabOrder, ACTION_TAB_SEARCH } from '../../../utils/actionsTabOrder';
 
 const SPECIFIED_TARGETS = [
   { label: 'None', penalty: 0 },
@@ -27,6 +28,60 @@ const ActionTypeBadge = ({ type }) => {
   );
 };
 
+function DraggableActionRow({
+  actionId,
+  children,
+  onMoveBefore,
+  draggingId,
+  setDraggingId,
+  hoverTargetId,
+  setHoverTargetId,
+}) {
+  const isDragging = draggingId === actionId;
+  const isHoverTarget = Boolean(draggingId && draggingId !== actionId && hoverTargetId === actionId);
+
+  return (
+    <div
+      className={`flex gap-1.5 items-stretch rounded-lg transition-[opacity,box-shadow] ${isDragging ? 'opacity-45' : ''} ${isHoverTarget ? 'ring-2 ring-indigo-400/70 rounded-lg' : ''}`}
+      onDragOver={(e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (draggingId && draggingId !== actionId) setHoverTargetId(actionId);
+      }}
+      onDragLeave={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          setHoverTargetId((prev) => (prev === actionId ? null : prev));
+        }
+      }}
+      onDrop={(e) => {
+        e.preventDefault();
+        setHoverTargetId(null);
+        const src = e.dataTransfer.getData('text/plain');
+        if (src) onMoveBefore(src, actionId);
+      }}
+    >
+      <div
+        draggable
+        onDragStart={(e) => {
+          e.dataTransfer.setData('text/plain', actionId);
+          e.dataTransfer.effectAllowed = 'move';
+          setDraggingId(actionId);
+        }}
+        onDragEnd={() => {
+          setDraggingId(null);
+          setHoverTargetId(null);
+        }}
+        className="flex items-center justify-center w-7 shrink-0 rounded-md bg-slate-800/90 text-slate-500 hover:text-indigo-300 cursor-grab active:cursor-grabbing border border-slate-600/60 touch-none select-none self-stretch min-h-[2.75rem]"
+        title="Drag to reorder"
+        aria-label={`Drag to reorder: ${ACTION_TAB_SEARCH[actionId] || actionId}`}
+      >
+        <i className="fas fa-grip-vertical text-xs" />
+      </div>
+      <div className="flex-1 min-w-0">{children}</div>
+    </div>
+  );
+}
+
 const ActionsTab = ({ char, updateChar, onNavigate }) => {
   const attr = char.attributes || {};
   const skills = char.skills || {};
@@ -49,14 +104,107 @@ const ActionsTab = ({ char, updateChar, onNavigate }) => {
   ];
 
   const grappleBase = (attr.strength || 1) + (skills.brawl || 0);
+  const jumpingBase = (attr.strength || 1) + (skills.athletics || 0);
 
   const cancelSpell = (id) => {
     updateChar({ activeSpells: activeSpells.filter((s) => s.id !== id) });
   };
 
   const [search, setSearch] = useState('');
+  const [draggingId, setDraggingId] = useState(null);
+  const [hoverTargetId, setHoverTargetId] = useState(null);
   const q = search.toLowerCase();
-  const show = (name) => !q || name.toLowerCase().includes(q);
+  const showId = (id) => !q || (ACTION_TAB_SEARCH[id] || '').toLowerCase().includes(q);
+
+  const order = useMemo(() => normalizeActionsTabOrder(char.actionsTabOrder), [char.actionsTabOrder]);
+
+  const moveBefore = useCallback(
+    (sourceId, targetId) => {
+      if (sourceId === targetId) return;
+      const next = normalizeActionsTabOrder(char.actionsTabOrder);
+      const fi = next.indexOf(sourceId);
+      const ti = next.indexOf(targetId);
+      if (fi === -1 || ti === -1) return;
+      next.splice(fi, 1);
+      next.splice(next.indexOf(targetId), 0, sourceId);
+      updateChar({ actionsTabOrder: next });
+    },
+    [char.actionsTabOrder, updateChar]
+  );
+
+  const renderActionBlock = (id) => {
+    switch (id) {
+      case 'castSpell':
+        return <CastSpellAction onNavigate={onNavigate} />;
+      case 'cancelSpell':
+        return <CancelSpellAction activeSpells={activeSpells} gnosis={gnosis} onCancel={cancelSpell} />;
+      case 'counterspell':
+        return <CounterspellAction gnosis={gnosis} arcanaValues={arcanaValues} />;
+      case 'attack':
+        return <AttackAction attackTypes={attackTypes} actionMods={actionMods} setActionMod={setActionMod} />;
+      case 'grapple':
+        return <GrappleAction base={grappleBase} savedMod={actionMods.grappleMod || 0} onModChange={(v) => setActionMod('grappleMod', v)} />;
+      case 'scourPattern':
+        return <ScourPatternAction gnosis={gnosis} />;
+      case 'dodge':
+        return (
+          <SimpleAction
+            name="Dodge"
+            actionType="pre-turn"
+            summary={`Defense ×2 = ${defense * 2} dice`}
+            description={`At any point before your action, your character can choose to Dodge. Doing so gives up her normal action. When Dodging, double your character's Defense but do not subtract it from attack rolls. Instead, roll Defense as a dice pool, and subtract each success from the attacker's successes. If this reduces the attacker's successes to 0, the attack does no damage. Apply successes from Dodging before adding any weapon bonus.\n\nAgainst multiple opponents, reduce Defense by one for each opponent before doubling it to determine your dice pool. If your Defense is reduced to 0, you roll a chance die. A dramatic failure when Dodging leaves your character off-balance; reduce her Defense by –1 for her next turn.`}
+          />
+        );
+      case 'aiming':
+        return (
+          <SimpleAction
+            name="Aiming"
+            actionType="instant"
+            summary="+1 to +3 dice (one turn per die)"
+            description={`Instead of firing, a character may spend a turn aiming at an opponent. Each turn spent aiming adds a die to an attack roll, as long as the attack is the next action by the aiming character. Characters may aim for multiple turns before attacking, building up the bonus, but it may not exceed +3 dice.`}
+          />
+        );
+      case 'reloading':
+        return (
+          <SimpleAction
+            name="Reloading"
+            actionType="instant"
+            summary="Instant; Defense may be lost loading loose rounds"
+            description={`Reloading a firearm is an instant action. If you need to load bullets separately, you cannot apply your Defense on the same turn. If you have a magazine or speed-loader, you don't lose your Defense.`}
+          />
+        );
+      case 'movement':
+        return (
+          <SimpleAction
+            name="Movement"
+            actionType="conditional"
+            summary={`Speed ${speed} / Dash ${speed * 2}`}
+            description={`A character can move his Speed in a single turn and still take an instant action. He can forsake his action to Dash and move at double his normal pace.`}
+          />
+        );
+      case 'jumping':
+        return <JumpingAction base={jumpingBase} savedMod={actionMods.jumpingMod || 0} onModChange={(v) => setActionMod('jumpingMod', v)} />;
+      case 'goingProne':
+        return (
+          <SimpleAction
+            name="Going Prone"
+            actionType="pre-turn"
+            summary="−2 ranged / +2 melee against you"
+            description={`When a character can't find cover, the next best thing when bullets are flying is to drop flat to the ground. Ranged attacks against him suffer a –2 die penalty. A standing attacker using Brawl or Weaponry to attack instead gains a +2 die bonus.\n\nA character can drop prone at any point before his action. Dropping to the ground costs his action for the turn. Getting up from being prone also takes your character's action.`}
+          />
+        );
+      case 'mageArmor':
+        return <MageArmorAction arcanaValues={arcanaValues} />;
+      case 'activeMageSight':
+        return <ActiveMageSightAction gnosis={gnosis} arcanaValues={arcanaValues} />;
+      case 'focusedMageSight':
+        return <FocusedMageSightAction gnosis={gnosis} arcanaValues={arcanaValues} />;
+      case 'teamwork':
+        return <TeamworkAction gnosis={gnosis} arcanaValues={arcanaValues} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="space-y-2">
@@ -70,48 +218,19 @@ const ActionsTab = ({ char, updateChar, onNavigate }) => {
           className="w-full bg-slate-700 text-white text-sm border border-slate-600 rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:border-indigo-500 placeholder-slate-500"
         />
       </div>
-      {show('Cast Spell') && <CastSpellAction onNavigate={onNavigate} />}
-      {show('Cancel Spell') && <CancelSpellAction activeSpells={activeSpells} gnosis={gnosis} onCancel={cancelSpell} />}
-      {show('Counterspell') && <CounterspellAction gnosis={gnosis} arcanaValues={arcanaValues} />}
-      {show('Attack') && <AttackAction attackTypes={attackTypes} actionMods={actionMods} setActionMod={setActionMod} />}
-      {show('Grapple') && <GrappleAction base={grappleBase} savedMod={actionMods.grappleMod || 0} onModChange={(v) => setActionMod('grappleMod', v)} />}
-      {show('Scour Pattern') && <ScourPatternAction gnosis={gnosis} />}
-      {show('Dodge') && (
-        <SimpleAction
-          name="Dodge"
-          actionType="pre-turn"
-          summary={`Defense ×2 = ${defense * 2} dice`}
-          description={`At any point before your action, your character can choose to Dodge. Doing so gives up her normal action. When Dodging, double your character's Defense but do not subtract it from attack rolls. Instead, roll Defense as a dice pool, and subtract each success from the attacker's successes. If this reduces the attacker's successes to 0, the attack does no damage. Apply successes from Dodging before adding any weapon bonus.\n\nAgainst multiple opponents, reduce Defense by one for each opponent before doubling it to determine your dice pool. If your Defense is reduced to 0, you roll a chance die. A dramatic failure when Dodging leaves your character off-balance; reduce her Defense by –1 for her next turn.`}
-        />
-      )}
-      {show('Aiming') && (
-        <SimpleAction
-          name="Aiming"
-          actionType="instant"
-          summary="+1 to +3 dice (one turn per die)"
-          description={`Instead of firing, a character may spend a turn aiming at an opponent. Each turn spent aiming adds a die to an attack roll, as long as the attack is the next action by the aiming character. Characters may aim for multiple turns before attacking, building up the bonus, but it may not exceed +3 dice.`}
-        />
-      )}
-      {show('Movement') && (
-        <SimpleAction
-          name="Movement"
-          actionType="conditional"
-          summary={`Speed ${speed} / Dash ${speed * 2}`}
-          description={`A character can move his Speed in a single turn and still take an instant action. He can forsake his action to Dash and move at double his normal pace.`}
-        />
-      )}
-      {show('Going Prone') && (
-        <SimpleAction
-          name="Going Prone"
-          actionType="pre-turn"
-          summary="−2 ranged / +2 melee against you"
-          description={`When a character can't find cover, the next best thing when bullets are flying is to drop flat to the ground. Ranged attacks against him suffer a –2 die penalty. A standing attacker using Brawl or Weaponry to attack instead gains a +2 die bonus.\n\nA character can drop prone at any point before his action. Dropping to the ground costs his action for the turn. Getting up from being prone also takes your character's action.`}
-        />
-      )}
-      {show('Mage Armor') && <MageArmorAction arcanaValues={arcanaValues} />}
-      {show('Active Mage Sight') && <ActiveMageSightAction gnosis={gnosis} arcanaValues={arcanaValues} />}
-      {show('Focused Mage Sight') && <FocusedMageSightAction gnosis={gnosis} arcanaValues={arcanaValues} />}
-      {show('Teamwork') && <TeamworkAction gnosis={gnosis} arcanaValues={arcanaValues} />}
+      {order.filter((actionId) => showId(actionId)).map((actionId) => (
+        <DraggableActionRow
+          key={actionId}
+          actionId={actionId}
+          onMoveBefore={moveBefore}
+          draggingId={draggingId}
+          setDraggingId={setDraggingId}
+          hoverTargetId={hoverTargetId}
+          setHoverTargetId={setHoverTargetId}
+        >
+          {renderActionBlock(actionId)}
+        </DraggableActionRow>
+      ))}
     </div>
   );
 };
@@ -228,6 +347,56 @@ const AttackAction = ({ attackTypes, actionMods, setActionMod }) => {
               </div>
             );
           })}
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ─── Jumping (rollable) ─────────────────────────────────── */
+const JumpingAction = ({ base, savedMod, onModChange }) => {
+  const [open, setOpen] = useState(false);
+  const [result, setResult] = useState(null);
+  const mod = savedMod;
+  const setMod = (v) => onModChange(v);
+  const pool = Math.max(0, base + mod);
+
+  return (
+    <div className="bg-slate-700/60 rounded-lg overflow-hidden">
+      <button type="button" className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-slate-700 transition-colors" onClick={() => setOpen(!open)}>
+        <div className="flex items-center gap-2">
+          <span className="font-medium text-sm text-white">Jumping</span>
+          <ActionTypeBadge type="instant" />
+          <span className="text-xs text-slate-400">Str + Athletics = {base}</span>
+        </div>
+        <i className={`fas fa-chevron-${open ? 'up' : 'down'} text-xs text-slate-500`} />
+      </button>
+      {open && (
+        <div className="px-4 pb-4 pt-2 border-t border-slate-600/50 space-y-3 animate-fadeIn">
+          <p className="text-sm text-slate-300 leading-relaxed">Jumping is an instant action. Roll Strength + Athletics; each success adds one foot of vertical height cleared in a single jump.</p>
+          <div className="bg-slate-800/50 rounded-lg p-3 space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 text-xs">
+                <span className="text-sm font-mono text-white font-bold">{pool} dice</span>
+                <label className="flex items-center gap-1.5 text-slate-400">
+                  Modifier
+                  <input type="number" min={0} max={10} value={mod} onChange={(e) => setMod(Math.max(0, Math.min(10, parseInt(e.target.value, 10) || 0)))}
+                    className="w-12 bg-slate-700 text-white text-center border border-slate-600 rounded py-0.5 focus:outline-none focus:border-indigo-500" />
+                </label>
+              </div>
+              <button type="button" onClick={() => setResult({ dice: rollDice(pool), pool })} className="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 text-xs text-white font-medium transition-colors">
+                <i className="fas fa-dice mr-1" />Roll
+              </button>
+            </div>
+            {result && (
+              <>
+                <RollResult results={result.dice} pool={result.pool} />
+                <p className="text-xs text-slate-400">
+                  Vertical height this jump: <span className="text-indigo-300 font-medium">{countSuccesses(result.dice, result.pool <= 1)} ft</span>
+                </p>
+              </>
+            )}
+          </div>
         </div>
       )}
     </div>

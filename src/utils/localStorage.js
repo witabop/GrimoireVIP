@@ -113,6 +113,9 @@ export const DEFAULT_CHARACTER = {
 
   // Action modifier persistence (attack mods/targets, grapple mod)
   actionModifiers: {},
+
+  /** Ordered list of Actions tab row ids (see `utils/actionsTabOrder.js`); null = default order */
+  actionsTabOrder: null,
 };
 
 export const getDefaultCharacterData = () => ({ ...DEFAULT_CHARACTER });
@@ -166,6 +169,7 @@ export const mergeWithDefaults = (saved) => {
   if (!Array.isArray(merged.inuredSpells)) merged.inuredSpells = [];
   if (!Array.isArray(merged.userSpells)) merged.userSpells = [];
   if (!merged.actionModifiers || typeof merged.actionModifiers !== 'object') merged.actionModifiers = {};
+  if (merged.actionsTabOrder != null && !Array.isArray(merged.actionsTabOrder)) merged.actionsTabOrder = null;
   return merged;
 };
 
