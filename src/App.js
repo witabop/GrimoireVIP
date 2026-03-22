@@ -342,6 +342,8 @@ function App() {
     if (spell?.castingType === 'rote' && spell.roteSkill) {
       const skillDots = characterData.skills[spell.roteSkill] || 0;
       setYantras(skillDots);
+    } else {
+      setYantras(1);
     }
   };
 
