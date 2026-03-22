@@ -74,16 +74,10 @@ const ReachSelector = ({
     }
   };
 
-  // Handle potency boost changes with individual level checkboxes
-  const handlePotencyBoostChange = (level) => {
-    if (potencyBoostLevel === level) {
-      // If clicking the currently selected level, turn it off
-      setPotencyBoostLevel(0);
-      setPotencyBoost(0);
-    } else {
-      setPotencyBoostLevel(level);
-      setPotencyBoost(level);
-    }
+  const handlePotencyBoostChange = (value) => {
+    const v = Math.max(0, value);
+    setPotencyBoostLevel(v);
+    setPotencyBoost(v);
   };
 
   // Check if a reach option is selected
@@ -323,29 +317,42 @@ const ReachSelector = ({
             <h4 className="text-sm font-bold text-purple-300 mb-3 flex items-center">
               <i className="fas fa-bolt mr-2"></i> Boost Potency
             </h4>
-            <div className="space-y-4">
-              <p className="text-sm text-slate-300 mb-2">Select a potency boost level:</p>
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                {[1, 2, 3, 4, 5].map((level) => (
-                  <div key={level} className="flex flex-col items-center">
-                    <label className={`p-4 w-12 h-12 rounded-lg flex items-center justify-center cursor-pointer border transition-colors mb-2 ${potencyBoostLevel === level
-                      ? 'bg-indigo-600 text-white shadow-lg border-indigo-500'
-                      : 'bg-slate-900 text-slate-300 hover:bg-slate-600 shadow-lg border-slate-700'
-                      }`}>
-                      <input
-                        type="checkbox"
-                        className="sr-only"
-                        checked={potencyBoostLevel === level}
-                        onChange={() => handlePotencyBoostChange(level)}
-                      />
-                      +{level}
-                    </label>
-                    {potencyBoostLevel === level && (
-                      <span className="text-[11px] text-yellow-400 p-1 rounded-lg mt-1">-{level * 2} dice</span>
-                    )}
-                  </div>
-                ))}
+            <p className="text-xs text-slate-400 mb-3">
+              Each level of potency boost adds <span className="text-purple-300 font-medium">+1 Potency</span> at a cost of <span className="text-yellow-400 font-medium">−2 dice</span> per level.
+            </p>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => handlePotencyBoostChange(potencyBoostLevel - 1)}
+                disabled={potencyBoostLevel <= 0}
+                className="w-10 h-10 rounded-lg bg-slate-900 text-slate-300 border border-slate-600 flex items-center justify-center text-lg font-bold transition-colors hover:bg-slate-600 disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                −
+              </button>
+              <div className="flex flex-col items-center min-w-[3.5rem]">
+                <span className={`text-2xl font-bold tabular-nums ${potencyBoostLevel > 0 ? 'text-indigo-300' : 'text-slate-500'}`}>
+                  +{potencyBoostLevel}
+                </span>
+                {potencyBoostLevel > 0 && (
+                  <span className="text-[11px] text-yellow-400 mt-0.5">−{potencyBoostLevel * 2} dice</span>
+                )}
               </div>
+              <button
+                type="button"
+                onClick={() => handlePotencyBoostChange(potencyBoostLevel + 1)}
+                className="w-10 h-10 rounded-lg bg-slate-900 text-slate-300 border border-slate-600 flex items-center justify-center text-lg font-bold transition-colors hover:bg-slate-600"
+              >
+                +
+              </button>
+              {potencyBoostLevel > 0 && (
+                <button
+                  type="button"
+                  onClick={() => handlePotencyBoostChange(0)}
+                  className="ml-2 px-2.5 py-1 rounded-md text-xs text-slate-400 hover:text-white bg-slate-800 border border-slate-600 transition-colors"
+                >
+                  Reset
+                </button>
+              )}
             </div>
           </div>
 

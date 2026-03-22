@@ -108,21 +108,21 @@ const SpellResults = ({
 
             </div>
 
-            <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <div className="bg-slate-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
               <h3 className="font-bold mb-2 flex items-center text-purple-300">
                 <i className="fas fa-fist-raised mr-2"></i> Potency
               </h3>
               <p className="text-3xl font-bold flex items-center">
                 {spellPotency}
-                {spellPotency > 0 &&
-                  <span className="text-sm text-amber-400 ml-1.5 dot-notation">
-                    {getDotNotation(spellPotency)}
-                  </span>
-                }
                 {potencyBoost > 0 &&
                   <span className="ml-2 text-sm text-green-400">(+{potencyBoost})</span>
                 }
               </p>
+              {spellPotency > 0 &&
+                <p className="text-sm text-amber-400 mt-1 dot-notation leading-relaxed break-all">
+                  {getDotNotation(spellPotency)}
+                </p>
+              }
             </div>
           </div>
 
