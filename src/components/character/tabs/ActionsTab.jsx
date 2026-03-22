@@ -277,15 +277,26 @@ const RollResult = ({ results, pool }) => {
 };
 
 /* ─── Attack (rollable, with specified targets) ───────────── */
+const RANGE_BANDS = [
+  { label: 'Short (no penalty)', penalty: 0 },
+  { label: 'Medium (−1)', penalty: 1 },
+  { label: 'Long (−2)', penalty: 2 },
+];
+
 const AttackAction = ({ attackTypes, actionMods, setActionMod }) => {
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState({});
 
   const getMod = (key) => actionMods[`attack_mod_${key}`] || 0;
   const getTarget = (key) => actionMods[`attack_target_${key}`] || 0;
+  const getRangePenalty = () => actionMods.attack_range_penalty || 0;
   const setMod = (key, v) => setActionMod(`attack_mod_${key}`, v);
   const setTarget = (key, v) => setActionMod(`attack_target_${key}`, v);
-  const getPool = (at) => Math.max(0, at.base + getMod(at.key) - getTarget(at.key));
+  const setRangePenalty = (v) => setActionMod('attack_range_penalty', v);
+  const getPool = (at) => {
+    const rangePen = at.key === 'ranged' ? getRangePenalty() : 0;
+    return Math.max(0, at.base + getMod(at.key) - getTarget(at.key) - rangePen);
+  };
 
   const roll = (at) => {
     const pool = getPool(at);
@@ -308,6 +319,7 @@ const AttackAction = ({ attackTypes, actionMods, setActionMod }) => {
           {attackTypes.map((at) => {
             const pool = getPool(at);
             const res = results[at.key];
+            const isRanged = at.key === 'ranged';
             return (
               <div key={at.key} className="bg-slate-800/50 rounded-lg p-3 space-y-2">
                 <div className="flex items-center justify-between">
@@ -343,6 +355,26 @@ const AttackAction = ({ attackTypes, actionMods, setActionMod }) => {
                     </span>
                   )}
                 </div>
+                {isRanged && (
+                  <div className="bg-slate-900/40 rounded-lg p-2.5 space-y-2 border border-slate-700/50">
+                    <div className="flex flex-wrap items-center gap-3 text-xs">
+                      <label className="flex items-center gap-1.5 text-slate-400">
+                        <i className="fas fa-crosshairs text-[10px]" />
+                        Range
+                        <select value={getRangePenalty()} onChange={(e) => setRangePenalty(parseInt(e.target.value, 10))}
+                          className="bg-slate-700 text-white text-xs border border-slate-600 rounded px-2 py-0.5 focus:outline-none focus:border-indigo-500">
+                          {RANGE_BANDS.map((r) => (
+                            <option key={r.penalty} value={r.penalty}>{r.label}</option>
+                          ))}
+                        </select>
+                      </label>
+                      {getRangePenalty() > 0 && (
+                        <span className="text-amber-400 text-[10px]">−{getRangePenalty()} dice</span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-slate-500 leading-relaxed">Firearms list ranges as short/medium/long (e.g. 30/60/120). Short range has no penalty, medium range suffers −1, and long range suffers −2.</p>
+                  </div>
+                )}
                 {res && <RollResult results={res.dice} pool={res.pool} />}
               </div>
             );
