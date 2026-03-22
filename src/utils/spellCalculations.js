@@ -72,14 +72,12 @@ export const calculateAvailableReaches = (arcanaValue, spellLevel, castingType, 
   return 1 + Math.max(0, effectiveArcanum - spellLevel);
 };
 // Roll dice with 10-again rule and optional 8-again or 9-again
-// Now handles chance die (dice pool of 0 or 1)
 export const rollDice = (dicePool, options = {}) => {
   const { eightAgain = false, nineAgain = false } = options;
   let results = [];
   
-  // Handle chance die (pool of 0 or 1)
-  if (dicePool <= 1) {
-    // For chance die, we still roll one die, but success only on 10
+  // Chance die: pools of 0 or less roll a single die (success only on 10, no re-rolls)
+  if (dicePool <= 0) {
     const roll = Math.floor(Math.random() * 10) + 1;
     results.push(roll);
     return results;

@@ -252,7 +252,7 @@ const CastSpellAction = ({ onNavigate }) => (
 /* ─── Roll result display ─────────────────────────────────── */
 const RollResult = ({ results, pool }) => {
   if (!results) return null;
-  const isChance = pool <= 1;
+  const isChance = pool <= 0;
   const successes = countSuccesses(results, isChance);
   return (
     <div className="bg-slate-900/60 rounded-lg p-3 mt-2 space-y-1.5">

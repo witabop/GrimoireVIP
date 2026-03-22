@@ -518,7 +518,7 @@ function App() {
     if (!selectedSpell) return;
     const finalDicePool = computeFinalDicePool();
     if (finalDicePool <= -6) return;
-    const isChanceDie = finalDicePool <= 1;
+    const isChanceDie = finalDicePool <= 0;
     setRollContext({ poolUsed: finalDicePool, isChanceDie });
     const results = rollDice(finalDicePool, isChanceDie ? {} : { eightAgain, nineAgain });
     setRollResults(results);
@@ -782,7 +782,7 @@ function App() {
                               Impossible to cast (pool ≤ −6).
                             </div>
                           )}
-                          {!castIsImpossible && finalPoolDisplay <= 1 && (
+                          {!castIsImpossible && finalPoolDisplay <= 0 && (
                             <div className="flex items-center mt-2 badge badge-yellow">
                               <i className="fas fa-exclamation-triangle mr-2"></i>
                               Chance Die!
