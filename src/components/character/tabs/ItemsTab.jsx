@@ -130,8 +130,8 @@ const SimpleList = ({ items, onChange, placeholder, label }) => {
 
 const COMBAT_FIELDS = [
   { key: 'dmg', label: 'Dmg' },
-  { key: 'range', label: 'Range' },
-  { key: 'clip', label: 'Clip' },
+  { key: 'range', label: 'Range', type: 'text' },
+  { key: 'clip', label: 'Clip', type: 'text' },
   { key: 'init', label: 'Init' },
   { key: 'str', label: 'Str' },
   { key: 'size', label: 'Size' },
@@ -144,16 +144,18 @@ const CombatList = ({ items, onChange }) => {
   const add = () => {
     const trimmed = draft.trim();
     if (trimmed) {
-      onChange([...items, { name: trimmed, dmg: 0, range: 0, clip: 0, init: 0, str: 0, size: 0, description: '' }]);
+      onChange([...items, { name: trimmed, dmg: 0, range: '', clip: '', init: 0, str: 0, size: 0, description: '' }]);
       setDraft('');
     }
   };
 
   const remove = (idx) => onChange(items.filter((_, i) => i !== idx));
 
+  const STRING_FIELDS = new Set(COMBAT_FIELDS.filter((f) => f.type === 'text').map((f) => f.key));
+
   const updateField = (idx, field, val) => {
     const updated = [...items];
-    if (field === 'name' || field === 'description') {
+    if (field === 'name' || field === 'description' || STRING_FIELDS.has(field)) {
       updated[idx] = { ...updated[idx], [field]: val };
     } else {
       const n = parseInt(val, 10);
@@ -175,8 +177,8 @@ const CombatList = ({ items, onChange }) => {
             {COMBAT_FIELDS.map((f) => (
               <div key={f.key}>
                 <label className="text-[10px] text-slate-500 block mb-0.5">{f.label}</label>
-                <input type="number" value={item[f.key] ?? 0} onChange={(e) => updateField(i, f.key, e.target.value)}
-                  className="w-full bg-slate-700 text-white text-center text-xs border border-slate-600 rounded py-1 focus:outline-none focus:border-indigo-500" />
+                <input type={f.type || 'number'} value={item[f.key] ?? (f.type === 'text' ? '' : 0)} onChange={(e) => updateField(i, f.key, e.target.value)}
+                  className={`w-full bg-slate-700 text-white text-xs border border-slate-600 rounded py-1 focus:outline-none focus:border-indigo-500 ${f.type === 'text' ? 'px-2' : 'text-center'}`} />
               </div>
             ))}
           </div>
