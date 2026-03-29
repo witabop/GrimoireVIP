@@ -824,7 +824,9 @@ function App() {
                           selectedSpell={selectedSpell}
                           selectedReaches={selectedReaches}
                           getCurrentPrimaryFactor={getCurrentPrimaryFactor}
-                          arcanaValue={selectedSpell?.arcanum ? arcanaValues[selectedSpell.arcanum.toLowerCase()] : 0}
+                          arcanaValue={selectedSpell?.combined
+                            ? (arcanaValues[selectedSpell.lowestArcanum?.name?.toLowerCase()] ?? 0)
+                            : (selectedSpell?.arcanum ? arcanaValues[selectedSpell.arcanum.toLowerCase()] : 0)}
                           arcanaValues={arcanaValues}
                           arcanaLabel={selectedSpell?.combined ? selectedSpell.lowestArcanum?.name : selectedSpell?.arcanum}
                           yantras={yantras}

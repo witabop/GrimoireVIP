@@ -27,16 +27,16 @@ const SpellCombiner = ({
     // Check if all spells are praxes (needed for praxis combined spell)
     const allPraxes = selectedSpells.every(spell => spell.castingType === 'praxis');
 
-    // Get the lowest Arcanum among all selected spells
+    // Get the lowest Arcanum among all selected spells (by mage's dots, not spell level)
     const getLowestArcanum = () => {
         if (selectedSpells.length === 0) return null;
 
         return selectedSpells.reduce((lowest, spell) => {
-            const currentSpellArcanaValue = parseInt(spell.level);
-            return currentSpellArcanaValue < lowest.value ?
-                { name: spell.arcanum, value: currentSpellArcanaValue } :
+            const currentArcanaValue = arcanaValues[spell.arcanum.toLowerCase()] || 0;
+            return currentArcanaValue < lowest.value ?
+                { name: spell.arcanum, value: currentArcanaValue } :
                 lowest;
-        }, { name: selectedSpells[0].arcanum, value: parseInt(selectedSpells[0].level) });
+        }, { name: selectedSpells[0].arcanum, value: arcanaValues[selectedSpells[0].arcanum.toLowerCase()] || 0 });
     };
 
     // Calculate dice penalty for additional spells
