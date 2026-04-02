@@ -26,6 +26,7 @@ import {
 import SpellCombiner from './components/SpellCombiner';
 import SpellCastLog from './components/SpellCastLog';
 import CastingCostsSummary from './components/CastingCostsSummary';
+import CustomSpellModal from './components/CustomSpellModal';
 
 import spellsJson from './data/spells.json';
 
@@ -164,6 +165,9 @@ function App() {
   const [showSpellCombiner, setShowSpellCombiner] = useState(false);
   const [spellsForCombination, setSpellsForCombination] = useState([]);
   const [defaultCSPotency, setDefaultCSPotency] = useState(0);
+
+  // Custom spell modal
+  const [showCustomSpellModal, setShowCustomSpellModal] = useState(false);
 
   const handleCombineSpells = (spellsToMerge) => {
     setSpellsForCombination(spellsToMerge);
@@ -321,6 +325,12 @@ function App() {
     const exists = userSpells.some(s => s.name === spell.name && s.castingType === spell.castingType);
     if (!exists) setUserSpells((prev) => [...prev, spell]);
     setShowSpellSelector(false);
+  };
+
+  const addCustomSpell = (spell) => {
+    const exists = userSpells.some(s => s.name === spell.name && s.castingType === spell.castingType);
+    if (!exists) setUserSpells((prev) => [...prev, spell]);
+    setShowCustomSpellModal(false);
   };
 
   const removeUserSpell = (spellToRemove) => {
@@ -731,8 +741,17 @@ function App() {
                   onCombineSpells={handleCombineSpells}
                   gnosis={gnosis}
                   updateSpellOrder={updateSpellOrder}
+                  onInsertCustomSpell={() => setShowCustomSpellModal(true)}
                 />
               </div>
+
+              {showCustomSpellModal && (
+                <CustomSpellModal
+                  onAddSpell={addCustomSpell}
+                  onClose={() => setShowCustomSpellModal(false)}
+                  characterSkills={characterData.skills}
+                />
+              )}
 
               {showSpellCombiner && (
                 <div className="space-y-6 lg:h-full">

@@ -15,7 +15,8 @@ const SpellBook = ({
   setShowSpellSelector,
   onCombineSpells,
   gnosis,
-  updateSpellOrder // New prop for updating the spell order
+  updateSpellOrder,
+  onInsertCustomSpell
 }) => {
   // Track multi-selected spells for combining
   const [selectedSpells, setSelectedSpells] = useState([]);
@@ -233,14 +234,25 @@ const SpellBook = ({
               <i className="fas fa-magic mr-1"></i> Combine ({selectedSpells.length})
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={() => setShowSpellSelector(true)}
-              className="btn btn-primary"
-              aria-label="Add Spell"
-            >
-              <i className="fas fa-plus mr-1"></i> Add
-            </button>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={onInsertCustomSpell}
+                className="btn bg-amber-600 hover:bg-amber-500 text-white"
+                aria-label="Insert Custom Spell"
+                title="Insert a custom spell via JSON"
+              >
+                <i className="fas fa-file-code mr-1"></i> Custom
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowSpellSelector(true)}
+                className="btn btn-primary"
+                aria-label="Add Spell"
+              >
+                <i className="fas fa-plus mr-1"></i> Add
+              </button>
+            </div>
           )}
         </div>
       </div>

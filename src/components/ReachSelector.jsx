@@ -229,10 +229,12 @@ const ReachSelector = ({
     return getDefaultPotency(currentArcanaValue, selectedSpell.primaryFactor, primaryFactor);
   };
 
-  const combinedDefaultPotency = isCombinedSpell ? getDefaultPotencyForCombinedSpell() : 0;
+  const defaultPotency = isCombinedSpell
+    ? getDefaultPotencyForCombinedSpell()
+    : getDefaultPotency(getCurrentArcanaValue(), selectedSpell?.primaryFactor, getCurrentPrimaryFactor());
   useEffect(() => {
-    if (isCombinedSpell) setDefaultCSPotency(combinedDefaultPotency);
-  }, [isCombinedSpell, combinedDefaultPotency, setDefaultCSPotency]);
+    if (isCombinedSpell) setDefaultCSPotency(defaultPotency);
+  }, [isCombinedSpell, defaultPotency, setDefaultCSPotency]);
 
   return (
     <div className="card animate-slideInRight">
@@ -286,7 +288,7 @@ const ReachSelector = ({
               <div className="bg-slate-700 rounded-lg">
                 <span className="text-slate-400 block mb-1">Default Potency:</span>
                 <span className="text-white font-medium flex items-center">
-                  {combinedDefaultPotency}
+                  {defaultPotency}
                 </span>
               </div>
               {selectedSpell.withstand && (
