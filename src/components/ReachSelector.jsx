@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { DEFAULT_REACHES } from '../data/reachesData';
 import {
   getDefaultPotency,
@@ -29,8 +29,51 @@ const ReachSelector = ({
   setDefaultCSPotency,
   gnosis,
   ritualBoost,
-  setRitualBoost
+  setRitualBoost,
+  presets = [],
+  activePresetId = null,
+  onAddPreset,
+  onApplyPreset,
+  onDeletePreset,
+  onRenamePreset,
 }) => {
+  const [editingPresetId, setEditingPresetId] = useState(null);
+  const [editingName, setEditingName] = useState('');
+  const renameInputRef = useRef(null);
+
+  const beginRename = (preset) => {
+    setEditingPresetId(preset.id);
+    setEditingName(preset.name || '');
+  };
+
+  const commitRename = () => {
+    if (editingPresetId && onRenamePreset) {
+      onRenamePreset(editingPresetId, editingName);
+    }
+    setEditingPresetId(null);
+    setEditingName('');
+  };
+
+  const cancelRename = () => {
+    setEditingPresetId(null);
+    setEditingName('');
+  };
+
+  const handleAddPreset = () => {
+    if (!onAddPreset) return;
+    const newId = onAddPreset();
+    if (newId) {
+      setEditingPresetId(newId);
+      setEditingName('');
+    }
+  };
+
+  useEffect(() => {
+    if (editingPresetId && renameInputRef.current) {
+      renameInputRef.current.focus();
+      renameInputRef.current.select();
+    }
+  }, [editingPresetId]);
   // Track if we're viewing a combined spell
   const isCombinedSpell = selectedSpell?.combined;
 
@@ -242,7 +285,107 @@ const ReachSelector = ({
         <h2 className="text-xl font-bold flex items-center">
           <i className="fas fa-cog mr-3 text-blue-400"></i> Customize Spell
         </h2>
+        {selectedSpell && onAddPreset && (
+          <button
+            type="button"
+            onClick={handleAddPreset}
+            className="btn bg-emerald-600 hover:bg-emerald-500 text-white text-xs"
+            title="Save the current configuration as a preset"
+          >
+            <i className="fas fa-bookmark mr-1.5"></i>
+            Add to Presets
+          </button>
+        )}
       </div>
+
+      {selectedSpell && presets.length > 0 && (
+        <div className="mb-3 flex flex-wrap gap-1.5">
+          {presets.map((preset) => {
+              const isActive = activePresetId === preset.id;
+              const isEditing = editingPresetId === preset.id;
+              return (
+                <div
+                  key={preset.id}
+                  className={`group flex items-center rounded-lg overflow-hidden border transition-all ${
+                    isActive || isEditing
+                      ? 'border-emerald-500 bg-emerald-900/40 shadow-md'
+                      : 'border-slate-600 bg-slate-700 hover:border-slate-500'
+                  }`}
+                >
+                  {isEditing ? (
+                    <div className="flex items-center px-2 py-1 gap-1.5">
+                      <i className="fas fa-bookmark text-emerald-300 text-[10px]"></i>
+                      <input
+                        ref={renameInputRef}
+                        type="text"
+                        value={editingName}
+                        onChange={(e) => setEditingName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            commitRename();
+                          } else if (e.key === 'Escape') {
+                            e.preventDefault();
+                            cancelRename();
+                          }
+                        }}
+                        onBlur={commitRename}
+                        placeholder="Preset name"
+                        maxLength={32}
+                        className="bg-slate-800 text-emerald-100 text-xs border border-emerald-700 rounded px-1.5 py-0.5 w-32 focus:outline-none focus:border-emerald-400"
+                      />
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => onApplyPreset && onApplyPreset(preset)}
+                      onDoubleClick={() => beginRename(preset)}
+                      className={`px-3 py-1.5 text-xs font-medium transition-colors ${
+                        isActive ? 'text-emerald-200' : 'text-slate-300 hover:text-white'
+                      }`}
+                      title="Click to apply • Double-click to rename"
+                    >
+                      <i className="fas fa-bookmark mr-1.5 text-[10px]"></i>
+                      {preset.name || 'Preset'}
+                    </button>
+                  )}
+                  {isActive && !isEditing && (
+                    <>
+                      {onRenamePreset && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            beginRename(preset);
+                          }}
+                          className="px-2 py-1.5 text-xs text-emerald-300 hover:text-white hover:bg-emerald-800/40 border-l border-emerald-700/60 transition-colors"
+                          title="Rename this preset"
+                          aria-label="Rename preset"
+                        >
+                          <i className="fas fa-pen text-[10px]"></i>
+                        </button>
+                      )}
+                      {onDeletePreset && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onDeletePreset(preset.id);
+                          }}
+                          className="px-2 py-1.5 text-xs text-emerald-300 hover:text-red-400 hover:bg-red-900/30 border-l border-emerald-700/60 transition-colors"
+                          title="Delete this preset"
+                          aria-label="Delete preset"
+                        >
+                          <i className="fas fa-times"></i>
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+              );
+            })}
+        </div>
+      )}
 
       {selectedSpell ? (
         <>

@@ -5,13 +5,16 @@ import { rollDice, countSuccesses } from '../utils/spellCalculations';
 const DiceRoller = () => {
   const [open, setOpen] = useState(false);
   const [pool, setPool] = useState(4);
+  const [eightAgain, setEightAgain] = useState(false);
+  const [nineAgain, setNineAgain] = useState(false);
+  const [roteQuality, setRoteQuality] = useState(false);
   const [results, setResults] = useState(null);
 
   const isChance = pool <= 0;
   const effectivePool = Math.max(pool, 0);
 
   const roll = () => {
-    const dice = rollDice(effectivePool || 1, {});
+    const dice = rollDice(effectivePool || 1, isChance ? {} : { eightAgain, nineAgain, roteQuality });
     const successes = countSuccesses(dice, isChance);
     setResults({ dice, successes, pool: effectivePool, isChance });
   };
@@ -19,7 +22,7 @@ const DiceRoller = () => {
   return createPortal(
     <>
       {open && (
-        <div className="fixed bottom-16 left-4 z-[9998] w-64 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl shadow-black/40 p-4 animate-fadeIn">
+        <div className="fixed bottom-16 left-4 z-[9998] w-72 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl shadow-black/40 p-4 animate-fadeIn">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm font-medium text-white">Dice Roller</span>
             <button type="button" onClick={() => { setOpen(false); setResults(null); }} className="text-slate-500 hover:text-white text-xs">
@@ -42,6 +45,35 @@ const DiceRoller = () => {
             >
               <i className="fas fa-dice mr-1.5" />Roll
             </button>
+          </div>
+          <div className="flex flex-wrap gap-x-3 gap-y-1.5 mb-3 text-[11px] text-slate-300">
+            <label className="flex items-center gap-1.5 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={eightAgain}
+                onChange={() => { setEightAgain(!eightAgain); setResults(null); }}
+                className="h-3.5 w-3.5 rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-slate-800"
+              />
+              8-Again
+            </label>
+            <label className="flex items-center gap-1.5 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={nineAgain}
+                onChange={() => { setNineAgain(!nineAgain); setResults(null); }}
+                className="h-3.5 w-3.5 rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-slate-800"
+              />
+              9-Again
+            </label>
+            <label className="flex items-center gap-1.5 cursor-pointer" title="Every die that lands below 8 explodes into another die (like 10-again).">
+              <input
+                type="checkbox"
+                checked={roteQuality}
+                onChange={() => { setRoteQuality(!roteQuality); setResults(null); }}
+                className="h-3.5 w-3.5 rounded border-slate-600 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-slate-800"
+              />
+              Rote Quality
+            </label>
           </div>
           {isChance && (
             <p className="text-[11px] text-amber-400 mb-2"><i className="fas fa-exclamation-triangle mr-1" />Chance die — only a 10 succeeds.</p>

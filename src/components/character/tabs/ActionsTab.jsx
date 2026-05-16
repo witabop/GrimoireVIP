@@ -290,12 +290,14 @@ const AttackAction = ({ attackTypes, actionMods, setActionMod }) => {
   const getMod = (key) => actionMods[`attack_mod_${key}`] || 0;
   const getTarget = (key) => actionMods[`attack_target_${key}`] || 0;
   const getRangePenalty = () => actionMods.attack_range_penalty || 0;
+  const getDefense = () => actionMods.attack_defense || 0;
   const setMod = (key, v) => setActionMod(`attack_mod_${key}`, v);
   const setTarget = (key, v) => setActionMod(`attack_target_${key}`, v);
   const setRangePenalty = (v) => setActionMod('attack_range_penalty', v);
+  const setDefense = (v) => setActionMod('attack_defense', v);
   const getPool = (at) => {
     const rangePen = at.key === 'ranged' ? getRangePenalty() : 0;
-    return Math.max(0, at.base + getMod(at.key) - getTarget(at.key) - rangePen);
+    return at.base + getMod(at.key) - getTarget(at.key) - rangePen - getDefense();
   };
 
   const roll = (at) => {
@@ -316,19 +318,41 @@ const AttackAction = ({ attackTypes, actionMods, setActionMod }) => {
       {open && (
         <div className="px-4 pb-4 pt-2 border-t border-slate-600/50 space-y-3 animate-fadeIn">
           <p className="text-sm text-slate-300 leading-relaxed">On your turn, your character can attack using one of the following dice pools. Determine damage by adding the successes rolled to any weapon bonus.</p>
+          <div className="bg-slate-900/40 rounded-lg p-3 border border-slate-700/50 flex items-center justify-between gap-3 text-xs">
+            <label className="flex items-center gap-2 text-slate-300 flex-1">
+              <i className="fas fa-shield-alt text-indigo-300"></i>
+              <span className="font-medium">Target Defense</span>
+              <span className="text-[10px] text-slate-500">— subtracted from every attack pool</span>
+            </label>
+            <input
+              type="number"
+              min={0}
+              max={20}
+              value={getDefense()}
+              onChange={(e) => setDefense(Math.max(0, Math.min(20, parseInt(e.target.value, 10) || 0)))}
+              className="w-14 bg-slate-700 text-white text-center border border-slate-600 rounded py-1 focus:outline-none focus:border-indigo-500"
+            />
+          </div>
           {attackTypes.map((at) => {
             const pool = getPool(at);
             const res = results[at.key];
             const isRanged = at.key === 'ranged';
+            const defense = getDefense();
             return (
               <div key={at.key} className="bg-slate-800/50 rounded-lg p-3 space-y-2">
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-sm text-white font-medium">{at.label}</span>
-                    <span className="text-xs text-slate-500 ml-2">{at.formula}{at.subtractDef ? ' − Target Def' : ''}</span>
+                    <span className="text-xs text-slate-500 ml-2">
+                      {at.formula}
+                      {defense > 0 && <span className="text-amber-400/80"> − Def ({defense})</span>}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-mono text-white font-bold">{pool}</span>
+                    <span className={`text-sm font-mono font-bold ${pool <= 0 ? 'text-amber-300' : 'text-white'}`}>{pool}</span>
+                    {pool <= 0 && (
+                      <span className="text-[10px] text-amber-400/90 italic">chance</span>
+                    )}
                     <button type="button" onClick={() => roll(at)} className="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 text-xs text-white font-medium transition-colors">
                       <i className="fas fa-dice mr-1" />Roll
                     </button>
@@ -337,8 +361,8 @@ const AttackAction = ({ attackTypes, actionMods, setActionMod }) => {
                 <div className="flex flex-wrap items-center gap-3 text-xs">
                   <label className="flex items-center gap-1.5 text-slate-400">
                     Modifier
-                    <input type="number" min={0} max={10} value={getMod(at.key)} onChange={(e) => setMod(at.key, Math.max(0, Math.min(10, parseInt(e.target.value, 10) || 0)))}
-                      className="w-12 bg-slate-700 text-white text-center border border-slate-600 rounded py-0.5 focus:outline-none focus:border-indigo-500" />
+                    <input type="number" min={-20} max={20} value={getMod(at.key)} onChange={(e) => setMod(at.key, Math.max(-20, Math.min(20, parseInt(e.target.value, 10) || 0)))}
+                      className="w-14 bg-slate-700 text-white text-center border border-slate-600 rounded py-0.5 focus:outline-none focus:border-indigo-500" />
                   </label>
                   <label className="flex items-center gap-1.5 text-slate-400">
                     Target
@@ -391,7 +415,7 @@ const JumpingAction = ({ base, savedMod, onModChange }) => {
   const [result, setResult] = useState(null);
   const mod = savedMod;
   const setMod = (v) => onModChange(v);
-  const pool = Math.max(0, base + mod);
+  const pool = base + mod;
 
   return (
     <div className="bg-slate-700/60 rounded-lg overflow-hidden">
@@ -409,11 +433,12 @@ const JumpingAction = ({ base, savedMod, onModChange }) => {
           <div className="bg-slate-800/50 rounded-lg p-3 space-y-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3 text-xs">
-                <span className="text-sm font-mono text-white font-bold">{pool} dice</span>
+                <span className={`text-sm font-mono font-bold ${pool <= 0 ? 'text-amber-300' : 'text-white'}`}>{pool} dice</span>
+                {pool <= 0 && <span className="text-[10px] text-amber-400/90 italic">chance</span>}
                 <label className="flex items-center gap-1.5 text-slate-400">
                   Modifier
-                  <input type="number" min={0} max={10} value={mod} onChange={(e) => setMod(Math.max(0, Math.min(10, parseInt(e.target.value, 10) || 0)))}
-                    className="w-12 bg-slate-700 text-white text-center border border-slate-600 rounded py-0.5 focus:outline-none focus:border-indigo-500" />
+                  <input type="number" min={-20} max={20} value={mod} onChange={(e) => setMod(Math.max(-20, Math.min(20, parseInt(e.target.value, 10) || 0)))}
+                    className="w-14 bg-slate-700 text-white text-center border border-slate-600 rounded py-0.5 focus:outline-none focus:border-indigo-500" />
                 </label>
               </div>
               <button type="button" onClick={() => setResult({ dice: rollDice(pool), pool })} className="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 text-xs text-white font-medium transition-colors">
@@ -453,7 +478,7 @@ const GrappleAction = ({ base, savedMod, onModChange }) => {
   const mod = savedMod;
   const setMod = (v) => onModChange(v);
 
-  const pool = Math.max(0, base + mod);
+  const pool = base + mod;
 
   return (
     <div className="bg-slate-700/60 rounded-lg overflow-hidden">
@@ -471,11 +496,12 @@ const GrappleAction = ({ base, savedMod, onModChange }) => {
           <div className="bg-slate-800/50 rounded-lg p-3 space-y-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3 text-xs">
-                <span className="text-sm font-mono text-white font-bold">{pool} dice</span>
+                <span className={`text-sm font-mono font-bold ${pool <= 0 ? 'text-amber-300' : 'text-white'}`}>{pool} dice</span>
+                {pool <= 0 && <span className="text-[10px] text-amber-400/90 italic">chance</span>}
                 <label className="flex items-center gap-1.5 text-slate-400">
                   Modifier
-                  <input type="number" min={0} max={10} value={mod} onChange={(e) => setMod(Math.max(0, Math.min(10, parseInt(e.target.value, 10) || 0)))}
-                    className="w-12 bg-slate-700 text-white text-center border border-slate-600 rounded py-0.5 focus:outline-none focus:border-indigo-500" />
+                  <input type="number" min={-20} max={20} value={mod} onChange={(e) => setMod(Math.max(-20, Math.min(20, parseInt(e.target.value, 10) || 0)))}
+                    className="w-14 bg-slate-700 text-white text-center border border-slate-600 rounded py-0.5 focus:outline-none focus:border-indigo-500" />
                 </label>
               </div>
               <button type="button" onClick={() => setResult({ dice: rollDice(pool), pool })} className="px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 text-xs text-white font-medium transition-colors">

@@ -111,6 +111,9 @@ export const DEFAULT_CHARACTER = {
   userSpells: [],
   yantras: 0,
 
+  /** Saved presets keyed by `${name}::${castingType}`; each value is an array of preset objects. */
+  spellPresets: {},
+
   // Action modifier persistence (attack mods/targets, grapple mod)
   actionModifiers: {},
 
@@ -168,6 +171,7 @@ export const mergeWithDefaults = (saved) => {
   if (!Array.isArray(merged.activeSpells)) merged.activeSpells = [];
   if (!Array.isArray(merged.inuredSpells)) merged.inuredSpells = [];
   if (!Array.isArray(merged.userSpells)) merged.userSpells = [];
+  if (!merged.spellPresets || typeof merged.spellPresets !== 'object' || Array.isArray(merged.spellPresets)) merged.spellPresets = {};
   if (!merged.actionModifiers || typeof merged.actionModifiers !== 'object') merged.actionModifiers = {};
   if (merged.actionsTabOrder != null && !Array.isArray(merged.actionsTabOrder)) merged.actionsTabOrder = null;
   return merged;

@@ -14,6 +14,8 @@ const SpellResults = ({
   setEightAgain,
   nineAgain,
   setNineAgain,
+  roteQuality,
+  setRoteQuality,
   onAddToActive,
   onAddToInured,
   inuredFull
@@ -166,6 +168,7 @@ const SpellResults = ({
                         {eightAgain && !nineAgain && <span className="badge badge-indigo">8-Again Active</span>}
                         {nineAgain && !eightAgain && <span className="badge badge-indigo">9-Again Active</span>}
                         {eightAgain && nineAgain && <span className="badge badge-indigo">8 & 9-Again Active</span>}
+                        {roteQuality && <span className="badge badge-indigo ml-1">Rote Quality</span>}
                       </>
                     )}
                   </div>

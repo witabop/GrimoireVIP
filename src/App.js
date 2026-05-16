@@ -143,6 +143,7 @@ function App() {
   // Roll options state
   const [eightAgain, setEightAgain] = useState(false);
   const [nineAgain, setNineAgain] = useState(false);
+  const [roteQuality, setRoteQuality] = useState(false);
 
   // Animation state
   const [appReady, setAppReady] = useState(false);
@@ -168,6 +169,86 @@ function App() {
 
   // Custom spell modal
   const [showCustomSpellModal, setShowCustomSpellModal] = useState(false);
+
+  // Spell presets — local "active" preset id for the currently selected spell
+  const [activePresetId, setActivePresetId] = useState(null);
+  const spellPresets = characterData.spellPresets || {};
+
+  const presetKeyFor = (spell) => (spell ? `${spell.name}::${spell.castingType}` : null);
+
+  const presetsForSelectedSpell = (() => {
+    const key = presetKeyFor(selectedSpell);
+    if (!key) return [];
+    return Array.isArray(spellPresets[key]) ? spellPresets[key] : [];
+  })();
+
+  const captureCurrentSpellConfig = () => ({
+    selectedReaches: [...selectedReaches],
+    potencyBoostLevel,
+    dicePoolModifier,
+    reachesModifier,
+    manaModifier,
+    ritualBoost,
+    yantras,
+    eightAgain,
+    nineAgain,
+    roteQuality,
+  });
+
+  const addSpellPreset = () => {
+    const key = presetKeyFor(selectedSpell);
+    if (!key) return null;
+    const existing = Array.isArray(spellPresets[key]) ? spellPresets[key] : [];
+    const newPreset = {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+      name: `Preset ${existing.length + 1}`,
+      createdAt: Date.now(),
+      config: captureCurrentSpellConfig(),
+    };
+    updateChar({ spellPresets: { ...spellPresets, [key]: [...existing, newPreset] } });
+    setActivePresetId(newPreset.id);
+    return newPreset.id;
+  };
+
+  const applySpellPreset = (preset) => {
+    if (!preset || !preset.config) return;
+    const c = preset.config;
+    setSelectedReaches(Array.isArray(c.selectedReaches) ? [...c.selectedReaches] : []);
+    setPotencyBoostLevel(c.potencyBoostLevel ?? 0);
+    setPotencyBoost(c.potencyBoostLevel ?? 0);
+    setDicePoolModifier(c.dicePoolModifier ?? 0);
+    setReachesModifier(c.reachesModifier ?? 0);
+    setManaModifier(c.manaModifier ?? 0);
+    setRitualBoost(c.ritualBoost ?? 0);
+    setYantras(c.yantras ?? 0);
+    setEightAgain(!!c.eightAgain);
+    setNineAgain(!!c.nineAgain);
+    setRoteQuality(!!c.roteQuality);
+    setActivePresetId(preset.id);
+  };
+
+  const deleteSpellPreset = (presetId) => {
+    const key = presetKeyFor(selectedSpell);
+    if (!key) return;
+    const existing = Array.isArray(spellPresets[key]) ? spellPresets[key] : [];
+    const next = existing.filter((p) => p.id !== presetId);
+    const nextMap = { ...spellPresets };
+    if (next.length === 0) delete nextMap[key];
+    else nextMap[key] = next;
+    updateChar({ spellPresets: nextMap });
+    if (activePresetId === presetId) setActivePresetId(null);
+  };
+
+  const renameSpellPreset = (presetId, newName) => {
+    const key = presetKeyFor(selectedSpell);
+    if (!key) return;
+    const existing = Array.isArray(spellPresets[key]) ? spellPresets[key] : [];
+    const trimmed = (newName || '').trim();
+    const next = existing.map((p) =>
+      p.id === presetId ? { ...p, name: trimmed || p.name } : p
+    );
+    updateChar({ spellPresets: { ...spellPresets, [key]: next } });
+  };
 
   const handleCombineSpells = (spellsToMerge) => {
     setSpellsForCombination(spellsToMerge);
@@ -283,6 +364,7 @@ function App() {
     setRollResults([]);
     setRollContext(null);
     setReachesModifier(0);
+    setActivePresetId(null);
   }, [selectedSpell]);
 
   const computeFinalDicePool = () => {
@@ -506,7 +588,7 @@ function App() {
       isChanceDie,
       rollResults: [...results],
       successes,
-      eightAgain, nineAgain,
+      eightAgain, nineAgain, roteQuality,
       potency: getEffectivePotency(),
       potencyBoost,
       primaryFactor: getCurrentPrimaryFactor(),
@@ -532,7 +614,7 @@ function App() {
     if (finalDicePool <= -6) return;
     const isChanceDie = finalDicePool <= 0;
     setRollContext({ poolUsed: finalDicePool, isChanceDie });
-    const results = rollDice(finalDicePool, isChanceDie ? {} : { eightAgain, nineAgain });
+    const results = rollDice(finalDicePool, isChanceDie ? {} : { eightAgain, nineAgain, roteQuality });
     setRollResults(results);
     const successes = countSuccesses(results, isChanceDie);
     const breakdown = getDicePoolBreakdown();
@@ -862,7 +944,7 @@ function App() {
                         <h4 className="text-sm font-bold text-indigo-300 mb-3 flex items-center">
                           <i className="fas fa-dice mr-2"></i> Roll Options
                         </h4>
-                        <div className="flex space-x-4">
+                        <div className="flex flex-wrap gap-x-4 gap-y-2">
                           <label className="flex items-center space-x-2 cursor-pointer">
                             <input type="checkbox" checked={eightAgain} onChange={() => setEightAgain(!eightAgain)}
                               className="h-4 w-4 text-indigo-500 rounded border-slate-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800" />
@@ -872,6 +954,11 @@ function App() {
                             <input type="checkbox" checked={nineAgain} onChange={() => setNineAgain(!nineAgain)}
                               className="h-4 w-4 text-indigo-500 rounded border-slate-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800" />
                             <span className="text-sm text-slate-300">9-Again</span>
+                          </label>
+                          <label className="flex items-center space-x-2 cursor-pointer" title="Every die that lands below 8 explodes into another die (like 10-again).">
+                            <input type="checkbox" checked={roteQuality} onChange={() => setRoteQuality(!roteQuality)}
+                              className="h-4 w-4 text-indigo-500 rounded border-slate-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800" />
+                            <span className="text-sm text-slate-300">Rote Quality</span>
                           </label>
                         </div>
                       </div>
@@ -918,6 +1005,12 @@ function App() {
                       gnosis={gnosis}
                       ritualBoost={ritualBoost}
                       setRitualBoost={setRitualBoost}
+                      presets={presetsForSelectedSpell}
+                      activePresetId={activePresetId}
+                      onAddPreset={addSpellPreset}
+                      onApplyPreset={applySpellPreset}
+                      onDeletePreset={deleteSpellPreset}
+                      onRenamePreset={renameSpellPreset}
                     />
                   </>
                 ) : (
@@ -949,6 +1042,8 @@ function App() {
                   setEightAgain={setEightAgain}
                   nineAgain={nineAgain}
                   setNineAgain={setNineAgain}
+                  roteQuality={roteQuality}
+                  setRoteQuality={setRoteQuality}
                   onAddToActive={addToActiveSpells}
                   onAddToInured={addToInuredSpells}
                   inuredFull={inuredSpells.length >= gnosis}

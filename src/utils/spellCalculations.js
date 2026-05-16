@@ -71,36 +71,48 @@ export const calculateAvailableReaches = (arcanaValue, spellLevel, castingType, 
   const effectiveArcanum = castingType === 'rote' ? 5 : arcanaValue;
   return 1 + Math.max(0, effectiveArcanum - spellLevel);
 };
-// Roll dice with 10-again rule and optional 8-again or 9-again
+// Roll dice with 10-again, optional 8-again or 9-again, and optional Rote Quality.
+// Rote Quality treats failures (rolls under 8) like an additional explosion trigger on the
+// ORIGINAL pool only — dice spawned by a Rote Quality explosion are normal dice and only
+// the active n-again threshold can make them explode further.
 export const rollDice = (dicePool, options = {}) => {
-  const { eightAgain = false, nineAgain = false } = options;
-  let results = [];
-  
+  const { eightAgain = false, nineAgain = false, roteQuality = false } = options;
+  const results = [];
+
   // Chance die: pools of 0 or less roll a single die (success only on 10, no re-rolls)
   if (dicePool <= 0) {
     const roll = Math.floor(Math.random() * 10) + 1;
     results.push(roll);
     return results;
   }
-  
-  // Normal dice pool handling
-  let remainingDice = dicePool;
-  
-  // Set the threshold for rolling again based on options
+
   const againThreshold = eightAgain ? 8 : (nineAgain ? 9 : 10);
-  
-  while (remainingDice > 0) {
-    const roll = Math.floor(Math.random() * 10) + 1;
+  const rollOne = () => Math.floor(Math.random() * 10) + 1;
+
+  // Safety cap to avoid pathological runaway chains in edge cases.
+  const MAX_DICE = 1000;
+
+  // Roll all original-pool dice first. Each can explode either from n-again (any roll)
+  // or from Rote Quality (roll under 8).
+  let originalRemaining = dicePool;
+  let bonusRemaining = 0;
+  while (originalRemaining > 0 && results.length < MAX_DICE) {
+    const roll = rollOne();
     results.push(roll);
-    
-    // Check if the roll meets the "again" threshold for an extra die
-    if (roll >= againThreshold) {
-      remainingDice++;
+    originalRemaining--;
+    if (roll >= againThreshold || (roteQuality && roll < 8)) {
+      bonusRemaining++;
     }
-    
-    remainingDice--;
   }
-  
+
+  // Resolve bonus/explosion dice. These only re-explode via the n-again threshold.
+  while (bonusRemaining > 0 && results.length < MAX_DICE) {
+    const roll = rollOne();
+    results.push(roll);
+    bonusRemaining--;
+    if (roll >= againThreshold) bonusRemaining++;
+  }
+
   return results;
 };
 

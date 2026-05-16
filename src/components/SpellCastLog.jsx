@@ -8,7 +8,7 @@ export const formatCastEntryAsText = (entry) => {
     `Gnosis: ${entry.gnosis} | Casting: ${entry.castingType || '—'}`,
     `Dice pool (rolled): ${entry.poolUsed}${entry.isChanceDie ? ' (chance die)' : ''}`,
     `Roll: [${entry.rollResults.join(', ')}] → ${entry.successes} success(es)`,
-    `8-Again: ${entry.eightAgain ? 'yes' : 'no'} | 9-Again: ${entry.nineAgain ? 'yes' : 'no'}`,
+    `8-Again: ${entry.eightAgain ? 'yes' : 'no'} | 9-Again: ${entry.nineAgain ? 'yes' : 'no'} | Rote Quality: ${entry.roteQuality ? 'yes' : 'no'}`,
     `Potency: ${entry.potency}${entry.potencyBoost ? ` (boost +${entry.potencyBoost})` : ''}`,
     `Primary factor: ${entry.primaryFactor || '—'}`,
     `Duration: ${entry.duration || '—'}`,
