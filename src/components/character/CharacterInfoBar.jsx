@@ -82,8 +82,8 @@ const CharacterInfoBar = ({ char, updateChar }) => {
               <Field label="Chronicle" value={char.chronicle} onChange={(v) => updateChar({ chronicle: v })} />
 
               <div className="grid grid-cols-2 gap-4">
-                <SelectField label="Virtue" value={char.virtue} options={VIRTUES} onChange={(v) => updateChar({ virtue: v })} />
-                <SelectField label="Vice" value={char.vice} options={VICES} onChange={(v) => updateChar({ vice: v })} />
+                <SelectOrCustomField label="Virtue" value={char.virtue} options={VIRTUES} onChange={(v) => updateChar({ virtue: v })} />
+                <SelectOrCustomField label="Vice" value={char.vice} options={VICES} onChange={(v) => updateChar({ vice: v })} />
               </div>
 
               <Field label="Concept" value={char.concept} onChange={(v) => updateChar({ concept: v })} />
@@ -142,5 +142,50 @@ const SelectField = ({ label, value, options, onChange }) => (
     </select>
   </div>
 );
+
+const CUSTOM_SENTINEL = '__custom__';
+
+const SelectOrCustomField = ({ label, value, options, onChange }) => {
+  // Treat a non-empty value that isn't a preset option as a custom entry.
+  const hasCustomValue = value && !options.includes(value);
+  const [isCustom, setIsCustom] = useState(hasCustomValue);
+
+  const showCustomInput = isCustom || hasCustomValue;
+
+  return (
+    <div>
+      <label className="block text-xs text-slate-400 mb-1">{label}</label>
+      <select
+        value={showCustomInput ? CUSTOM_SENTINEL : (value || '')}
+        onChange={(e) => {
+          if (e.target.value === CUSTOM_SENTINEL) {
+            setIsCustom(true);
+            onChange('');
+          } else {
+            setIsCustom(false);
+            onChange(e.target.value);
+          }
+        }}
+        className="w-full bg-slate-700 text-white border border-slate-600 rounded-lg px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none"
+      >
+        <option value="">— Select —</option>
+        {options.map((o) => (
+          <option key={o} value={o}>{o}</option>
+        ))}
+        <option value={CUSTOM_SENTINEL}>Custom…</option>
+      </select>
+      {showCustomInput && (
+        <input
+          type="text"
+          value={value || ''}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={`Enter a custom ${label.toLowerCase()}`}
+          autoFocus={isCustom && !hasCustomValue}
+          className="w-full mt-2 bg-slate-700 text-white border border-slate-600 rounded-lg px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none"
+        />
+      )}
+    </div>
+  );
+};
 
 export default CharacterInfoBar;

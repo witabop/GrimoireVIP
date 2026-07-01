@@ -156,6 +156,11 @@ const ReachSelector = ({
       }
     });
 
+    // Include any emergent reaches defined for this combination
+    if (selectedSpell.emergentReaches) {
+      allSpecialReaches.push(...selectedSpell.emergentReaches);
+    }
+
     return allSpecialReaches;
   };
 

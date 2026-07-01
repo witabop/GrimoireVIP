@@ -4153,6 +4153,29 @@
     "source": "MtAw2 p166",
     "short_description": "Bypass triggers to activate magical effects +Add Any Other Arcanum 1: Activate multi‑Arcanum items"
   },
+    {
+    "name": "As Above, So Below",
+    "path": "Prime",
+    "tier": "Apprentice",
+    "secondary": null,
+    "practice": "Ruling",
+    "primaryFactor": "Duration",
+    "withstand": null,
+    "skills": [
+      "Politics",
+      "Academics",
+      "Occult"
+    ],
+    "description": "A mage’s tools are sacred, her every word and deed a reflection of the Realms Above. By means of this spell, the mage imbues the tools of her Art with holy meaning, allowing her to draw down power with greater facility. For every level of Potency, she chooses a single Yantra (and it must be a specific example of a Yantra, not just a category: “the Crypt of the Mariner,” not just “Environment”). Any spell cast that incorporates that Yantra gains the 9-Again effect on the spell- casting roll.",
+    "reaches": [
+      {
+        "level": 1,
+        "effect": "The Yantra instead grants the 8-Again effect on spellcasting rolls."
+      }
+    ],
+    "source": "MtAw2 p167",
+    "short_description": "Gain 9-Again on spellcasting rolls with a specific Yantra."
+  },
   {
     "name": "Cloak Nimbus",
     "path": "Prime",
@@ -5998,7 +6021,7 @@
       "Investigation",
       "Empathy"
     ],
-    "description": "The mage can look into her subject’s most likely future. Without Reach, the mage can only see generalities: “Will I meet Anna again soon?” is a valid question, while “What time will the police arrive?” is too specific to return an answer. This spell can see far into the future, such as telling the mage that a young cashier might eventually become a state Governor, or that a child prodigy might become a superstar, but looking too far from the present increases the likelihood of the answer being superseded by the point the future becomes the present. The Storyteller must decide what the future holds, taking into account the nature of the story as well as cues from the mage’s questions. The caster can ask one general question per level of Potency, receiving answers of “Yes,” “No,” or “Irrelevant.” Temporal Sympathy Temporal SympathyDescription Withstand (Connection) Withstand (Temporal Sympathy) UnchangedThe subject has not changed with intervening time. A sealed room left untouched, a diamond in the same setting, a person who has not spoken to anyone or been anywhere since the target time. The connection is unassailable without Unmaking magic and casting using the sympathy is not Withstood. 5*StrongThe subject has not significantly changed; a person days later who has not changed physically, or hours after an injury, a street after hours of foot traffic or a building after days of habitation, a gun that has been fired. MediumThe subject has significantly changed; a mage before joining a Legacy, a person before a prolonged illness, an item that has been broken or built, a street after several businesses have changed, a building under new ownership. WeakThe subject is vastly different; a mage before her Awakening, an item before being imbued, a different building on the same lot, a ruin when it was new. 13 * “Unchanged” sympathy may only be removed with Unmaking spells. time",
+    "description": "The mage can look into her subject’s most likely future. Without Reach, the mage can only see generalities: “Will I meet Anna again soon?” is a valid question, while “What time will the police arrive?” is too specific to return an answer. This spell can see far into the future, such as telling the mage that a young cashier might eventually become a state Governor, or that a child prodigy might become a superstar, but looking too far from the present increases the likelihood of the answer being superseded by the point the future becomes the present. The Storyteller must decide what the future holds, taking into account the nature of the story as well as cues from the mage’s questions. The caster can ask one general question per level of Potency, receiving answers of “Yes,” “No,” or “Irrelevant.”",
     "reaches": [
       {
         "level": 1,
@@ -6075,6 +6098,24 @@
     ],
     "source": "MtAw2ed p187",
     "short_description": "View a subject’s past from any moment in real time"
+  },
+   {
+    "name": "Red Light / Green Light",
+    "path": "Time",
+    "tier": "Initiate",
+    "secondary": null,
+    "practice": "Unveiling",
+    "primaryFactor": "Potency",
+    "withstand": null,
+    "skills": [
+      "Computer",
+      "Larency",
+      "Subterfuge"
+    ],
+    "description": "The mage may manipulate the subtle timings of events, smoothing or obstructing her subject’s progress. Cast positively, the subject finds elevators and taxis arrive just as he needs them, stop lights turn green, and he arrives on time for meetings. Cast negatively, anything that can delay the subject will delay him.",
+    "reaches": [],
+    "source": "MtAw2ed p187",
+    "short_description": "Manipulate the timing of events to help or hinder a subject."
   },
   {
     "name": "Choose the Thread",
@@ -6261,6 +6302,33 @@
     ],
     "source": "MtAw2ed p190",
     "short_description": "Rewind a subject by Potency turns; injuries and resources do not revert"
+  },
+    {
+    "name": "Chronos' Curse",
+    "path": "Time",
+    "tier": "Disciple",
+    "secondary": null,
+    "practice": "Fraying",
+    "primaryFactor": "Potency",
+    "withstand": null,
+    "skills": [
+      "Academics",
+      "Occult",
+      "Intimidation"
+    ],
+    "description": "The mage slows his subject’s experience of time to a crawl. To the subject, everything seems to move at dazzling speeds, while she feels like she’s caught in a dream, unable to run or punch or move properly. She can’t even speak normally to others while affected — while from her perspective her words are clear enough, to everyone else they’re a long, impossibly drawn-out sound. Divide the subject’s Speed by Potency, rounding down. If Speed reaches 0, the subject is effectively moving so slowly she appears rooted to the spot. While under the spell’s effect, the subject always goes last in a turn. The subject’s Defense is also reduced by Potency.",
+    "reaches": [
+      {
+        "level": 1,
+        "effect": "For a point of Mana, the subject loses Defense against attacks."
+      },
+      {
+        "level": 1,
+        "effect": "Multiply the time per roll of extended actions taken by the subject by Potency. The spell has no effect on the ritual casting interval of mages."
+      }
+    ],
+    "source": "MtAw2ed p190",
+    "short_description": "Slow a subject to a crawl, divide speed by Potency."
   },
   {
     "name": "Temporal Summoning",

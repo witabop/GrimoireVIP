@@ -47,7 +47,7 @@ const NimbusTab = ({ nimbus, onChange }) => {
       <TextField label="Peripheral Mage Sight" value={nimbus.peripheralMageSight} onChange={(v) => update('peripheralMageSight', v)} />
 
       <div>
-        <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Effected Stats</p>
+        <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Affected Stats</p>
         <div className="grid grid-cols-3 gap-x-4 gap-y-1.5">
           {ATTR_LIST.map(({ key, label }) => (
             <div key={key} className="flex items-center justify-between">

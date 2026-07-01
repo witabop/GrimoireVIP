@@ -8,7 +8,24 @@ const SpellCombiner = ({
     gnosis
 }) => {
     const [combinedSpellName, setCombinedSpellName] = useState('');
+    const [customDescription, setCustomDescription] = useState('');
+    const [emergentReaches, setEmergentReaches] = useState([]);
     const [animateIn, setAnimateIn] = useState(true);
+
+    // Emergent reach editor helpers
+    const addEmergentReach = () => {
+        setEmergentReaches(prev => [...prev, { effect: '', cost: 1, manaCost: 0 }]);
+    };
+
+    const updateEmergentReach = (index, field, value) => {
+        setEmergentReaches(prev => prev.map((reach, i) =>
+            i === index ? { ...reach, [field]: value } : reach
+        ));
+    };
+
+    const removeEmergentReach = (index) => {
+        setEmergentReaches(prev => prev.filter((_, i) => i !== index));
+    };
 
     // Calculate max spells that can be combined based on Gnosis
     const maxCombinedSpells =
@@ -62,12 +79,29 @@ const SpellCombiner = ({
             value: arcanaValues[lowestArcanumSpell.arcanum.toLowerCase()] || 0
         };
 
+        // Build emergent reaches (custom reaches added to this combined spell only).
+        // Match the shape produced by dataLoader for specialReaches so the reach
+        // selector and cost calculations treat them identically.
+        const builtEmergentReaches = emergentReaches
+            .filter(r => r.effect.trim() !== '')
+            .map(r => ({
+                name: `Emergent: ${r.effect.trim()}`,
+                cost: Math.max(1, parseInt(r.cost, 10) || 1),
+                description: r.effect.trim(),
+                manaCost: Math.max(0, parseInt(r.manaCost, 10) || 0),
+                emergent: true
+            }));
+
+        const componentSpecialReaches = selectedSpells.flatMap(s => s.specialReaches || []);
+
         // Create the combined spell
         const combinedSpell = {
             name: combinedSpellName,
             arcanum: selectedSpells.map(s => s.arcanum).join('/'),
             level: selectedSpells.map(s => s.level).join('/'),
-            description: selectedSpells.map(s => s.description).join('\n\n'),
+            description: customDescription.trim() !== ''
+                ? customDescription.trim()
+                : selectedSpells.map(s => s.description).join('\n\n'),
             short_description: `Combined spell: ${selectedSpells.map(s => s.name).join(', ')}`,
             practice: selectedSpells.map(s => s.practice).join('/'),
             primaryFactor: selectedSpells.map(s => s.primaryFactor).join('/'),
@@ -75,7 +109,8 @@ const SpellCombiner = ({
                 selectedSpells.filter(s => s.withstand).map(s => s.withstand).join('/') :
                 null,
             skills: [...new Set(selectedSpells.flatMap(s => s.skills || []))],
-            specialReaches: selectedSpells.flatMap(s => s.specialReaches || []),
+            specialReaches: [...componentSpecialReaches, ...builtEmergentReaches],
+            emergentReaches: builtEmergentReaches,
             combined: true,
             componentSpells: selectedSpells,
             // If all spells are praxes, the combined spell can be a praxis
@@ -148,6 +183,95 @@ const SpellCombiner = ({
                             placeholder="Super cool spell name..."
                             className="w-full bg-slate-700 text-indigo-400 border border-slate-600 rounded-lg p-3 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 focus:outline-none transition-all"
                         />
+                    </div>
+
+                    {/* Custom Description */}
+                    <div className="mb-4">
+                        <label className="block mb-2 font-medium">
+                            <i className="fas fa-align-left mr-2 text-indigo-400"></i>
+                            Custom Description
+                            <span className="ml-2 text-xs font-normal text-slate-400">(optional)</span>
+                        </label>
+                        <textarea
+                            value={customDescription}
+                            onChange={(e) => setCustomDescription(e.target.value)}
+                            placeholder="Describe what this combined spell does. Leave blank to auto-combine the component descriptions."
+                            rows={4}
+                            className="w-full bg-slate-700 text-slate-200 border border-slate-600 rounded-lg p-3 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 focus:outline-none transition-all resize-y"
+                        />
+                        <p className="text-xs text-slate-400 mt-1">
+                            <i className="fas fa-info-circle mr-1"></i>
+                            If left empty, the descriptions of the component spells are combined automatically.
+                        </p>
+                    </div>
+
+                    {/* Emergent Reaches */}
+                    <div className="mb-4">
+                        <div className="flex items-center justify-between mb-2">
+                            <label className="font-medium">
+                                <i className="fas fa-project-diagram mr-2 text-amber-400"></i>
+                                Emergent Reaches
+                                <span className="ml-2 text-xs font-normal text-slate-400">(optional)</span>
+                            </label>
+                            <button
+                                type="button"
+                                onClick={addEmergentReach}
+                                className="text-xs bg-amber-700 hover:bg-amber-600 text-white px-3 py-1.5 rounded-lg transition-all flex items-center"
+                            >
+                                <i className="fas fa-plus mr-1.5"></i> Add Reach
+                            </button>
+                        </div>
+                        <p className="text-xs text-slate-400 mb-3">
+                            <i className="fas fa-info-circle mr-1"></i>
+                            New reach effects unique to this combination. They are added to this spell's reach list.
+                        </p>
+                        {emergentReaches.length > 0 && (
+                            <div className="space-y-3">
+                                {emergentReaches.map((reach, index) => (
+                                    <div key={index} className="bg-slate-700 p-3 rounded-lg">
+                                        <div className="flex items-start gap-2">
+                                            <input
+                                                type="text"
+                                                value={reach.effect}
+                                                onChange={(e) => updateEmergentReach(index, 'effect', e.target.value)}
+                                                placeholder="Reach effect (e.g. Affect an additional target)"
+                                                className="flex-grow bg-slate-800 text-slate-200 border border-slate-600 rounded-lg p-2 text-sm focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:outline-none transition-all"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => removeEmergentReach(index)}
+                                                className="text-slate-400 hover:text-red-400 p-2 transition-colors shrink-0"
+                                                aria-label="Remove emergent reach"
+                                            >
+                                                <i className="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                        <div className="flex gap-4 mt-2">
+                                            <label className="flex items-center text-xs text-slate-400 gap-2">
+                                                <span className="whitespace-nowrap">Reach cost:</span>
+                                                <input
+                                                    type="number"
+                                                    min="1"
+                                                    value={reach.cost}
+                                                    onChange={(e) => updateEmergentReach(index, 'cost', e.target.value)}
+                                                    className="w-16 bg-slate-800 text-white text-center border border-slate-600 rounded-md p-1.5 focus:outline-none focus:border-amber-500"
+                                                />
+                                            </label>
+                                            <label className="flex items-center text-xs text-slate-400 gap-2">
+                                                <span className="whitespace-nowrap">Mana cost:</span>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    value={reach.manaCost}
+                                                    onChange={(e) => updateEmergentReach(index, 'manaCost', e.target.value)}
+                                                    className="w-16 bg-slate-800 text-white text-center border border-slate-600 rounded-md p-1.5 focus:outline-none focus:border-amber-500"
+                                                />
+                                            </label>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     {/* Spell Casting Info */}
