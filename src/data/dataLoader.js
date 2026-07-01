@@ -16,7 +16,7 @@ export const processSpellData = (spellsJson) => {
       name: `${spell.name}: ${reach.effect}`,
       cost: reach.level,
       description: reach.effect,
-      manaCost: ((reach.effect.toLowerCase().includes('spend') || reach.effect.toLowerCase().includes('point')) && reach.effect.toLowerCase().includes('mana')) ? 1 : 0
+      manaCost: reach.effect.toLowerCase().includes('mana') ? 1 : 0
     })) : [];
 
     return {
