@@ -13,6 +13,7 @@ const ATTR_LIST = [
 ];
 
 const NimbusTab = ({ nimbus, onChange }) => {
+  // test
   const update = (key, val) => onChange({ ...nimbus, [key]: val });
   const stats = nimbus.effectedStats || {};
   const effectedSkills = nimbus.effectedSkills || [];
@@ -66,7 +67,7 @@ const NimbusTab = ({ nimbus, onChange }) => {
       </div>
 
       <div>
-        <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Effected Skills</p>
+        <p className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Affected Skills</p>
         {effectedSkills.length > 0 && (
           <div className="space-y-1 mb-2">
             {effectedSkills.map((skill, i) => (
@@ -85,7 +86,7 @@ const NimbusTab = ({ nimbus, onChange }) => {
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addSkill(); } }}
-            placeholder="Add effected skill..."
+            placeholder="Add affected skill..."
             className="flex-1 bg-slate-700 text-white text-xs border border-slate-600 rounded-lg px-3 py-1.5 focus:border-indigo-500 focus:outline-none placeholder:text-slate-500"
           />
           <button type="button" onClick={addSkill} className="text-green-400 hover:text-green-300 text-sm px-2">
