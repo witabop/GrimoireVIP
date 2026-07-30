@@ -16,11 +16,9 @@ export const processSpellData = (spellsJson) => {
       name: `${spell.name}: ${reach.effect}`,
       cost: reach.level,
       description: reach.effect,
-      // Prefer an explicit per-reach mana cost; fall back to a keyword guess
-      // for reaches that aren't annotated (e.g. custom spells).
-      manaCost: typeof reach.mana === 'number'
-        ? reach.mana
-        : (reach.effect.toLowerCase().includes('mana') ? 1 : 0)
+      // Mana cost is explicit per-reach. A reach only costs Mana when it says
+      // so; an absent field means no Mana cost (avoids keyword false positives).
+      manaCost: typeof reach.mana === 'number' ? reach.mana : 0
     })) : [];
 
     return {

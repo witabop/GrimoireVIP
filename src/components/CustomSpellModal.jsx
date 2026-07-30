@@ -106,6 +106,9 @@ function validateSpellJson(raw) {
         } else {
           if (typeof r.level !== 'number') errors.push(`reaches[${i}].level must be a number.`);
           if (typeof r.effect !== 'string') errors.push(`reaches[${i}].effect must be a string.`);
+          if (r.mana !== undefined && (typeof r.mana !== 'number' || r.mana < 0)) {
+            errors.push(`reaches[${i}].mana must be a non-negative number (omit it for no Mana cost).`);
+          }
         }
       });
     }
@@ -132,7 +135,7 @@ const EXAMPLE_SPELL = JSON.stringify({
   withstand: null,
   skills: ["Occult"],
   description: "A custom spell description goes here.",
-  reaches: [{ level: 1, effect: "An additional reach effect." }],
+  reaches: [{ level: 1, mana: 0, effect: "An additional reach effect. Set \"mana\" to 1+ if this reach costs Mana." }],
   source: "Homebrew",
   short_description: "Brief summary of the spell"
 }, null, 2);
