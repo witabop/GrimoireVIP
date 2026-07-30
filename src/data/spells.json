@@ -276,6 +276,7 @@
     "reaches": [
       {
         "level": 2,
+        "mana": 1,
         "effect": "By spending a point of Mana, the effects of this spell are Lasting, and the soul remains bound or attached even when the Duration ends."
       }
     ],
@@ -317,6 +318,7 @@
     "reaches": [
       {
         "level": 2,
+        "mana": 1,
         "effect": "By spending a point of Mana, the mage may cast the spell reflexively in response to something that would reasonably cause the subject’s death."
       }
     ],
@@ -412,6 +414,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 0,
         "effect": "The spell does not count toward the limit of times per day a mage can gain Mana through Scouring."
       }
     ],
@@ -497,6 +500,7 @@
       },
       {
         "level": 2,
+        "mana": 1,
         "effect": "The mage may spend a point of Mana to imbue the zombie with exceptional physical prowess. zombie has Defense 5, Initiative 3, and Speed 8."
       }
     ],
@@ -520,6 +524,7 @@
     "reaches": [
       {
         "level": 2,
+        "mana": 1,
         "effect": "The mage may spend one Mana to increase the ghost’s Rank by 1, increasing its maximum Attribute levels and Essence pool, as well as awarding it one new Numen."
       }
     ],
@@ -689,6 +694,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "By spending one Mana, the mage can instead inflict aggravated damage on her subject."
       }
     ],
@@ -753,6 +759,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one Mana, the ghost created is Rank 2."
       }
     ],
@@ -965,6 +972,7 @@
       },
       {
         "level": 2,
+        "mana": 1,
         "effect": "Spend a point of Mana. The mage can cast this spell as a reflexive action."
       }
     ],
@@ -1101,6 +1109,7 @@
       },
       {
         "level": 1,
+        "mana": 1,
         "effect": "By spending a point of Mana, the bonus or penalty may exceed five dice."
       }
     ],
@@ -1347,6 +1356,7 @@
       },
       {
         "level": 2,
+        "mana": 1,
         "effect": "Spend one Intercession, one Willpower, and one Mana to achieve the incredible. This doesn’t make the impossible possible, but virtually any event with a mundane, real-world precedent is fair game. A spark causes a car to explode at a gas station. A man falls out of a plane and survives without any major injuries."
       }
     ],
@@ -2032,6 +2042,7 @@
       },
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one Mana, the mage may increase the level of the energy transformed by one."
       }
     ],
@@ -2410,6 +2421,7 @@
       },
       {
         "level": 1,
+        "mana": 1,
         "effect": "By spending a point of Mana, the mage may raise an Attribute above the maximum rating for the subject."
       }
     ],
@@ -2992,6 +3004,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one point of Mana, the object grants the rote action quality on a number of rolls equal to the spell’s Potency. As long as the spell’s Duration lasts, its wielder may spend one point of Mana at any time to “recharge” this effect, granting the rote action quality on an additional number of rolls equal to the spell’s Potency."
       },
       {
@@ -3164,6 +3177,7 @@
       },
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one point of Mana, the spell inflicts aggravated damage."
       }
     ],
@@ -3210,6 +3224,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one point of Mana, the spell can destroy magical objects as well. In this case, the spell is Withstood by the Supernatural Tolerance of the subject or its maker, as appropriate (e.g. the Rank of the spirit bound to a fetish, the Blood Potency of a vampire whose Vitae the mage is trying to destroy, or the Gnosis of the mage who crafted the object). If no such trait applies, use the object’s Durability."
       }
     ],
@@ -3645,6 +3660,7 @@
       },
       {
         "level": 1,
+        "mana": 1,
         "effect": "If in a place from which she could meditate into the Astral, the mage can summon Goetia from her own Oneiros, or the Oneiros of another subject. Summoning aspects of one’s own soul is dangerous, but rewarding — the subject loses the part of his personality the Goetia represents while it is in the material world. The mage must pay as much Mana as she would need to enter the Astral Realms from her current location."
       },
       {
@@ -3775,6 +3791,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "By spending one Mana, the mage may increase one of the subject’s new Skills above the normal maximum."
       }
     ],
@@ -3820,6 +3837,7 @@
       },
       {
         "level": 2,
+        "mana": 1,
         "effect": "For one point of Mana, the spell inflicts aggravated damage."
       }
     ],
@@ -3992,6 +4010,7 @@
       },
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one Mana, the consciousness gains Rank 2."
       }
     ],
@@ -4033,6 +4052,7 @@
     "reaches": [
       {
         "level": 2,
+        "mana": 1,
         "effect": "For one point of Mana, the effect is Lasting. If the spell’s original caster is still alive and has not relinquished the spell, she knows one of her spells was destroyed."
       }
     ],
@@ -4125,6 +4145,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one point of Mana, the spell’s Duration is Lasting."
       }
     ],
@@ -4153,7 +4174,7 @@
     "source": "MtAw2 p166",
     "short_description": "Bypass triggers to activate magical effects +Add Any Other Arcanum 1: Activate multi‑Arcanum items"
   },
-    {
+  {
     "name": "As Above, So Below",
     "path": "Prime",
     "tier": "Apprentice",
@@ -4192,6 +4213,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 0,
         "effect": "Rather than veiling her subject’s abilities completely, the mage may project the Nimbus of a lesser magician. For each Reach she applies, she may choose one of Gnosis, Mana, or any Arcanum she knows, and specify a value below her subject’s actual Trait rating. Any effect that fails to penetrate her veil registers the false Trait value. The mage cannot pretend to powers the subject does not have: An Adept of Prime can be masked to seem a mere Initiate, but cannot project the Nimbus of a Master, nor can she be made to seem an Apprentice of Space if she has no dots in that Arcanum."
       }
     ],
@@ -4295,6 +4317,7 @@
       },
       {
         "level": 1,
+        "mana": 0,
         "effect": "In lieu of damage, the mage may assign Potency to instead destroy the target’s Mana. One level of Potency so assigned destroys one point of Mana, and Potency may be freely split between Mana destruction and damage."
       }
     ],
@@ -4318,6 +4341,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 0,
         "effect": "The mage may ignore her Mana per turn limit, channeling as much Mana as she desires as an instant action."
       }
     ],
@@ -4359,6 +4383,7 @@
     "reaches": [
       {
         "level": 2,
+        "mana": 1,
         "effect": "For one Mana, any attempt to Counterspell (p. 192) a spell cast within the area gains the rote action quality, as the plainly visible Imago makes the spell easy to decipher. (In many duels, seconds are appointed to stand ready to Counterspell attempts at cheating.)"
       }
     ],
@@ -4382,6 +4407,7 @@
     "reaches": [
       {
         "level": 2,
+        "mana": 1,
         "effect": "If the enchanted object is a weapon, it may be enchanted to act as the bane of a specified being in Twilight for one Mana. Extra subjects may be added with the Scale spell factor, but each costs one extra point of Mana."
       }
     ],
@@ -4427,6 +4453,7 @@
       },
       {
         "level": 2,
+        "mana": 0,
         "effect": "The Mana construct can be a complex device."
       }
     ],
@@ -4490,10 +4517,12 @@
       },
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one point of Mana, the spell inflicts aggravated damage."
       },
       {
         "level": 1,
+        "mana": 0,
         "effect": "In lieu of damage, the mage may assign Potency to instead destroy the target’s Mana. One level of Potency so assigned destroys one point of Mana, and Potency may be freely split between Mana destruction and damage."
       }
     ],
@@ -4535,6 +4564,7 @@
     "reaches": [
       {
         "level": 2,
+        "mana": 1,
         "effect": "For one point of Mana, the effect is Lasting."
       }
     ],
@@ -4558,6 +4588,7 @@
     "reaches": [
       {
         "level": 2,
+        "mana": 1,
         "effect": "For one point of Mana, the effect is Lasting. If the spell’s original caster is still alive and has not relinquished the spell, she knows one of her spells was destroyed."
       }
     ],
@@ -4718,15 +4749,15 @@
     "primaryFactor": "Potency",
     "withstand": "Stamina",
     "skills": [
-        "Athletics",
-        "Science",
-        "Survival"
+      "Athletics",
+      "Science",
+      "Survival"
     ],
     "description": " Space is more flexible than many believe. By subtly pinching  or stretching the space around her subject, the mage allows  her to cover far more ground with each step than is readily  apparent. The mage adds the spell’s Potency to the subject’s  Speed. Watching someone under the influence of this spell is  alarming: It’s hard for the eye to track her, as each step carries  her farther than it should, and in every blink or momentary glance away she seems to leap farther than should be possible  in such a short time.  This spell can also reduce a subject’s Speed by its Potency  (though not below 1). Those who have experienced this effect  liken it to a nightmare wherein no matter how fast you run, you  never get closer to your goal.",
     "short_description": "Add or reduce Speed by Potency. Speed cannot go below 1",
     "reaches": [],
     "source": "MtAw2 p173"
-},
+  },
   {
     "name": "Isolation",
     "path": "Space",
@@ -5036,6 +5067,7 @@
       },
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one point of Mana, the subject gains the rote action quality on a number of actions equal to the spell’s Potency, as long as those actions affect one of her Strong sympathetic connections."
       },
       {
@@ -5127,6 +5159,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one point of Mana, the damage is aggravated."
       },
       {
@@ -5562,6 +5595,7 @@
       },
       {
         "level": 2,
+        "mana": 1,
         "effect": "The mage may spend one Mana to increase the spirit's Rank by 1, increasing its maximum Attribute levels and Essence pool, as well as awarding it one new Numen."
       }
     ],
@@ -5811,6 +5845,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one point of Mana, the spell inflicts aggravated damage."
       },
       {
@@ -5846,6 +5881,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one Mana, the spell may heal aggravated damage."
       }
     ],
@@ -5933,6 +5969,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For one Mana, the Spirit created is Rank 2."
       }
     ],
@@ -6099,7 +6136,7 @@
     "source": "MtAw2ed p187",
     "short_description": "View a subject’s past from any moment in real time"
   },
-   {
+  {
     "name": "Red Light / Green Light",
     "path": "Time",
     "tier": "Initiate",
@@ -6246,6 +6283,7 @@
       },
       {
         "level": 1,
+        "mana": 0,
         "effect": "The subject may regain Mana while under the spell’s effect."
       }
     ],
@@ -6274,6 +6312,7 @@
       },
       {
         "level": 1,
+        "mana": 1,
         "effect": "For a point of Mana, Dodge actions taken while under this spell’s effect have the rote quality."
       }
     ],
@@ -6303,7 +6342,7 @@
     "source": "MtAw2ed p190",
     "short_description": "Rewind a subject by Potency turns; injuries and resources do not revert"
   },
-    {
+  {
     "name": "Chronos' Curse",
     "path": "Time",
     "tier": "Disciple",
@@ -6320,6 +6359,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For a point of Mana, the subject loses Defense against attacks."
       },
       {
@@ -6429,6 +6469,7 @@
     "reaches": [
       {
         "level": 1,
+        "mana": 1,
         "effect": "For a point of Mana, the spell now inflicts aggravated damage."
       }
     ],
@@ -6501,6 +6542,7 @@
     "reaches": [
       {
         "level": 2,
+        "mana": 1,
         "effect": "For a point of Mana, the spell may affect spellcasting, increasing the effective Gnosis of a mage subject by Potency for purposes of ritual casting interval only. For every effective Gnosis over 10, reduce the ritual interval by one turn."
       }
     ],
